@@ -23,7 +23,11 @@ Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebook
 Route::get('/facebook/friends', 'FacebookController@getFacebookFriends');
 
 Route::post('/facebook/canvas', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
-	$login_url = $fb->getLoginUrl(['email']);
+
+	$login_link = $fb
+		->getRedirectLoginHelper()
+		->getLoginUrl('https://exmaple.com/facebook/callback', ['email', 'user_events']);
+
 	try {
 		$token = $fb->getCanvasHelper()->getAccessToken();
 	} catch (Facebook\Exceptions\FacebookSDKException $e) {
@@ -33,7 +37,7 @@ Route::post('/facebook/canvas', function(SammyK\LaravelFacebookSdk\LaravelFacebo
 
 	// $token will be null if the user hasn't authenticated your app yet
 	if (! $token) {
-		return redirect($login_url);
+		echo '<a href="' . $login_link . '">Log in with Facebook</a>';
 	}
 });
 
