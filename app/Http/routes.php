@@ -42,7 +42,7 @@ Route::any('/facebook/canvas', function (SammyK\LaravelFacebookSdk\LaravelFacebo
             $token = $fb->getJavaScriptHelper()->getAccessToken();
         } catch (Facebook\Exceptions\FacebookSDKException $e) {
             // Failed to obtain access token
-            dd($e->getMessage());
+//            dd($e->getMessage());
             return view('canvas.login');
         }
     }
