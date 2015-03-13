@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-
+    <form id="reloadform" method="POST"><input type="hidden" name="signedRequest" value="" id="sr"></form>
     <!-- Scripts -->
     <script>
         window.fbAsyncInit = function() {
@@ -13,6 +13,8 @@
             FB.login(function(response) {
                 if (response.authResponse) {
                     console.log(response);
+                    $('#sr').val(response.signedRequest);
+                    $('#reloadform').submit();
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
