@@ -23,6 +23,7 @@ Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebook
 Route::get('/facebook/friends', 'FacebookController@getFacebookFriends');
 
 Route::post('/facebook/canvas', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
+	$login_url = $fb->getLoginUrl(['email']);
 	try {
 		$token = $fb->getCanvasHelper()->getAccessToken();
 	} catch (Facebook\Exceptions\FacebookSDKException $e) {
