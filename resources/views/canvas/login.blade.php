@@ -20,7 +20,7 @@
                 if (response.authResponse) {
                     console.log(response.authResponse);
                     $('#reloadform').submit();
-                    
+
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
