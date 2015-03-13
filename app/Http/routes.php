@@ -37,7 +37,7 @@ Route::post('/facebook/canvas', function(SammyK\LaravelFacebookSdk\LaravelFacebo
 
 	// $token will be null if the user hasn't authenticated your app yet
 	if (! $token) {
-		echo '<a href="' . $login_link . '">Log in with Facebook</a>';
+		echo '<a target="_top" href="' . $login_link . '">Log in with Facebook</a>';
 	}
 });
 
