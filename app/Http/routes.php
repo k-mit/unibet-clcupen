@@ -30,21 +30,13 @@ Route::any('/facebook/canvas', function (SammyK\LaravelFacebookSdk\LaravelFacebo
         ->getRedirectLoginHelper()
         ->getLoginUrl('https://unibet-clcup.k-mit.se/facebook/canvas', ['email']);
 
-    try {
-        $token = $fb->getCanvasHelper()->getAccessToken();
-    } catch (Facebook\Exceptions\FacebookSDKException $e) {
-        // Failed to obtain access token
-        dd($e->getMessage());
-    }
 
-    if (!$token) {
         try {
             $token = $fb->getJavaScriptHelper()->getAccessToken();
         } catch (Facebook\Exceptions\FacebookSDKException $e) {
             // Failed to obtain access token
             dd($e->getMessage());
         }
-    }
     // $token will be null if the user hasn't authenticated your app yet
 
     if (!$token) {
