@@ -20,6 +20,9 @@ Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebook
 	// Obviously you'd do this in blade :)
 	echo '<a href="' . $login_url . '">Login with Facebook</a>';
 });
+Route::get('/facebook/friends', 'FacebookController@getFacebookFriends');
+
+Route::Get('/','FacebookController@getUserInfo');
 
 // Endpoint that is redirected to after an authentication attempt
 Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
@@ -27,6 +30,7 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
 	// Obtain an access token.
 	try {
 		$token = $fb->getAccessTokenFromRedirect();
+
 	} catch (Facebook\Exceptions\FacebookSDKException $e) {
 		dd($e->getMessage());
 	}

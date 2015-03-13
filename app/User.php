@@ -5,9 +5,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
-//	use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
+	use SyncableGraphNodeTrait;
 	use Authenticatable, CanResetPassword;
 
 	/**
@@ -29,7 +30,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $hidden = ['password', 'remember_token'];
+	protected $hidden = ['password', 'remember_token','access_token'];
 
 	protected static $graph_node_field_aliases = [
 		'id' => 'facebook_user_id',
