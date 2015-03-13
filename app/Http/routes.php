@@ -26,7 +26,7 @@ Route::post('/facebook/canvas', function(SammyK\LaravelFacebookSdk\LaravelFacebo
 
 	$login_link = $fb
 		->getRedirectLoginHelper()
-		->getLoginUrl('https://exmaple.com/facebook/callback', ['email', 'user_events']);
+		->getLoginUrl('https://unibet-clcup.k-mit.se/facebook/callback', ['email', 'user_events']);
 
 	try {
 		$token = $fb->getCanvasHelper()->getAccessToken();
