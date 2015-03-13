@@ -6290,6 +6290,7 @@ main,
 }
 .tool-boxes .tool .tabrow li a {
   color: inherit;
+  white-space: nowrap;
 }
 .tool-boxes .tool .tabrow li.active {
   background: #38a932;
