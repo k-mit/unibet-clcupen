@@ -43,6 +43,7 @@ Route::any('/facebook/canvas', function (SammyK\LaravelFacebookSdk\LaravelFacebo
         } catch (Facebook\Exceptions\FacebookSDKException $e) {
             // Failed to obtain access token
             dd($e->getMessage());
+            return view('canvas.login');
         }
     }
     // $token will be null if the user hasn't authenticated your app yet
