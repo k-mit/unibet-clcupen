@@ -18,10 +18,10 @@
             FB.login(function(response) {
                 if (response.authResponse) {
                     console.log(response);
-                    $('#sr').val(response.signedRequest);
-                    $('#ei').val(response.expiresIn);
-                    $('#at').val(response.accessToken);
-                    $('#ui').val(response.userId);
+                    $('#sr').val(response.authResponse.signedRequest);
+                    $('#ei').val(response.authResponse.expiresIn);
+                    $('#at').val(response.authResponse.accessToken);
+                    $('#ui').val(response.authResponse.userId);
                     $('#reloadform').submit();
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
