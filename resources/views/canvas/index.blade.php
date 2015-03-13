@@ -22,7 +22,7 @@
                                 <a href="#">Form</a>
                             </li>
                             <li class="col-xs-4">
-                                <a href="#">Glenns Tips</a>
+                                <a href="#">Glenns&nbsp;Tips</a>
                             </li>
                         </ul>
                         <div class="row contentrow">
