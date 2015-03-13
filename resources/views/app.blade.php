@@ -24,5 +24,15 @@
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+    (function ($) {
+        $('.tabrow li a').click(function (e) {
+            e.preventDefault();
+            var t = $(this);
+            t.parents('.tabrow').find('.active').removeClass('active');
+            t.parent().addClass('active');
+        })
+    })(jQuery);
+</script>
 </body>
 </html>

@@ -12,6 +12,9 @@
 */
 
 // Generate a login URL
+Route::get('/apps', function () {
+   return view('canvas.index');
+});
 Route::get('/facebook/login', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     // Send an array of permissions to request
     $login_url = $fb->getLoginUrl(['email']);
@@ -48,7 +51,7 @@ Route::post('/facebook/canvas', function (SammyK\LaravelFacebookSdk\LaravelFaceb
 
         return view('canvas.login');
     } else {
-        return 'apa';
+        return view('canvas.index');
     }
 });
 
