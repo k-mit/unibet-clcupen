@@ -22,7 +22,7 @@ Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebook
 });
 Route::get('/facebook/friends', 'FacebookController@getFacebookFriends');
 
-Route::any('/facebook/canvas', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
+Route::post('/facebook/canvas', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
 
 	$login_link = $fb
 		->getRedirectLoginHelper()
@@ -37,15 +37,16 @@ Route::any('/facebook/canvas', function(SammyK\LaravelFacebookSdk\LaravelFaceboo
 
 	// $token will be null if the user hasn't authenticated your app yet
 	if (! $token) {
-		echo '<a target="_top" href="' . $login_link . '">Log in with Facebook</a>';
+		return view('canvas.login');
+	}else {
+		return 'apa';
 	}
-	return 'apa';
 });
 
 Route::Get('/','FacebookController@getUserInfo');
 
 // Endpoint that is redirected to after an authentication attempt
-Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
+Route::get('facebook/canvas', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
 {
 	// Obtain an access token.
 	try {
