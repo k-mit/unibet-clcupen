@@ -5,7 +5,7 @@
         <input type="hidden" name="signedRequest" value="" id="sr">
         <input type="hidden" name="expiresIn" value="" id="ei">
         <input type="hidden" name="accessToken" value="" id="at">
-        <input type="hidden" name="userId" value="" id="ui">
+        <input type="hidden" name="userID" value="" id="ui">
     </form>
     <!-- Scripts -->
     <script>
@@ -21,7 +21,7 @@
                     $('#sr').val(response.authResponse.signedRequest);
                     $('#ei').val(response.authResponse.expiresIn);
                     $('#at').val(response.authResponse.accessToken);
-                    $('#ui').val(response.authResponse.userId);
+                    $('#ui').val(response.authResponse.userID);
                     $(window.document).click(function () {$('#reloadform').submit();});
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
