@@ -22,7 +22,7 @@ Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebook
 });
 Route::get('/facebook/friends', 'FacebookController@getFacebookFriends');
 
-Route::post('/facebook/canvas', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
+Route::any('/facebook/canvas', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
 
 	$login_link = $fb
 		->getRedirectLoginHelper()
