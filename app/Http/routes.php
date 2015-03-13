@@ -29,7 +29,7 @@ Route::post('/facebook/canvas', function(SammyK\LaravelFacebookSdk\LaravelFacebo
 		->getLoginUrl('https://unibet-clcup.k-mit.se/facebook/canvas', ['email']);
 
 	try {
-		$token = $fb->getCanvasHelper()->getAccessToken();
+		$token = $fb->getJavaScriptHelper()->getAccessToken();
 	} catch (Facebook\Exceptions\FacebookSDKException $e) {
 		// Failed to obtain access token
 		dd($e->getMessage());
