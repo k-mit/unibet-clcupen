@@ -39,6 +39,7 @@ Route::post('/facebook/canvas', function(SammyK\LaravelFacebookSdk\LaravelFacebo
 	if (! $token) {
 		echo '<a target="_top" href="' . $login_link . '">Log in with Facebook</a>';
 	}
+	return 'apa';
 });
 
 Route::Get('/','FacebookController@getUserInfo');
