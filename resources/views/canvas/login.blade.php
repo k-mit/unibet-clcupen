@@ -19,7 +19,8 @@
             FB.login(function(response) {
                 if (response.authResponse) {
                     console.log(response.authResponse);
-                    $(window.document).click(function () {$('#reloadform').submit();});
+                    $('#reloadform').submit();
+                    
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
