@@ -8,7 +8,15 @@
                     <div class="col-xs-8">
                         <h1 class="cl-logo">CL-CUPEN</h1>
                     </div>
+
                 </div>
+                <br>
+                @foreach($facebook_user as $var)
+                    {{$var}}<br>
+                @endforeach
+                @foreach($fbFriends as $var)
+                    {{$var}}<br>
+                @endforeach
 
             </div>
             <div class="col-xs-8 full-height">

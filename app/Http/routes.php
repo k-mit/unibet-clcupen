@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use \App\Http\Controllers\FacebookController;
 
 // Generate a login URL
 Route::get('/apps', function () {
@@ -18,11 +19,13 @@ Route::get('/apps', function () {
 Route::get('/facebook/login', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     // Send an array of permissions to request
     $login_url = $fb->getLoginUrl(['email']);
-
+	return redirect($login_url);
     // Obviously you'd do this in blade :)
-    echo '<a href="' . $login_url . '">Login with Facebook</a>';
+//    echo '<a href="' . $login_url . '">Login with Facebook</a>';
 });
 Route::get('/facebook/friends', 'FacebookController@getFacebookFriends');
+
+Route::get('/facebook/datafeed', 'FacebookController@datafeed');
 
 Route::any('/facebook/canvas', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
 
@@ -42,18 +45,14 @@ Route::any('/facebook/canvas', function (SammyK\LaravelFacebookSdk\LaravelFacebo
             $token = $fb->getJavaScriptHelper()->getAccessToken();
         } catch (Facebook\Exceptions\FacebookSDKException $e) {
             // Failed to obtain access token
-//            dd($e->getMessage());
             return view('canvas.login');
         }
-    }
-    // $token will be null if the user hasn't authenticated your app yet
 
-    if (!$token) {
-
-        return view('canvas.login');
-    } else {
-        return view('canvas.index');
     }
+
+	$fc = new FacebookController();
+
+        return view('canvas.index',$fc->getAllVars($token));
 });
 
 Route::Get('/', 'FacebookController@getUserInfo');

@@ -35,4 +35,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	protected static $graph_node_field_aliases = [
 		'id' => 'facebook_user_id',
 	];
+
+
+	public function bets(){
+		return $this->hasMany('idtool\Bet')->latest();
+	}
 }

@@ -18,6 +18,7 @@ class CreateMatchesTable extends Migration {
 			$table->integer('team2_id')->unsigned()->index();
 			$table->foreign('team2_id')->references('id')->on('teams');
 			$table->dateTime('match_time');
+			$table->integer('round')->unsigned()->index();
 			$table->timestamps();
 		});
 
