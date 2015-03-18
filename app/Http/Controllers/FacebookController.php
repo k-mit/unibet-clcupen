@@ -64,8 +64,9 @@ class FacebookController extends Controller {
 		} catch (Facebook\Exceptions\FacebookSDKException $e) {
 			return redirect('/facebook/login');
 		}
-
-		return $response->decodeBody();
+		$returnValue=$response->decodeBody();
+		if (is_null($returnValue)){$returnValue=array();}
+		return $returnValue;
 
 	}
 
@@ -99,7 +100,7 @@ class FacebookController extends Controller {
 			'facebook_user'    => $facebook_user,
 			'active_matches'   => $active_matches,
 			'user_bets'        => $user_bets,
-			'fbFriends'        => $fbFriends+[],
+			'fbFriends'        => $fbFriends,
 			'results'          => $results,
 			'highscoreAll'     => $highscoreAll,
 			'highscoreFriends' => $highscoreFriends,
