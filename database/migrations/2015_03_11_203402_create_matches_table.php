@@ -18,7 +18,8 @@ class CreateMatchesTable extends Migration {
 			$table->integer('team2_id')->unsigned()->index();
 			$table->foreign('team2_id')->references('id')->on('teams');
 			$table->dateTime('match_time');
-			$table->integer('round')->unsigned()->index();
+			$table->integer('round_id')->unsigned()->index();
+			$table->foreign('round_id')->references('id')->on('rounds');
 			$table->timestamps();
 		});
 
@@ -35,6 +36,9 @@ class CreateMatchesTable extends Migration {
 		});
 		Schema::table('matches', function ($table) {
 			$table->dropForeign('matches_team2_id_foreign');
+		});
+		Schema::table('rounds', function ($table) {
+			$table->dropForeign('rounds_round_id_foreign');
 		});
 		Schema::drop('matches');
 	}

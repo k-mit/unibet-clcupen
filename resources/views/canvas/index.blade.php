@@ -17,6 +17,12 @@
                 @foreach($fbFriends as $var)
                     {{$var}}<br>
                 @endforeach
+                <br/>
+                <br/>
+                <br/>
+                @foreach($active_round[0]['matches'] as $match)
+                    {{$match['match_time']}}<img src="{!!$match['team1']['logo_path']!!}" width="25" height="25"><img src="{!!$match['team1']['country_flag_path']!!}">{{$match['team1']['team_name']}}-<img src="{!!$match['team2']['logo_path']!!}" width="25" height="25"><img src="{!!$match['team2']['country_flag_path']!!}">{{$match['team2']['team_name']}}<br>
+                @endforeach
 
             </div>
             <div class="col-xs-8 full-height">

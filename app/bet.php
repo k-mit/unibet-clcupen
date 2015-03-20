@@ -6,7 +6,7 @@ class Bet extends Model {
 
 	//
 	public function bets(){
-		return $this->belongsTo('idtool\User');
+		return $this->belongsTo('App\User');
 	}
 
 }

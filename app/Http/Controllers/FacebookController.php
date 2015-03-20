@@ -3,12 +3,20 @@
 use App\Events\reLogIn;
 use App\Http\Requests;
 
+use App\Match;
+use App\Round;
+use Carbon\Carbon;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk as LaravelFacebookSdk;
 use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
 use Illuminate\Support\Facades\Session;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class FacebookController
+ *
+ * @package App\Http\Controllers
+ */
 class FacebookController extends Controller {
 
 	use SyncableGraphNodeTrait;
@@ -56,17 +64,17 @@ class FacebookController extends Controller {
 	 * @author  Pontus Kindblad & Anton Kindblad
 	 * @access  public
 	 * @package Facebook
-	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 * @return array of friends
 	 */
 	public function getFacebookFriends() {
 		try {
 			$response = $this->fb->get('/me?fields=friends', $this->token);
 		} catch (Facebook\Exceptions\FacebookSDKException $e) {
-			return redirect('/facebook/login');
+			dd(e);
 		}
-		$returnValue=$response->decodeBody();
-		if (is_null($returnValue)){$returnValue=array();}
-		return $returnValue;
+		$grespons = $response->getGraphObject();
+		if (is_null($grespons['friends'])){$grespons['friends']=array();}
+		return $grespons['friends'];
 
 	}
 
@@ -88,7 +96,7 @@ class FacebookController extends Controller {
 
 		$facebook_user = 	$this->getUserInfo()->asArray();
 
-		$active_matches = 	$this->getActiveMatches();
+		$active_round = 	$this->getActiveRound();
 		$user_bets = 		$this->getUserBets($facebook_user['id']);
 		$fbFriends = 		$this->getFacebookFriends();
 		$results = 			$this->results();
@@ -98,7 +106,7 @@ class FacebookController extends Controller {
 
 		return [
 			'facebook_user'    => $facebook_user,
-			'active_matches'   => $active_matches,
+			'active_round'	   => $active_round,
 			'user_bets'        => $user_bets,
 			'fbFriends'        => $fbFriends,
 			'results'          => $results,
@@ -115,9 +123,12 @@ class FacebookController extends Controller {
 	 * @access  public
 	 * @package facebook
 	 */
-	public function getActiveMatches() {
-
-		return array();
+	public function getActiveRound() {
+		$round = Round::where('start_date','<=',Carbon::now())->
+			where('end_date','>=',Carbon::now())->
+			with(['matches','matches.team1','matches.team2','matches.result'])->
+			get();
+		return $round;
 	}
 
 	/**
