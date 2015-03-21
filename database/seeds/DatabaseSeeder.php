@@ -25,9 +25,9 @@ class UserTableSeeder extends Seeder {
 	public function run()
 	{
 		DB::table('users')->delete();
-		DB::table('users')->insert(array('facebook_user_id'=>1382918398693972,'name'=>'K-mit Kindblad','email' => 'pontus+facebook@k-mit.se'));
-		DB::table('users')->insert(array('facebook_user_id'=>1390591374592363,'name'=>'Susan Amibdedadgbe Qinstein','email' => 'zynsusw_qinstein_1426800568@tfbnw.net'));
-		DB::table('users')->insert(array('facebook_user_id'=>1374518872874153,'name'=>'Dorothy Amidhaeijdif Greeneescu','email' => 'kofjsor_greeneescu_1426800569@tfbnw.net'));
+		DB::table('users')->insert(array('id'=>1,'facebook_user_id'=>1382918398693972,'name'=>'K-mit Kindblad','email' => 'pontus+facebook@k-mit.se'));
+		DB::table('users')->insert(array('id'=>2,'facebook_user_id'=>1390591374592363,'name'=>'Susan Amibdedadgbe Qinstein','email' => 'zynsusw_qinstein_1426800568@tfbnw.net'));
+		DB::table('users')->insert(array('id'=>3,'facebook_user_id'=>1374518872874153,'name'=>'Dorothy Amidhaeijdif Greeneescu','email' => 'kofjsor_greeneescu_1426800569@tfbnw.net'));
 
 	}
 
@@ -48,20 +48,20 @@ class MatchesTableSeeder extends Seeder {
 	public function run()
 	{
 		DB::table('matches')->delete();
-		DB::table('matches')->insert(array('team1_id'=>'1','team2_id'=>'2','match_time' => '2015-03-10 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('team1_id'=>'2','team2_id'=>'3','match_time' => '2015-03-11 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('team1_id'=>'3','team2_id'=>'4','match_time' => '2015-03-12 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('team1_id'=>'4','team2_id'=>'5','match_time' => '2015-03-13 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('team1_id'=>'5','team2_id'=>'1','match_time' => '2015-03-14 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('team1_id'=>'4','team2_id'=>'2','match_time' => '2015-03-15 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('team1_id'=>'3','team2_id'=>'2','match_time' => '2015-03-16 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('team1_id'=>'1','team2_id'=>'2','match_time' => '2015-03-10 21:00','round_id'=>2));
-		DB::table('matches')->insert(array('team1_id'=>'2','team2_id'=>'3','match_time' => '2015-03-11 21:00','round_id'=>2));
-		DB::table('matches')->insert(array('team1_id'=>'3','team2_id'=>'4','match_time' => '2015-03-12 21:00','round_id'=>2));
-		DB::table('matches')->insert(array('team1_id'=>'4','team2_id'=>'5','match_time' => '2015-03-13 21:00','round_id'=>2));
-		DB::table('matches')->insert(array('team1_id'=>'5','team2_id'=>'1','match_time' => '2015-03-14 21:00','round_id'=>2));
-		DB::table('matches')->insert(array('team1_id'=>'4','team2_id'=>'2','match_time' => '2015-03-15 21:00','round_id'=>2));
-		DB::table('matches')->insert(array('team1_id'=>'3','team2_id'=>'2','match_time' => '2015-03-16 21:00','round_id'=>2));
+		DB::table('matches')->insert(array('id'=>1,'team1_id'=>'1','team2_id'=>'2','match_time' => '2015-03-10 21:00','round_id'=>1));
+		DB::table('matches')->insert(array('id'=>2,'team1_id'=>'2','team2_id'=>'3','match_time' => '2015-03-11 21:00','round_id'=>1));
+		DB::table('matches')->insert(array('id'=>3,'team1_id'=>'3','team2_id'=>'4','match_time' => '2015-03-12 21:00','round_id'=>1));
+		DB::table('matches')->insert(array('id'=>4,'team1_id'=>'4','team2_id'=>'5','match_time' => '2015-03-13 21:00','round_id'=>1));
+		DB::table('matches')->insert(array('id'=>5,'team1_id'=>'5','team2_id'=>'1','match_time' => '2015-03-14 21:00','round_id'=>1));
+		DB::table('matches')->insert(array('id'=>6,'team1_id'=>'4','team2_id'=>'2','match_time' => '2015-03-15 21:00','round_id'=>1));
+		DB::table('matches')->insert(array('id'=>7,'team1_id'=>'3','team2_id'=>'2','match_time' => '2015-03-16 21:00','round_id'=>1));
+		DB::table('matches')->insert(array('id'=>8,'team1_id'=>'1','team2_id'=>'2','match_time' => '2015-03-10 21:00','round_id'=>2));
+		DB::table('matches')->insert(array('id'=>9,'team1_id'=>'2','team2_id'=>'3','match_time' => '2015-03-11 21:00','round_id'=>2));
+		DB::table('matches')->insert(array('id'=>10,'team1_id'=>'3','team2_id'=>'4','match_time' => '2015-03-12 21:00','round_id'=>2));
+		DB::table('matches')->insert(array('id'=>11,'team1_id'=>'4','team2_id'=>'5','match_time' => '2015-03-13 21:00','round_id'=>2));
+		DB::table('matches')->insert(array('id'=>12,'team1_id'=>'5','team2_id'=>'1','match_time' => '2015-03-14 21:00','round_id'=>2));
+		DB::table('matches')->insert(array('id'=>13,'team1_id'=>'4','team2_id'=>'2','match_time' => '2015-03-15 21:00','round_id'=>2));
+		DB::table('matches')->insert(array('id'=>14,'team1_id'=>'3','team2_id'=>'2','match_time' => '2015-03-16 21:00','round_id'=>2));
 
 	}
 
@@ -79,11 +79,33 @@ class TeamsTableSeeder extends Seeder {
 	}
 }
 
-/*
-			$table->string('team_name',100);
-			$table->string('team_country',100);
-			$table->text('logo_path');
-			$table->text('country_flag_path');
-			$table->text('description');
+class ResultsTableSeeder extends Seeder {
 
- */
+	public function run() {
+		DB::table('results')->delete();
+		DB::table('results')->insert(array('id'=>1,'goals_team1' => '1', 'goals_team2' => '7', 'match_id' => '1'));
+		DB::table('results')->insert(array('id'=>2,'goals_team1' => '2', 'goals_team2' => '6', 'match_id' => '2'));
+		DB::table('results')->insert(array('id'=>3,'goals_team1' => '3', 'goals_team2' => '5', 'match_id' => '3'));
+		DB::table('results')->insert(array('id'=>4,'goals_team1' => '4', 'goals_team2' => '4', 'match_id' => '4'));
+		DB::table('results')->insert(array('id'=>5,'goals_team1' => '5', 'goals_team2' => '3', 'match_id' => '5'));
+		DB::table('results')->insert(array('id'=>6,'goals_team1' => '6', 'goals_team2' => '2', 'match_id' => '6'));
+		DB::table('results')->insert(array('id'=>7,'goals_team1' => '7', 'goals_team2' => '1', 'match_id' => '7'));
+
+	}
+}
+class BetsTableSeeder extends Seeder {
+
+	public function run() {
+		DB::table('bets')->delete();
+		DB::table('bets')->insert(array('id'=>1,'user_id' => '1', 'bet_team1' => '7', 'bet_team2' => '1','match_id'=>'1'));
+		DB::table('bets')->insert(array('id'=>2,'user_id' => '2', 'bet_team1' => '1', 'bet_team2' => '7','match_id'=>'1'));
+		DB::table('bets')->insert(array('id'=>3,'user_id' => '3', 'bet_team1' => '1', 'bet_team2' => '1','match_id'=>'1'));
+		DB::table('bets')->insert(array('id'=>4,'user_id' => '1', 'bet_team1' => '2', 'bet_team2' => '1','match_id'=>'2'));
+		DB::table('bets')->insert(array('id'=>5,'user_id' => '2', 'bet_team1' => '3', 'bet_team2' => '7','match_id'=>'2'));
+		DB::table('bets')->insert(array('id'=>6,'user_id' => '3', 'bet_team1' => '1', 'bet_team2' => '1','match_id'=>'2'));
+		DB::table('bets')->insert(array('id'=>7,'user_id' => '1', 'bet_team1' => '7', 'bet_team2' => '1','match_id'=>'3'));
+		DB::table('bets')->insert(array('id'=>8,'user_id' => '2', 'bet_team1' => '1', 'bet_team2' => '7','match_id'=>'3'));
+		DB::table('bets')->insert(array('id'=>9,'user_id' => '3', 'bet_team1' => '1', 'bet_team2' => '1','match_id'=>'3'));
+	}
+
+}

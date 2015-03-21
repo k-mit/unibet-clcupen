@@ -99,7 +99,7 @@ class FacebookController extends Controller {
 		$active_round = 	$this->getActiveRound();
 		$user_bets = 		$this->getUserBets($facebook_user['id']);
 		$fbFriends = 		$this->getFacebookFriends();
-		$results = 			$this->results();
+		//$results = 			$this->results();
 		$highscoreAll = 	$this->highScoreAll();
 		$highscoreFriends =	$this->highscoreFriends($fbFriends);
 		$statistics = 		$this->statistics();
@@ -109,7 +109,7 @@ class FacebookController extends Controller {
 			'active_round'	   => $active_round,
 			'user_bets'        => $user_bets,
 			'fbFriends'        => $fbFriends,
-			'results'          => $results,
+//			'results'          => $results,
 			'highscoreAll'     => $highscoreAll,
 			'highscoreFriends' => $highscoreFriends,
 			'statistics'       => $statistics
