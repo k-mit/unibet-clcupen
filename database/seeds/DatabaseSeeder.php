@@ -60,13 +60,13 @@ class MatchesTableSeeder extends Seeder {
 		DB::table('matches')->insert(array('id'=>7,'team1_id'=>'2','team2_id'=>'6','match_time' => '2015-04-29 20:45','round_id'=>2));
 		DB::table('matches')->insert(array('id'=>8,'team1_id'=>'3','team2_id'=>'7','match_time' => '2015-04-29 20:45','round_id'=>2));
 
-		DB::table('matches')->insert(array('id'=>5,'team1_id'=>'8','team2_id'=>'1','match_time' => '2015-05-12 20:45','round_id'=>3));
-		DB::table('matches')->insert(array('id'=>6,'team1_id'=>'5','team2_id'=>'4','match_time' => '2015-05-12 20:45','round_id'=>3));
+		DB::table('matches')->insert(array('id'=>9,'team1_id'=>'8','team2_id'=>'1','match_time' => '2015-05-12 20:45','round_id'=>3));
+		DB::table('matches')->insert(array('id'=>10,'team1_id'=>'5','team2_id'=>'4','match_time' => '2015-05-12 20:45','round_id'=>3));
 
-		DB::table('matches')->insert(array('id'=>7,'team1_id'=>'2','team2_id'=>'6','match_time' => '2015-05-24 20:45','round_id'=>4));
-		DB::table('matches')->insert(array('id'=>8,'team1_id'=>'3','team2_id'=>'7','match_time' => '2015-05-24 20:45','round_id'=>4));
+		DB::table('matches')->insert(array('id'=>11,'team1_id'=>'2','team2_id'=>'6','match_time' => '2015-05-24 20:45','round_id'=>4));
+		DB::table('matches')->insert(array('id'=>12,'team1_id'=>'3','team2_id'=>'7','match_time' => '2015-05-24 20:45','round_id'=>4));
 
-		DB::table('matches')->insert(array('id'=>8,'team1_id'=>'2','team2_id'=>'3','match_time' => '2015-06-06 20:45','round_id'=>5));
+		DB::table('matches')->insert(array('id'=>13,'team1_id'=>'2','team2_id'=>'3','match_time' => '2015-06-06 20:45','round_id'=>5));
 
 	}
 

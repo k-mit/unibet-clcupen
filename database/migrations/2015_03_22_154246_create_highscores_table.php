@@ -14,7 +14,7 @@ class CreateHighscoresTable extends Migration {
 	{
 		Schema::create('highscores', function(Blueprint $table)
 		{
-			
+
 			$table->integer('user_id')->unsigned();
 			$table->integer('score');
 			$table->integer('round')->unsigned();
