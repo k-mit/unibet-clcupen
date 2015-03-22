@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder {
 		$this->call('RoundsTableSeeder');
 		$this->call('TeamsTableSeeder');
 		$this->call('MatchesTableSeeder');
+		$this->call('ResultsTableSeeder');
+		$this->call('BetsTableSeeder');
 	}
 
 }
@@ -37,8 +39,8 @@ class RoundsTableSeeder extends Seeder {
 	public function run()
 	{
 		DB::table('rounds')->delete();
-		DB::table('rounds')->insert(array('start_date'=>'2015-03-11 21:00','end_date'=>'2015-04-01 21:00','round_name' => 'pre-round'));
-		DB::table('rounds')->insert(array('start_date'=>'2015-04-02 21:00','end_date'=>'2015-04-28 21:00','round_name' => 'round-one'));
+		DB::table('rounds')->insert(array('start_date'=>'2015-03-11 21:00','end_date'=>'2015-04-14 20:30','round_name' => 'pre-round'));
+		DB::table('rounds')->insert(array('start_date'=>'2015-04-02 21:00','end_date'=>'2015-04-28 20:30','round_name' => 'round-one'));
 
 	}
 
@@ -48,20 +50,23 @@ class MatchesTableSeeder extends Seeder {
 	public function run()
 	{
 		DB::table('matches')->delete();
-		DB::table('matches')->insert(array('id'=>1,'team1_id'=>'1','team2_id'=>'2','match_time' => '2015-03-10 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('id'=>2,'team1_id'=>'2','team2_id'=>'3','match_time' => '2015-03-11 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('id'=>3,'team1_id'=>'3','team2_id'=>'4','match_time' => '2015-03-12 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('id'=>4,'team1_id'=>'4','team2_id'=>'5','match_time' => '2015-03-13 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('id'=>5,'team1_id'=>'5','team2_id'=>'1','match_time' => '2015-03-14 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('id'=>6,'team1_id'=>'4','team2_id'=>'2','match_time' => '2015-03-15 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('id'=>7,'team1_id'=>'3','team2_id'=>'2','match_time' => '2015-03-16 21:00','round_id'=>1));
-		DB::table('matches')->insert(array('id'=>8,'team1_id'=>'1','team2_id'=>'2','match_time' => '2015-03-10 21:00','round_id'=>2));
-		DB::table('matches')->insert(array('id'=>9,'team1_id'=>'2','team2_id'=>'3','match_time' => '2015-03-11 21:00','round_id'=>2));
-		DB::table('matches')->insert(array('id'=>10,'team1_id'=>'3','team2_id'=>'4','match_time' => '2015-03-12 21:00','round_id'=>2));
-		DB::table('matches')->insert(array('id'=>11,'team1_id'=>'4','team2_id'=>'5','match_time' => '2015-03-13 21:00','round_id'=>2));
-		DB::table('matches')->insert(array('id'=>12,'team1_id'=>'5','team2_id'=>'1','match_time' => '2015-03-14 21:00','round_id'=>2));
-		DB::table('matches')->insert(array('id'=>13,'team1_id'=>'4','team2_id'=>'2','match_time' => '2015-03-15 21:00','round_id'=>2));
-		DB::table('matches')->insert(array('id'=>14,'team1_id'=>'3','team2_id'=>'2','match_time' => '2015-03-16 21:00','round_id'=>2));
+		DB::table('matches')->insert(array('id'=>1,'team1_id'=>'1','team2_id'=>'8','match_time' => '2015-04-14 20:45','round_id'=>1));
+		DB::table('matches')->insert(array('id'=>2,'team1_id'=>'4','team2_id'=>'5','match_time' => '2015-04-14 20:45','round_id'=>1));
+		DB::table('matches')->insert(array('id'=>3,'team1_id'=>'6','team2_id'=>'2','match_time' => '2015-04-15 20:45','round_id'=>1));
+		DB::table('matches')->insert(array('id'=>4,'team1_id'=>'7','team2_id'=>'3','match_time' => '2015-04-15 20:45','round_id'=>1));
+
+		DB::table('matches')->insert(array('id'=>5,'team1_id'=>'8','team2_id'=>'1','match_time' => '2015-04-28 20:45','round_id'=>2));
+		DB::table('matches')->insert(array('id'=>6,'team1_id'=>'5','team2_id'=>'4','match_time' => '2015-04-28 20:45','round_id'=>2));
+		DB::table('matches')->insert(array('id'=>7,'team1_id'=>'2','team2_id'=>'6','match_time' => '2015-04-29 20:45','round_id'=>2));
+		DB::table('matches')->insert(array('id'=>8,'team1_id'=>'3','team2_id'=>'7','match_time' => '2015-04-29 20:45','round_id'=>2));
+
+		DB::table('matches')->insert(array('id'=>5,'team1_id'=>'8','team2_id'=>'1','match_time' => '2015-05-12 20:45','round_id'=>3));
+		DB::table('matches')->insert(array('id'=>6,'team1_id'=>'5','team2_id'=>'4','match_time' => '2015-05-12 20:45','round_id'=>3));
+
+		DB::table('matches')->insert(array('id'=>7,'team1_id'=>'2','team2_id'=>'6','match_time' => '2015-05-24 20:45','round_id'=>4));
+		DB::table('matches')->insert(array('id'=>8,'team1_id'=>'3','team2_id'=>'7','match_time' => '2015-05-24 20:45','round_id'=>4));
+
+		DB::table('matches')->insert(array('id'=>8,'team1_id'=>'2','team2_id'=>'3','match_time' => '2015-06-06 20:45','round_id'=>5));
 
 	}
 
@@ -75,6 +80,9 @@ class TeamsTableSeeder extends Seeder {
 		DB::table('teams')->insert(array('id'=>3,'team_name' => 'FC Bayern München', 'team_country' => 'Germany', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50037.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/GER.png', 'description' => ''));
 		DB::table('teams')->insert(array('id'=>4,'team_name' => 'Juventus', 'team_country' => 'Italy', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50139.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/ITA.png', 'description' => ''));
 		DB::table('teams')->insert(array('id'=>5,'team_name' => 'AS Monaco FC', 'team_country' => 'France', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50023.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/FRA.png', 'description' => ''));
+		DB::table('teams')->insert(array('id'=>6,'team_name' => 'Paris Saint-Germain', 'team_country' => 'France', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/52747.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/FRA.png', 'description' => ''));
+		DB::table('teams')->insert(array('id'=>7,'team_name' => 'FC Porto', 'team_country' => 'Portugal', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50064.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/POR.png', 'description' => ''));
+		DB::table('teams')->insert(array('id'=>8,'team_name' => 'Real Madrid CF', 'team_country' => 'Spain', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50051.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/ESP.png', 'description' => ''));
 
 	}
 }
@@ -105,7 +113,9 @@ class BetsTableSeeder extends Seeder {
 		DB::table('bets')->insert(array('id'=>6,'user_id' => '3', 'bet_team1' => '1', 'bet_team2' => '1','match_id'=>'2'));
 		DB::table('bets')->insert(array('id'=>7,'user_id' => '1', 'bet_team1' => '7', 'bet_team2' => '1','match_id'=>'3'));
 		DB::table('bets')->insert(array('id'=>8,'user_id' => '2', 'bet_team1' => '1', 'bet_team2' => '7','match_id'=>'3'));
-		DB::table('bets')->insert(array('id'=>9,'user_id' => '3', 'bet_team1' => '1', 'bet_team2' => '1','match_id'=>'3'));
+		for ($counter = 9;$counter<5000;$counter++) {
+			DB::table('bets')->insert(array('id' => $counter, 'user_id' => rand(1, 3), 'bet_team1' => rand(0, 5), 'bet_team2' => rand(0, 5), 'match_id' => rand(1, 7)));
+		}
 	}
 
 }

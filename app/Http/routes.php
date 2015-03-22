@@ -26,7 +26,9 @@ Route::get('/facebook/login', function (SammyK\LaravelFacebookSdk\LaravelFaceboo
 Route::get('/facebook/friends', 'FacebookController@getFacebookFriends');
 
 Route::get('/facebook/datafeed', 'FacebookController@datafeed');
-
+Route::get('/testsavebet',function(){
+	return view('testsavebet');
+});
 Route::any('/facebook/canvas', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
 
     $login_link = $fb
@@ -63,6 +65,10 @@ Route::any('/facebook/canvas', function (SammyK\LaravelFacebookSdk\LaravelFacebo
 });
 
 Route::Get('/', 'FacebookController@getUserInfo');
+
+Route::Get('/calculateRound', ['middleware' => 'auth', 'uses' => 'FacebookController@calculateRound']);
+Route::Post('/saveBet', ['middleware' => 'auth', 'uses' => 'FacebookController@saveBet']);
+
 
 // Endpoint that is redirected to after an authentication attempt
 Route::get('facebook/connected', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {

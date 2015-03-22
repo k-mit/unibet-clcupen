@@ -16,6 +16,6 @@ class Match extends Model {
 		return $this->belongsTo('App\Round');
 	}
 	public function result(){
-		return $this->belongsTo('App\Result');
+		return $this->hasOne('App\Result');
 	}
 }

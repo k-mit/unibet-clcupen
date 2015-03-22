@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration {
 			$table->string('email')->unique();
 			$table->string('password', 60);
 			$table->string('access_token')->nullable();
-
+			$table->integer('extra_score');
 			$table->rememberToken();
 			$table->timestamps();
 		});

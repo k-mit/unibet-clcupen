@@ -1,7 +1,10 @@
 <?php namespace App\Http\Controllers;
 
+use App\Bet;
 use App\Events\reLogIn;
 use App\Http\Requests;
+use Illuminate\Http\Request;
+use Facebook\Exceptions;
 
 use App\Match;
 use App\Round;
@@ -24,8 +27,14 @@ class FacebookController extends Controller {
 	 * @var $fb instance of LaravelFacebookSdk
 	 */
 	public $fb;
+	/**
+	 * @var
+	 */
 	public $token;
 
+	/**
+	 *
+	 */
 	public function __construct() {
 		$this->fb = \App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');;
 		//$this->getFacebookToken();
@@ -73,11 +82,22 @@ class FacebookController extends Controller {
 			dd(e);
 		}
 		$grespons = $response->getGraphObject();
-		if (is_null($grespons['friends'])){$grespons['friends']=array();}
+		if (!isset($grespons['friends']) || is_null($grespons['friends'])) {
+			$grespons['friends'] = array();
+		}
 		return $grespons['friends'];
 
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @todo   ToDo
+	 * <code>
+	 *
+	 * </code>
+	 */
 	public function inviteFacebookFriend() {
 
 	}
@@ -94,19 +114,19 @@ class FacebookController extends Controller {
 		$this->token = $token;
 		\Event::fire(new reLogIn());
 
-		$facebook_user = 	$this->getUserInfo()->asArray();
+		$facebook_user = $this->getUserInfo()->asArray();
 
-		$active_round = 	$this->getActiveRound();
-		$user_bets = 		$this->getUserBets($facebook_user['id']);
-		$fbFriends = 		$this->getFacebookFriends();
+		$active_round = $this->getActiveRound();
+		$user_bets = $this->getUserBets($facebook_user['id']);
+		$fbFriends = $this->getFacebookFriends();
 		//$results = 			$this->results();
-		$highscoreAll = 	$this->highScoreAll();
-		$highscoreFriends =	$this->highscoreFriends($fbFriends);
-		$statistics = 		$this->statistics();
+		$highscoreAll = $this->highScoreAll();
+		$highscoreFriends = $this->highscoreFriends($fbFriends);
+		$statistics = $this->statistics();
 
 		return [
 			'facebook_user'    => $facebook_user,
-			'active_round'	   => $active_round,
+			'active_round'     => $active_round,
 			'user_bets'        => $user_bets,
 			'fbFriends'        => $fbFriends,
 //			'results'          => $results,
@@ -124,10 +144,10 @@ class FacebookController extends Controller {
 	 * @package facebook
 	 */
 	public function getActiveRound() {
-		$round = Round::where('start_date','<=',Carbon::now())->
-			where('end_date','>=',Carbon::now())->
-			with(['matches','matches.team1','matches.team2','matches.result'])->
-			get();
+		$round = Round::where('start_date', '<=', Carbon::now())->
+		where('end_date', '>=', Carbon::now())->
+		with(['matches', 'matches.team1', 'matches.team2', 'matches.result'])->
+		get();
 		return $round;
 	}
 
@@ -153,14 +173,42 @@ class FacebookController extends Controller {
 
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @todo   ToDo
+	 * <code>
+	 *
+	 * </code>
+	 */
 	public function highScoreAll() {
 
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @param $fbFriends
+	 * @todo   ToDo
+	 * <code>
+	 *
+	 * </code>
+	 */
 	public function highscoreFriends($fbFriends) {
 
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @todo   ToDo
+	 * <code>
+	 *
+	 * </code>
+	 */
 	public function statistics() {
 
 	}
@@ -172,19 +220,120 @@ class FacebookController extends Controller {
 	 * @return the session fb_user_access_token or null if it cant be found
 	 */
 	public function getFacebookToken() {
-			$token = $this->fb->getCanvasHelper()->getAccessToken();
+		$token = $this->fb->getCanvasHelper()->getAccessToken();
 
 		if (!$token) {
 			$token = Session::getToken();
 		}
 		if (!$token) {
-				$token = $this->fb->getJavaScriptHelper()->getAccessToken();
+			$token = $this->fb->getJavaScriptHelper()->getAccessToken();
 		}
 		if (!$token) {
-				$token = Session::get('fb_user_access_token');
+			$token = Session::get('fb_user_access_token');
 		}
 
 
-		$this->token=$token;
+		$this->token = $token;
 	}
+
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @todo   to save the combined scores to highscore table
+	 * <code>
+	 *
+	 * </code>
+	 */
+	public function calculateRound() {
+		DB::table('highscore')->delete();
+		$bets = Bet::whereHas('match.round', function ($q) {
+			$q->where('rounds.id', '=', 1);
+		})->with(['match.result', 'user'])->get();
+		foreach ($bets as $bet) {
+			if ($this->get1x2($bet->match->result->goals_team1, $bet->match->result->goals_team2) == $this->get1x2($bet->bet_team1, $bet->bet_team2)) {
+				$bet->score = 1;
+			}
+			if ($bet->match->result->goals_team1 == $bet->bet_team1 && $bet->match->result->goals_team2 == $bet->bet_team2) {
+				$bet->score = 5;
+			}
+			$bet->save();
+
+		}
+	}
+
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @param $result1
+	 * @param $result2
+	 * @return string
+	 * @todo   ToDo
+	 * <code>
+	 *
+	 * </code>
+	 */
+	public function get1x2($result1, $result2) {
+		if ($result1 == $result2) return 'x';
+		if ($result1 > $result2) return '1';
+		if ($result1 < $result2) return '2';
+	}
+
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @param Request $request
+	 * @return string
+	 * @todo   to fix for up to 4 matches to be posted
+	 * <code>
+	 *
+	 * </code>
+	 */
+	public function saveBet(Request $request) {
+		$count=0;
+		for ($bet_nr=1;$bet_nr<5;$bet_nr++) {
+			$oldbets = Bet::whereHas('match.round', function ($q) {
+				$q->where('rounds.id', '=', $this->getActiveRound()[0]->id);
+			})->where('user_id', '=', $request->user()->id)->where('match_id', '=', $request->input('match_id_'.$bet_nr))->get();
+			if ($oldbets->count() == 0) {
+				$bet = new Bet();
+				$bet->user_id = $request->user()->id;
+				$bet->bet_team1 = $request->input('bet_team1_'.$bet_nr);
+				$bet->bet_team2 = $request->input('bet_team2_'.$bet_nr);
+				$bet->match_id = $request->input('match_id_'.$bet_nr);
+				$bet->save();
+				$count++;
+			}
+		}
+		if ($count>0) return '{"status":ok,"count_saved":'.$count.'}';
+		return '{"status":fail,"count_saved":0}';
+
+	}
+
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @param Request $request
+	 * @return string
+	 * @todo   ToDo
+	 * <code>
+	 *
+	 * </code>
+	 */
+	public function saveInvite(Request $request) {
+		$oldinvites = Invites::where('user_id','=',$request->user()->id)->get();
+		if ($oldinvites->count() <= $this->getActiveRound()[0]->id*5) {
+			$invite = new Invite();
+			$invite->user_id = $request->user()->id;
+			$invite->round_id = $this->getActiveRound()[0]->id;
+			$invite->save();
+			return 'save=ok';
+		}
+		return 'save=error';
+	}
+
 }
+
