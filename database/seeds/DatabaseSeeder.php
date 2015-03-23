@@ -39,8 +39,10 @@ class RoundsTableSeeder extends Seeder {
 	public function run()
 	{
 		DB::table('rounds')->delete();
-		DB::table('rounds')->insert(array('start_date'=>'2015-03-11 21:00','end_date'=>'2015-04-14 20:30','round_name' => 'pre-round'));
-		DB::table('rounds')->insert(array('start_date'=>'2015-04-02 21:00','end_date'=>'2015-04-28 20:30','round_name' => 'round-one'));
+		DB::table('rounds')->insert(array('id'=>'1','start_date'=>'2015-03-11 00:01','end_date'=>'2015-04-14 20:30','round_name' => 'Kvartsfinal 1'));
+		DB::table('rounds')->insert(array('id'=>'2','start_date'=>'2015-04-16 00:01','end_date'=>'2015-04-28 20:30','round_name' => 'Kvartsfinal 2'));
+		DB::table('rounds')->insert(array('id'=>'3','start_date'=>'2015-05-01 00:01','end_date'=>'2015-05-12 20:30','round_name' => 'Semifinal 1'));
+		DB::table('rounds')->insert(array('id'=>'4','start_date'=>'2015-05-13 00:01','end_date'=>'2015-05-24 20:30','round_name' => 'Semifinal 2'));
 
 	}
 
@@ -66,7 +68,6 @@ class MatchesTableSeeder extends Seeder {
 		DB::table('matches')->insert(array('id'=>11,'team1_id'=>'2','team2_id'=>'6','match_time' => '2015-05-24 20:45','round_id'=>4));
 		DB::table('matches')->insert(array('id'=>12,'team1_id'=>'3','team2_id'=>'7','match_time' => '2015-05-24 20:45','round_id'=>4));
 
-		DB::table('matches')->insert(array('id'=>13,'team1_id'=>'2','team2_id'=>'3','match_time' => '2015-06-06 20:45','round_id'=>5));
 
 	}
 
