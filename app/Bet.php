@@ -11,4 +11,5 @@ class Bet extends Model {
 	public function match(){
 		return $this->belongsTo('App\Match');
 	}
+	//kollar om detta funkar
 }

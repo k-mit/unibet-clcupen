@@ -207,7 +207,3 @@ Route::get('facebook/callback', function (SammyK\LaravelFacebookSdk\LaravelFaceb
 
 });
 
-Route::controllers([
-					   'auth' => 'Auth\AuthController',
-					   'password' => 'Auth\PasswordController',
-				   ]);
