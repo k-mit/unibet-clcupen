@@ -2,9 +2,12 @@
 
 use App\Bet;
 use App\Events\reLogIn;
+use App\Highscore;
 use App\Http\Requests;
+use App\Invite;
 use Illuminate\Http\Request;
 use Facebook\Exceptions;
+use Illuminate\Support\Facades\DB;
 
 use App\Match;
 use App\Round;
@@ -90,19 +93,6 @@ class FacebookController extends Controller {
 	}
 
 	/**
-	 * @author Pontus Kindblad & Anton Kindblad
-	 * @access public
-	 * @package
-	 * @todo   ToDo
-	 * <code>
-	 *
-	 * </code>
-	 */
-	public function inviteFacebookFriend() {
-
-	}
-
-	/**
 	 * All the Variables that is needed for canvas.index
 	 *
 	 * @author  Pontus Kindblad & Anton Kindblad
@@ -123,7 +113,7 @@ class FacebookController extends Controller {
 		$highscoreAll = $this->highScoreAll();
 		$highscoreFriends = $this->highscoreFriends($fbFriends);
 		$statistics = $this->statistics();
-
+dd($highscoreAll);
 		return [
 			'facebook_user'    => $facebook_user,
 			'active_round'     => $active_round,
@@ -183,7 +173,7 @@ class FacebookController extends Controller {
 	 * </code>
 	 */
 	public function highScoreAll() {
-
+		return Highscore::where('round','=',10)->orderBy('score','desc')->get();
 	}
 
 	/**
@@ -246,20 +236,54 @@ class FacebookController extends Controller {
 	 * </code>
 	 */
 	public function calculateRound() {
-		DB::table('highscore')->delete();
-		$bets = Bet::whereHas('match.round', function ($q) {
-			$q->where('rounds.id', '=', 1);
-		})->with(['match.result', 'user'])->get();
+		$highscore_users = array();
+		$highscore_users_per_round = array();
+		DB::table('highscores')->delete();
+		$bets = Bet::with(['match.result', 'user', 'match.round'])->get();
+		/*		$bets = Bet::whereHas('match.round', function ($q) {
+					$q->where('rounds.id', '=', 1);
+				})->with(['match.result', 'user'])->get();*/
 		foreach ($bets as $bet) {
+			echo $bet->match->result->goals_team1 . '<br>';
+			echo $bet->match->result->goals_team2 . '<br>';
 			if ($this->get1x2($bet->match->result->goals_team1, $bet->match->result->goals_team2) == $this->get1x2($bet->bet_team1, $bet->bet_team2)) {
 				$bet->score = 1;
 			}
 			if ($bet->match->result->goals_team1 == $bet->bet_team1 && $bet->match->result->goals_team2 == $bet->bet_team2) {
 				$bet->score = 5;
 			}
+			if (!isset($highscore_users[$bet->user_id])) $highscore_users[$bet->user_id] = 0;
+			if (!isset($highscore_users_per_round[$bet->match->round->id])) $highscore_users_per_round[$bet->match->round->id] = array();
+			if (!isset($highscore_users_per_round[$bet->match->round->id][$bet->user_id])) $highscore_users_per_round[$bet->match->round->id][$bet->user_id] = 0;
+			if (!isset($highscore_users_per_round[10][$bet->user_id])) $highscore_users_per_round[10][$bet->user_id] = 0;
+			$highscore_users[$bet->user_id] += $bet->score;
+			$highscore_users_per_round[$bet->match->round->id][$bet->user_id] += $bet->score;
+			$highscore_users_per_round[10][$bet->user_id] += $bet->score;
+
 			$bet->save();
+		}
+		$invites = Invite::select('user_id', 'round_id', DB::raw('count(*) as total_invites'))->groupBy('user_id')->get();
+		foreach ($invites as $invite) {
+			if ($invite->total_invites > 5) $invite->total_invites = 5;
+			if (!isset($highscore_users[$invite->user_id])) $highscore_users[$invite->user_id] = 0;
+			if (!isset($highscore_users_per_round[10])) $highscore_users_per_round[10] = 0;
+			$highscore_users[$invite->user_id] += $invite->total_invites;
+			$highscore_users_per_round[10][$invite->user_id] += $invite->total_invites;
+		}
+		foreach ($highscore_users_per_round as $round => $user_array) {
+			foreach ($user_array as $user_id => $user_score) {
+				$highscore_row = new Highscore();
+				$highscore_row->user_id = $user_id;
+				$highscore_row->score = $user_score;
+				$highscore_row->round = $round;
+				$highscore_row->save();
+			}
 
 		}
+
+		dd($highscore_users_per_round);
+
+
 	}
 
 	/**
@@ -286,28 +310,24 @@ class FacebookController extends Controller {
 	 * @package
 	 * @param Request $request
 	 * @return string
-	 * @todo   to fix for up to 4 matches to be posted
-	 * <code>
-	 *
-	 * </code>
 	 */
 	public function saveBet(Request $request) {
-		$count=0;
-		for ($bet_nr=1;$bet_nr<5;$bet_nr++) {
+		$count = 0;
+		for ($bet_nr = 1; $bet_nr < 5; $bet_nr++) {
 			$oldbets = Bet::whereHas('match.round', function ($q) {
 				$q->where('rounds.id', '=', $this->getActiveRound()[0]->id);
-			})->where('user_id', '=', $request->user()->id)->where('match_id', '=', $request->input('match_id_'.$bet_nr))->get();
+			})->where('user_id', '=', $request->user()->id)->where('match_id', '=', $request->input('match_id_' . $bet_nr))->get();
 			if ($oldbets->count() == 0) {
 				$bet = new Bet();
 				$bet->user_id = $request->user()->id;
-				$bet->bet_team1 = $request->input('bet_team1_'.$bet_nr);
-				$bet->bet_team2 = $request->input('bet_team2_'.$bet_nr);
-				$bet->match_id = $request->input('match_id_'.$bet_nr);
+				$bet->bet_team1 = $request->input('bet_team1_' . $bet_nr);
+				$bet->bet_team2 = $request->input('bet_team2_' . $bet_nr);
+				$bet->match_id = $request->input('match_id_' . $bet_nr);
 				$bet->save();
 				$count++;
 			}
 		}
-		if ($count>0) return '{"status":ok,"count_saved":'.$count.'}';
+		if ($count > 0) return '{"status":ok,"count_saved":' . $count . '}';
 		return '{"status":fail,"count_saved":0}';
 
 	}
@@ -318,14 +338,11 @@ class FacebookController extends Controller {
 	 * @package
 	 * @param Request $request
 	 * @return string
-	 * @todo   ToDo
-	 * <code>
-	 *
-	 * </code>
+	 * @todo   Have to test this.. wrote it blind
 	 */
 	public function saveInvite(Request $request) {
-		$oldinvites = Invites::where('user_id','=',$request->user()->id)->get();
-		if ($oldinvites->count() <= $this->getActiveRound()[0]->id*5) {
+		$oldinvites = Invites::where('user_id', '=', $request->user()->id)->get();
+		if ($oldinvites->count() <= $this->getActiveRound()[0]->id * 5) {
 			$invite = new Invite();
 			$invite->user_id = $request->user()->id;
 			$invite->round_id = $this->getActiveRound()[0]->id;

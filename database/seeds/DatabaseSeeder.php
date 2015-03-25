@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('MatchesTableSeeder');
 		$this->call('ResultsTableSeeder');
 		$this->call('BetsTableSeeder');
+		$this->call('InvitesTableSeeder');
 	}
 
 }
@@ -43,6 +44,7 @@ class RoundsTableSeeder extends Seeder {
 		DB::table('rounds')->insert(array('id'=>'2','start_date'=>'2015-04-16 00:01','end_date'=>'2015-04-28 20:30','round_name' => 'Kvartsfinal 2'));
 		DB::table('rounds')->insert(array('id'=>'3','start_date'=>'2015-05-01 00:01','end_date'=>'2015-05-12 20:30','round_name' => 'Semifinal 1'));
 		DB::table('rounds')->insert(array('id'=>'4','start_date'=>'2015-05-13 00:01','end_date'=>'2015-05-24 20:30','round_name' => 'Semifinal 2'));
+		DB::table('rounds')->insert(array('id'=>'10','start_date'=>'2015-01-01 00:01','end_date'=>'2015-12-24 20:30','round_name' => 'global'));
 
 	}
 
@@ -99,6 +101,8 @@ class ResultsTableSeeder extends Seeder {
 		DB::table('results')->insert(array('id'=>5,'goals_team1' => '5', 'goals_team2' => '3', 'match_id' => '5'));
 		DB::table('results')->insert(array('id'=>6,'goals_team1' => '6', 'goals_team2' => '2', 'match_id' => '6'));
 		DB::table('results')->insert(array('id'=>7,'goals_team1' => '7', 'goals_team2' => '1', 'match_id' => '7'));
+		DB::table('results')->insert(array('id'=>8,'goals_team1' => '7', 'goals_team2' => '1', 'match_id' => '8'));
+		DB::table('results')->insert(array('id'=>9,'goals_team1' => '7', 'goals_team2' => '1', 'match_id' => '9'));
 
 	}
 }
@@ -114,9 +118,40 @@ class BetsTableSeeder extends Seeder {
 		DB::table('bets')->insert(array('id'=>6,'user_id' => '3', 'bet_team1' => '1', 'bet_team2' => '1','match_id'=>'2'));
 		DB::table('bets')->insert(array('id'=>7,'user_id' => '1', 'bet_team1' => '7', 'bet_team2' => '1','match_id'=>'3'));
 		DB::table('bets')->insert(array('id'=>8,'user_id' => '2', 'bet_team1' => '1', 'bet_team2' => '7','match_id'=>'3'));
-		for ($counter = 9;$counter<5000;$counter++) {
+		DB::table('bets')->insert(array('id'=>9,'user_id' => '1', 'bet_team1' => '1', 'bet_team2' => '7','match_id'=>'4'));
+		DB::table('bets')->insert(array('id'=>10,'user_id' => '1', 'bet_team1' => '7', 'bet_team2' => '1','match_id'=>'5'));
+		DB::table('bets')->insert(array('id'=>11,'user_id' => '2', 'bet_team1' => '1', 'bet_team2' => '7','match_id'=>'5'));
+		DB::table('bets')->insert(array('id'=>12,'user_id' => '3', 'bet_team1' => '1', 'bet_team2' => '1','match_id'=>'5'));
+		DB::table('bets')->insert(array('id'=>13,'user_id' => '1', 'bet_team1' => '2', 'bet_team2' => '1','match_id'=>'6'));
+		DB::table('bets')->insert(array('id'=>14,'user_id' => '2', 'bet_team1' => '3', 'bet_team2' => '7','match_id'=>'6'));
+		DB::table('bets')->insert(array('id'=>15,'user_id' => '3', 'bet_team1' => '1', 'bet_team2' => '1','match_id'=>'6'));
+		DB::table('bets')->insert(array('id'=>16,'user_id' => '1', 'bet_team1' => '7', 'bet_team2' => '1','match_id'=>'6'));
+		DB::table('bets')->insert(array('id'=>17,'user_id' => '2', 'bet_team1' => '1', 'bet_team2' => '7','match_id'=>'7'));
+		DB::table('bets')->insert(array('id'=>18,'user_id' => '1', 'bet_team1' => '1', 'bet_team2' => '7','match_id'=>'8'));
+		DB::table('bets')->insert(array('id'=>19,'user_id' => '1', 'bet_team1' => '1', 'bet_team2' => '7','match_id'=>'9'));
+		/*for ($counter = 20;$counter<5000;$counter++) {
 			DB::table('bets')->insert(array('id' => $counter, 'user_id' => rand(1, 3), 'bet_team1' => rand(0, 5), 'bet_team2' => rand(0, 5), 'match_id' => rand(1, 7)));
-		}
+		}*/
+	}
+
+}
+
+class InvitesTableSeeder extends Seeder {
+
+	public function run()
+	{
+		DB::table('invites')->delete();
+		DB::table('invites')->insert(array('user_id'=>1,'round_id'=>1));
+		DB::table('invites')->insert(array('user_id'=>2,'round_id'=>1));
+		DB::table('invites')->insert(array('user_id'=>3,'round_id'=>1));
+		DB::table('invites')->insert(array('user_id'=>3,'round_id'=>1));
+		DB::table('invites')->insert(array('user_id'=>2,'round_id'=>1));
+		DB::table('invites')->insert(array('user_id'=>1,'round_id'=>1));
+		DB::table('invites')->insert(array('user_id'=>1,'round_id'=>1));
+		DB::table('invites')->insert(array('user_id'=>1,'round_id'=>1));
+		DB::table('invites')->insert(array('user_id'=>1,'round_id'=>1));
+		DB::table('invites')->insert(array('user_id'=>1,'round_id'=>1));
+
 	}
 
 }
