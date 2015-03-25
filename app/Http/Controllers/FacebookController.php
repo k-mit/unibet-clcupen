@@ -248,7 +248,6 @@ class FacebookController extends Controller {
 		/*		$bets = Bet::whereHas('match.round', function ($q) {
 					$q->where('rounds.id', '=', 1);
 				})->with(['match.result', 'user'])->get();*/
-		dd($bets);
 		foreach ($bets as $bet) {
 			echo $bet->match->result->goals_team1 . '<br>';
 			echo $bet->match->result->goals_team2 . '<br>';
