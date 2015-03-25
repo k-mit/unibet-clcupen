@@ -117,7 +117,6 @@ class FacebookController extends Controller {
 		$snippets = $this->getSnippets();
 		$highscoreAll = $this->highScoreAll();
 		$highscoreFriends = $this->highscoreFriends($fbFriends);
-		$statistics = $this->statistics();
 		$oldbetsforthisround = Bet::whereHas('match.round', function ($q) {
 			$q->where('rounds.id', '=', $this->getActiveRound()[0]->id);
 		})->where('user_id', '=', $facebook_user['id'])->get();
@@ -126,7 +125,6 @@ class FacebookController extends Controller {
 		return [
 			'facebook_user'    => $facebook_user,
 			'active_round'     => $active_round,
-			'user_bets'        => $user_bets,
 			'fbFriends'        => $fbFriends,
 			'havePlacedBet'    => $havePlacedBet,
 			'highscoreAll'     => $highscoreAll,
