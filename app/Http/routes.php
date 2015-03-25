@@ -118,7 +118,7 @@ Route::get('facebook/connected', function (SammyK\LaravelFacebookSdk\LaravelFace
 
     // Get basic info on the user from Facebook.
     try {
-        $response = $fb->get('/me?fields=id,name,email');
+        $response = $fb->get('/me?fields=id,name,email,user_friends');
     } catch (Facebook\Exceptions\FacebookSDKException $e) {
         dd($e->getMessage());
     }
@@ -184,7 +184,7 @@ Route::get('facebook/callback', function (SammyK\LaravelFacebookSdk\LaravelFaceb
 
 	// Get basic info on the user from Facebook.
 	try {
-		$response = $fb->get('/me?fields=id,name,email');
+		$response = $fb->get('/me?fields=id,name,email,user_friends');
 	} catch (Facebook\Exceptions\FacebookSDKException $e) {
 		dd($e->getMessage());
 	}
