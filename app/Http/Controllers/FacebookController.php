@@ -89,7 +89,7 @@ class FacebookController extends Controller {
 			$grespons['friends'] = array();
 		}
 		foreach ($grespons['friends'] as $friend_key => $friend) {
-			$grespons['friends'][$friend_key]['user_id']=User::where('facebook_user_id','=',$grespons['friends'][$friend_key]['id'])->first()->id;
+			$grespons['friends'][$friend_key]['user_id']=User::where('facebook_user_id','=',$friend['id'])->first()['id'];
 
 		}
 
@@ -191,7 +191,12 @@ class FacebookController extends Controller {
 	 * </code>
 	 */
 	public function highscoreFriends($fbFriends) {
-
+		$friendstring='';
+		foreach($fbFriends as $friend){
+			$friends[] = $friend['user_id'];
+		}
+		$friends[] = Auth::user()->id;
+		return Highscore::with('user')->where('round','=',10)->whereIn('user_id',$friends )->orderBy('score','desc')->get();
 
 	}
 
@@ -331,6 +336,11 @@ class FacebookController extends Controller {
 				$bet->save();
 				$count++;
 			}
+		}
+		if ($request->input('tiebreaker')){
+			$user = User::where('id', '=', $request->user()->id)->first();
+			$user->tiebreaker = $request->input('tiebreaker');
+			$user->save();
 		}
 		if ($count > 0) return '{"status":ok,"count_saved":' . $count . '}';
 		return '{"status":fail,"count_saved":0}';

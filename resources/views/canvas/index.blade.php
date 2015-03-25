@@ -59,6 +59,10 @@
                                 @foreach($highscoreAll as $highscoreAll_row)
                                     {{$highscoreAll_row->score}} {{$highscoreAll_row->user->name}}<br/>
                                 @endforeach
+                                <br>Highscore Friends:<br>
+                                @foreach($highscoreFriends as $highscoreAll_row)
+                                    {{$highscoreAll_row->score}} {{$highscoreAll_row->user->name}}<br/>
+                                @endforeach
                             </div>
                         </div>
 

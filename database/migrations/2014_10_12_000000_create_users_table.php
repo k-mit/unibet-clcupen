@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration {
 			$table->string('password', 60);
 			$table->string('access_token')->nullable();
 			$table->integer('extra_score');
+			$table->integer('tiebreaker');
 			$table->rememberToken();
 			$table->timestamps();
 		});
