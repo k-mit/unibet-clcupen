@@ -5,6 +5,7 @@ use App\Events\reLogIn;
 use App\Highscore;
 use App\Http\Requests;
 use App\Invite;
+use App\Snippet;
 use Illuminate\Http\Request;
 use Facebook\Exceptions;
 use Illuminate\Support\Facades\DB;
@@ -89,7 +90,7 @@ class FacebookController extends Controller {
 			$grespons['friends'] = array();
 		}
 		foreach ($grespons['friends'] as $friend_key => $friend) {
-			$grespons['friends'][$friend_key]['user_id']=User::where('facebook_user_id','=',$friend['id'])->first()['id'];
+			$grespons['friends'][$friend_key]['user_id'] = User::where('facebook_user_id', '=', $friend['id'])->first()['id'];
 
 		}
 
@@ -106,28 +107,37 @@ class FacebookController extends Controller {
 	 * @return a json object of all the vars needed to render first page.
 	 */
 	public function getAllVars($token) {
+
 		$this->token = $token;
-		\Event::fire(new reLogIn());
+		//\Event::fire(new reLogIn());
 
 		$facebook_user = $this->getUserInfo()->asArray();
-
 		$active_round = $this->getActiveRound();
-		$user_bets = $this->getUserBets($facebook_user['id']);
 		$fbFriends = $this->getFacebookFriends();
-		//$results = 			$this->results();
+		$snippets = $this->getSnippets();
 		$highscoreAll = $this->highScoreAll();
 		$highscoreFriends = $this->highscoreFriends($fbFriends);
 		$statistics = $this->statistics();
+		$oldbetsforthisround = Bet::whereHas('match.round', function ($q) {
+			$q->where('rounds.id', '=', $this->getActiveRound()[0]->id);
+		})->where('user_id', '=', $facebook_user['id'])->get();
+		$havePlacedBet = ($oldbetsforthisround->count() > 1 ? 1 : 0);
+
 		return [
 			'facebook_user'    => $facebook_user,
 			'active_round'     => $active_round,
 			'user_bets'        => $user_bets,
 			'fbFriends'        => $fbFriends,
-//			'results'          => $results,
+			'havePlacedBet'    => $havePlacedBet,
 			'highscoreAll'     => $highscoreAll,
 			'highscoreFriends' => $highscoreFriends,
-			'statistics'       => $statistics
+			'snippets'         => $snippets
 		];
+	}
+
+	public function getSnippets() {
+		$all_db_snippets = Snippet::get();
+		return $all_db_snippets->keyBy('snippet_name');
 	}
 
 	/**
@@ -145,39 +155,18 @@ class FacebookController extends Controller {
 		return $round;
 	}
 
-	/**
-	 * @author  Pontus Kindblad & Anton Kindblad
-	 * @access  public
-	 * @package facebook
-	 * @param $user_id
-	 * @return An array of the users bets
-	 */
-	public function getUserBets($user_id) {
-
-	}
-
-	/**
-	 * @author  Pontus Kindblad & Anton Kindblad
-	 * @access  public
-	 * @package facebook
-	 * @return array of match results
-	 */
-	public function results() {
-
-
-	}
 
 	/**
 	 * @author Pontus Kindblad & Anton Kindblad
 	 * @access public
 	 * @package
-	 * @todo   ToDo
+	 * @todo   send users own score last.. and placements for all of them.
 	 * <code>
 	 *
 	 * </code>
 	 */
 	public function highScoreAll() {
-		return Highscore::where('round','=',10)->with('user')->orderBy('score','desc')->get();
+		return Highscore::where('round', '=', 10)->with('user')->orderBy('score', 'desc')->get();
 	}
 
 	/**
@@ -185,33 +174,21 @@ class FacebookController extends Controller {
 	 * @access public
 	 * @package
 	 * @param $fbFriends
-	 * @todo   ToDo
+	 * @todo   send users own score last.. and placements for all of them
 	 * <code>
 	 *
 	 * </code>
 	 */
 	public function highscoreFriends($fbFriends) {
-		$friendstring='';
-		foreach($fbFriends as $friend){
+		$friendstring = '';
+		foreach ($fbFriends as $friend) {
 			$friends[] = $friend['user_id'];
 		}
 		$friends[] = Auth::user()->id;
-		return Highscore::with('user')->where('round','=',10)->whereIn('user_id',$friends )->orderBy('score','desc')->get();
+		return Highscore::with('user')->where('round', '=', 10)->whereIn('user_id', $friends)->orderBy('score', 'desc')->get();
 
 	}
 
-	/**
-	 * @author Pontus Kindblad & Anton Kindblad
-	 * @access public
-	 * @package
-	 * @todo   ToDo
-	 * <code>
-	 *
-	 * </code>
-	 */
-	public function statistics() {
-
-	}
 
 	/**
 	 * @author  Pontus Kindblad & Anton Kindblad
@@ -337,7 +314,7 @@ class FacebookController extends Controller {
 				$count++;
 			}
 		}
-		if ($request->input('tiebreaker')){
+		if ($request->input('tiebreaker')) {
 			$user = User::where('id', '=', $request->user()->id)->first();
 			$user->tiebreaker = $request->input('tiebreaker');
 			$user->save();

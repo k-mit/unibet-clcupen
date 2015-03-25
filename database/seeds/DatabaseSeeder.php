@@ -31,6 +31,7 @@ class UserTableSeeder extends Seeder {
 		DB::table('users')->insert(array('id'=>1,'facebook_user_id'=>1382918398693972,'name'=>'K-mit Kindblad','email' => 'pontus+facebook@k-mit.se'));
 		DB::table('users')->insert(array('id'=>2,'facebook_user_id'=>1390591374592363,'name'=>'Susan Amibdedadgbe Qinstein','email' => 'zynsusw_qinstein_1426800568@tfbnw.net'));
 		DB::table('users')->insert(array('id'=>3,'facebook_user_id'=>1374518872874153,'name'=>'Dorothy Amidhaeijdif Greeneescu','email' => 'kofjsor_greeneescu_1426800569@tfbnw.net'));
+		DB::table('users')->insert(array('id'=>4,'facebook_user_id'=>10152717027332055,'name'=>'Anton Kindblad','email' => 'anton.kindblad@gmail.com'));
 
 	}
 
