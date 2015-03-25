@@ -7,5 +7,4 @@ class Result extends Model {
 	public function match(){
 		return $this->belongsTo('App\Match');
 	}
-
 }
