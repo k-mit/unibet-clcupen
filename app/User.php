@@ -38,6 +38,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 
 	public function bets(){
-		return $this->hasMany('idtool\Bet')->latest();
+		return $this->hasMany('App\Bet')->latest();
+	}
+
+	public function highscores(){
+		return $this->hasMany('App\Highscore');
 	}
 }

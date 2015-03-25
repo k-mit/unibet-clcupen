@@ -202,3 +202,8 @@ Route::get('facebook/callback', function (SammyK\LaravelFacebookSdk\LaravelFaceb
 	return redirect('/')->with('message', 'Successfully logged in with Facebook');
 
 });
+
+Route::controllers([
+					   'auth' => 'Auth\AuthController',
+					   'password' => 'Auth\PasswordController',
+				   ]);

@@ -56,7 +56,9 @@
                         </ul>
                         <div class="row contentrow">
                             <div class="col-xs-12 tabcontent">
-
+                                @foreach($highscoreAll as $highscoreAll_row)
+                                    {{$highscoreAll_row->score}} {{$highscoreAll_row->user->name}}<br/>
+                                @endforeach
                             </div>
                         </div>
 

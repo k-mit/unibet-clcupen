@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Highscore extends Model {
 
-	//
+	public function user(){
+		return $this->belongsTo('App\User');
+	}
 
 }

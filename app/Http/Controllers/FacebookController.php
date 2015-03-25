@@ -88,6 +88,11 @@ class FacebookController extends Controller {
 		if (!isset($grespons['friends']) || is_null($grespons['friends'])) {
 			$grespons['friends'] = array();
 		}
+		foreach ($grespons['friends'] as $friend_key => $friend) {
+			$grespons['friends'][$friend_key]['user_id']=User::where('facebook_user_id','=',$grespons['friends'][$friend_key]['id'])->first()->id;
+
+		}
+
 		return $grespons['friends'];
 
 	}
@@ -172,7 +177,7 @@ class FacebookController extends Controller {
 	 * </code>
 	 */
 	public function highScoreAll() {
-		return Highscore::where('round','=',10)->orderBy('score','desc')->get();
+		return Highscore::where('round','=',10)->with('user')->orderBy('score','desc')->get();
 	}
 
 	/**
@@ -187,6 +192,7 @@ class FacebookController extends Controller {
 	 */
 	public function highscoreFriends($fbFriends) {
 
+		
 	}
 
 	/**
