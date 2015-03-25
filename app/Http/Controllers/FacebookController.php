@@ -113,7 +113,6 @@ class FacebookController extends Controller {
 		$highscoreAll = $this->highScoreAll();
 		$highscoreFriends = $this->highscoreFriends($fbFriends);
 		$statistics = $this->statistics();
-dd($highscoreAll);
 		return [
 			'facebook_user'    => $facebook_user,
 			'active_round'     => $active_round,
