@@ -39,7 +39,7 @@ Route::any('/facebook/canvas', function (SammyK\LaravelFacebookSdk\LaravelFacebo
         $token = $fb->getCanvasHelper()->getAccessToken();
     } catch (Facebook\Exceptions\FacebookSDKException $e) {
         // Failed to obtain access token
-        dd($e->getMessage());
+		return view('canvas.login');
     }
 
     if (!$token) {
@@ -55,11 +55,15 @@ Route::any('/facebook/canvas', function (SammyK\LaravelFacebookSdk\LaravelFacebo
 			$token = $fb->getAccessTokenFromRedirect();
 
 		} catch (Facebook\Exceptions\FacebookSDKException $e) {
-			dd($e->getMessage());
+			return view('canvas.login');
 		}
+
+	}
+	if (!$token) {
+		return view('canvas.login');
 	}
 
-	$fc = new FacebookController();
+		$fc = new FacebookController();
 
         return view('canvas.index',$fc->getAllVars($token));
 });
