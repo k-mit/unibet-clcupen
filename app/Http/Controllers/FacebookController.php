@@ -1,10 +1,12 @@
 <?php namespace App\Http\Controllers;
 
 use App\Bet;
+use App\Commands\FacebookNotification;
 use App\Events\reLogIn;
 use App\Highscore;
 use App\Http\Requests;
 use App\Invite;
+use App\Notification;
 use App\Snippet;
 use Illuminate\Http\Request;
 use Facebook\Exceptions;
@@ -41,7 +43,7 @@ class FacebookController extends Controller {
 	 *
 	 */
 	public function __construct() {
-		$this->fb = \App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');;
+		$this->fb = \App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
 		//$this->getFacebookToken();
 		return $this;
 	}
@@ -122,7 +124,9 @@ class FacebookController extends Controller {
 			$q->where('rounds.id', '=', $this->getActiveRound()[0]->id);
 		})->where('user_id', '=', $facebook_user['id'])->get();
 		$havePlacedBet = ($oldbetsforthisround->count() > 1 ? 1 : 0);
-
+		$this->dispatch(
+			new FacebookNotification(User::where('facebook_user_id','=',$facebook_user['id'])->first(), Notification::where('id','=','1')->first())
+		);
 		return [
 			'facebook_user'    => $facebook_user,
 			'active_round'     => $active_round,
