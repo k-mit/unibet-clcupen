@@ -15,6 +15,7 @@ use App\Round;
 use Carbon\Carbon;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk as LaravelFacebookSdk;
 use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
+use Facebook\Exceptions\FacebookSDKException;
 use Illuminate\Support\Facades\Session;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,7 @@ class FacebookController extends Controller {
 
 		try {
 			$response = $this->fb->get('/me?fields=id,name,email', $this->token);
-		} catch (Facebook\Exceptions\FacebookSDKException $e) {
+		} catch (FacebookSDKException $e) {
 			redirect('/facebook/login');
 		}
 
@@ -82,7 +83,7 @@ class FacebookController extends Controller {
 	public function getFacebookFriends() {
 		try {
 			$response = $this->fb->get('/me?fields=friends', $this->token);
-		} catch (Facebook\Exceptions\FacebookSDKException $e) {
+		} catch (FacebookSDKException $e) {
 			dd(e);
 		}
 		$grespons = $response->getGraphObject();

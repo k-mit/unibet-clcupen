@@ -24,6 +24,7 @@ main,#main {
   top: 0;
   left: 0;
   color: #fff;
+  padding: 1em;
 }
 
 .cl-logo {
@@ -57,6 +58,12 @@ main,#main {
     .tabrow {
       padding:0;
       margin-bottom:0;
+      :first-child {
+        border-top-left-radius: 5px;
+      }
+      :last-child {
+        border-top-right-radius: 5px;
+      }
       li {
         list-style: none;
         background: #1c4e1b;
@@ -73,15 +80,15 @@ main,#main {
           color: #fff;
           border-top: 5px solid #38a932;
           margin-top: -5px;
+          border-top-right-radius: 5px;
+          border-top-left-radius: 5px;
+
 
         }
       }
     }
     padding-right: 20px;
-    & + .tool {
-      padding-right: 15px;
-      padding-left: 20px;
-    }
+    padding-left: 20px;
   }
 }
 .contentrow {
@@ -128,4 +135,48 @@ main,#main {
 .comp-info {
   padding-top: 4em;
   padding-left: 1em;
+  .row + .row {
+    margin-top: 1.5em;
+  }
+
+}
+.game-table {
+  background: rgba(0,0,0,.5);
+  width: 100%;
+  padding: 1em;
+  &:before, &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 5px 10px 0;
+    border-color: transparent #000000 transparent transparent;
+    top: 0;
+    left:0;
+  }
+  &:after {
+    left: inherit;
+    right: 0;
+    border-width: 10px 5px 0 0;
+    border-color: #000000 transparent transparent transparent;
+  }
+
+}
+.match-row {
+  height: 2.5em;
+  +.match-row {
+    margin-top: 1em;
+  }
+  .match-teams {
+    display: inline-block;
+    float: left;
+    line-height: 2em;
+  }
+  .match-result {
+    display: inline-block;
+    float: right;
+
+  }
 }

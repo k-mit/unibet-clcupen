@@ -79,14 +79,14 @@ class TeamsTableSeeder extends Seeder {
 
 	public function run() {
 		DB::table('teams')->delete();
-		DB::table('teams')->insert(array('id'=>1,'team_name' => 'Club Atlético de Madrid', 'team_country' => 'Spain', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50124.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/ESP.png', 'description' => ''));
-		DB::table('teams')->insert(array('id'=>2,'team_name' => 'FC Barcelona', 'team_country' => 'Spain', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50080.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/ESP.png', 'description' => ''));
-		DB::table('teams')->insert(array('id'=>3,'team_name' => 'FC Bayern München', 'team_country' => 'Germany', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50037.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/GER.png', 'description' => ''));
+		DB::table('teams')->insert(array('id'=>1,'team_name' => 'Atlético Madrid', 'team_country' => 'Spain', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50124.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/ESP.png', 'description' => ''));
+		DB::table('teams')->insert(array('id'=>2,'team_name' => 'Barcelona', 'team_country' => 'Spain', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50080.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/ESP.png', 'description' => ''));
+		DB::table('teams')->insert(array('id'=>3,'team_name' => 'Bayern München', 'team_country' => 'Germany', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50037.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/GER.png', 'description' => ''));
 		DB::table('teams')->insert(array('id'=>4,'team_name' => 'Juventus', 'team_country' => 'Italy', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50139.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/ITA.png', 'description' => ''));
-		DB::table('teams')->insert(array('id'=>5,'team_name' => 'AS Monaco FC', 'team_country' => 'France', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50023.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/FRA.png', 'description' => ''));
-		DB::table('teams')->insert(array('id'=>6,'team_name' => 'Paris Saint-Germain', 'team_country' => 'France', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/52747.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/FRA.png', 'description' => ''));
-		DB::table('teams')->insert(array('id'=>7,'team_name' => 'FC Porto', 'team_country' => 'Portugal', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50064.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/POR.png', 'description' => ''));
-		DB::table('teams')->insert(array('id'=>8,'team_name' => 'Real Madrid CF', 'team_country' => 'Spain', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50051.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/ESP.png', 'description' => ''));
+		DB::table('teams')->insert(array('id'=>5,'team_name' => 'Monaco', 'team_country' => 'France', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50023.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/FRA.png', 'description' => ''));
+		DB::table('teams')->insert(array('id'=>6,'team_name' => 'Paris SG', 'team_country' => 'France', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/52747.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/FRA.png', 'description' => ''));
+		DB::table('teams')->insert(array('id'=>7,'team_name' => 'Porto', 'team_country' => 'Portugal', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50064.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/POR.png', 'description' => ''));
+		DB::table('teams')->insert(array('id'=>8,'team_name' => 'Real Madrid', 'team_country' => 'Spain', 'logo_path' => 'http://img.uefa.com/imgml/TP/teams/logos/70x70/50051.png', 'country_flag_path' => 'http://img.uefa.com/imgml/flags/18x18/ESP.png', 'description' => ''));
 
 	}
 }
