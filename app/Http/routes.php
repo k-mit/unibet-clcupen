@@ -57,12 +57,15 @@ Route::get('/facebook/canvas', function (LaravelFacebookSdk $fb) {
     return view('canvas.index',$fc->getAllVars($token));
 });
 
-Route::Get('/', 'FacebookController@getUserInfo');
+Route::get('/', 'FacebookController@getUserInfo');
 
-Route::Get('/calculateRound', ['middleware' => 'auth', 'uses' => 'FacebookController@calculateRound']);
-Route::Post('/saveBet', ['middleware' => 'auth', 'uses' => 'FacebookController@saveBet']);
-Route::Post('/notifyAll/{id}', ['middleware' => 'auth', 'uses' => 'AdminController@notifyAll']);
-Route::Get('/admin/notifications', ['middleware' => 'auth', 'uses' => 'AdminController@notifications']);
+Route::get('/calculateRound', ['middleware' => 'auth', 'uses' => 'FacebookController@calculateRound']);
+Route::post('/saveBet', ['middleware' => 'auth', 'uses' => 'FacebookController@saveBet']);
+Route::post('/admin/notifyAll/', ['middleware' => 'auth', 'uses' => 'AdminController@notifyAll']);
+Route::get('/admin/notifications', ['middleware' => 'auth', 'uses' => 'AdminController@notifications']);
+Route::get('/admin/snippets', ['middleware' => 'auth', 'uses' => 'AdminController@snippets']);
+Route::post('/admin/saveNotification', ['middleware' => 'auth', 'uses' => 'AdminController@saveNotification']);
+Route::post('/admin/saveSnippet', ['middleware' => 'auth', 'uses' => 'AdminController@saveSnippet']);
 
 
 // Endpoint that is redirected to after an authentication attempt

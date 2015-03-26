@@ -37,10 +37,10 @@ class FacebookNotification extends Command implements SelfHandling, ShouldBeQueu
 		$fb_user_id = $this->user->facebook_user_id;
 		$response = $facebook->post('/' . $fb_user_id . '/notifications', array(
 			'href'     => '',
-			'template' => 'This is a test message',
+			'template' => $this->notification->template,
 		),'1445118565779083'.'|'.'e398f31a2385f33f91d5abeb9ec7e5a4');
 
-		return $response->getGraphObject();
+		//print_r($response->getGraphObject());
 	}
 
 }
