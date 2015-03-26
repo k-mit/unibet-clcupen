@@ -124,6 +124,7 @@ class FacebookController extends Controller {
 			$q->where('rounds.id', '=', $this->getActiveRound()[0]->id);
 		})->where('user_id', '=', $facebook_user['id'])->get();
 		$havePlacedBet = ($oldbetsforthisround->count() > 1 ? 1 : 0);
+
 		return [
 			'facebook_user'    => $facebook_user,
 			'active_round'     => $active_round,

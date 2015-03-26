@@ -61,6 +61,8 @@ Route::Get('/', 'FacebookController@getUserInfo');
 
 Route::Get('/calculateRound', ['middleware' => 'auth', 'uses' => 'FacebookController@calculateRound']);
 Route::Post('/saveBet', ['middleware' => 'auth', 'uses' => 'FacebookController@saveBet']);
+Route::Post('/notifyAll/{id}', ['middleware' => 'auth', 'uses' => 'AdminController@notifyAll']);
+Route::Get('/admin/notifications', ['middleware' => 'auth', 'uses' => 'AdminController@notifications']);
 
 
 // Endpoint that is redirected to after an authentication attempt
