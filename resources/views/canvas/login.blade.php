@@ -19,7 +19,7 @@
             FB.login(function(response) {
                 if (response.authResponse) {
                     console.log(response.authResponse);
-                    $('#reloadform').submit();
+                    window.location.reload();
 
                 } else {
                     console.log('User cancelled login or did not fully authorize.');

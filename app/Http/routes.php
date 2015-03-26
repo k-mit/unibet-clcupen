@@ -11,6 +11,7 @@
 |
 */
 use \App\Http\Controllers\FacebookController;
+use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 
 // Generate a login URL
 Route::get('/apps', function () {
@@ -29,43 +30,31 @@ Route::get('/facebook/datafeed', 'FacebookController@datafeed');
 Route::get('/testsavebet',function(){
 	return view('testsavebet');
 });
-Route::any('/facebook/canvas', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
-
-    $login_link = $fb
-        ->getRedirectLoginHelper()
-        ->getLoginUrl('https://unibet-clcup.k-mit.se/facebook/canvas', ['email']);
-
+Route::post('/facebook/canvas', function (LaravelFacebookSdk $fb) {
     try {
         $token = $fb->getCanvasHelper()->getAccessToken();
     } catch (Facebook\Exceptions\FacebookSDKException $e) {
         // Failed to obtain access token
-		return view('canvas.login');
+        return view('canvas.login');
+
     }
+    $fc = new FacebookController();
 
-    if (!$token) {
-        try {
-            $token = $fb->getJavaScriptHelper()->getAccessToken();
-        } catch (Facebook\Exceptions\FacebookSDKException $e) {
-            // Failed to obtain access token
-            return view('canvas.login');
-        }
+    return view('canvas.index',$fc->getAllVars($token));
+});
+Route::get('/facebook/canvas', function (LaravelFacebookSdk $fb) {
+
+    try {
+        $token = $fb->getJavaScriptHelper()->getAccessToken();
+    } catch (Facebook\Exceptions\FacebookSDKException $e) {
+        // Failed to obtain access token
+        Clockwork::info($e);
+        return view('canvas.login');
     }
-	if (!$token) {
-		try {
-			$token = $fb->getAccessTokenFromRedirect();
-
-		} catch (Facebook\Exceptions\FacebookSDKException $e) {
-			return view('canvas.login');
-		}
-
-	}
-	if (!$token) {
-		return view('canvas.login');
-	}
-
-		$fc = new FacebookController();
-
-        return view('canvas.index',$fc->getAllVars($token));
+    Clockwork::info($token);
+    $fb->setDefaultAccessToken($token);
+    $fc = new FacebookController();
+    return view('canvas.index',$fc->getAllVars($token));
 });
 
 Route::Get('/', 'FacebookController@getUserInfo');
