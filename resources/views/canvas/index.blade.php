@@ -13,10 +13,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <p>
-                                <strong>Hur funkar det?</strong> omnis nis iste natus error sit voluptatem accusantium
-                                doloremque laudantium, totam rem aperiam, ab illo inventore veritatis et quasi
-                                architecto
-                                beatae vitae
+                                {!!$snippets['hur_funkar_det']['snippet_value']!!}
                             </p>
                         </div>
                     </div>
@@ -67,7 +64,8 @@
                         </ul>
                         <div class="row contentrow">
                             <div class="col-xs-12 tabcontent">
-
+                                {!!$snippets['10_tips']['snippet_value']!!}<br><br>
+                                {!!$snippets['glenns_tips']['snippet_value']!!}<br>
                             </div>
                         </div>
                     </div>
@@ -96,7 +94,7 @@
                 </div>
                 <div class="row party-box glenn-bg">
                     <div class="col-xs-12">
-
+                        {{$tiebreaker_done}}
                     </div>
 
                 </div>

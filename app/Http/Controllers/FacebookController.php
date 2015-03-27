@@ -69,7 +69,8 @@ class FacebookController extends Controller {
 		// Create the user if it does not exist or update the existing entry.
 		// This will only work if you've added the SyncableGraphNodeTrait to your User model.
 		$user = User::createOrUpdateGraphNode($facebook_user);
-
+		$facebook_user['user_id'] = $user['id'];
+		$facebook_user['tiebreaker'] = $user['tiebreaker'];
 		// Log the user into Laravel
 		Auth::login($user);
 
@@ -124,6 +125,7 @@ class FacebookController extends Controller {
 			$q->where('rounds.id', '=', $this->getActiveRound()[0]->id);
 		})->where('user_id', '=', $facebook_user['id'])->get();
 		$havePlacedBet = ($oldbetsforthisround->count() > 1 ? 1 : 0);
+		$tiebreaker_done = ($facebook_user['tiebreaker'] == 0 ? 0 : 1);
 
 		return [
 			'facebook_user'    => $facebook_user,
@@ -132,7 +134,8 @@ class FacebookController extends Controller {
 			'havePlacedBet'    => $havePlacedBet,
 			'highscoreAll'     => $highscoreAll,
 			'highscoreFriends' => $highscoreFriends,
-			'snippets'         => $snippets
+			'snippets'         => $snippets,
+			'tiebreaker_done'  => $tiebreaker_done
 		];
 	}
 
