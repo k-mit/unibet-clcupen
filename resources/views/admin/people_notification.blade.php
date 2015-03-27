@@ -22,9 +22,15 @@
 
         @endforeach
     </table><br><br>
+    <!-- Users Form Input -->
+    <div class="form-group">
+        {!! Form::label('users', 'Users to send to:',['class' => 'form-label']) !!}
+        {!! Form::select('users[]', $users,null, ['class' => 'form-control', 'multiple']) !!}
+    </div>
+
     <!-- Send notification to all users Form Submit -->
     <div class="form-group">
-        {!! Form::Submit('Send notification to all users', ['class' => 'btn btn-primary form-control']) !!}
+        {!! Form::Submit('Send notification to selected users', ['class' => 'btn btn-primary form-control']) !!}
     </div>
     {!! Form::close() !!}
     <hr />

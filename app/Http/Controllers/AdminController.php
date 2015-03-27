@@ -8,6 +8,7 @@ use App\Notification;
 use App\Snippet;
 use Illuminate\Http\Request;
 use App\User;
+use App\Highscore;
 class AdminController extends Controller {
 
 
@@ -19,6 +20,14 @@ class AdminController extends Controller {
 
 	public function notifications() {
 		return view('admin/notifications',['notifications_list'=>Notification::get()]);
+	}
+
+	public function notificationsPersons() {
+		$hiscoreUsers_raw = Highscore::with('user')->where('round', '=', 10)->orderBy('score', 'desc')->get();
+		foreach ($hiscoreUsers_raw as $hiscoreUser){
+			$hiscoreUsers[$hiscoreUser->user_id]=$hiscoreUser->user->name.' '.$hiscoreUser->user->facebook_user_id;
+		}
+		return view('admin/people_notification',['notifications_list'=>Notification::get(),'users'=>$hiscoreUsers]);
 	}
 
 	public function saveNotification(Request $request){
@@ -46,12 +55,15 @@ class AdminController extends Controller {
 		return redirect('admin/notifications');
 	}
 	public function notifyPersons(Request $request) {
-		$all_users = User::get()-wherein('id',$request->get('user_ids'));
+		$users_selected = array_values($request->get('users'));
+		$all_users = User::wherein('id',$users_selected)->get();
+		$notification = Notification::where('id', '=', $request->input('notification_id'))->first();
 		foreach ($all_users as $user) {
 			$this->dispatch(
-				new FacebookNotification(User::where('facebook_user_id', '=', $user->facebook_user_id)->first(), Notification::where('id', '=', $request->input('notification_id'))->first())
+				new FacebookNotification($user, $notification)
 			);
 		}
-		return redirect('admin/notifications');
+
+		return redirect('admin/notificationsPersons');
 	}
 }

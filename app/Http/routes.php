@@ -64,6 +64,7 @@ Route::post('/saveBet', ['middleware' => 'auth', 'uses' => 'FacebookController@s
 Route::post('/admin/notifyAll', ['middleware' => 'auth', 'uses' => 'AdminController@notifyAll']);
 Route::post('/admin/notifyPersons', ['middleware' => 'auth', 'uses' => 'AdminController@notifyPersons']);
 Route::get('/admin/notifications', ['middleware' => 'auth', 'uses' => 'AdminController@notifications']);
+Route::get('/admin/notificationsPersons', ['middleware' => 'auth', 'uses' => 'AdminController@notificationsPersons']);
 Route::get('/admin/snippets', ['middleware' => 'auth', 'uses' => 'AdminController@snippets']);
 Route::post('/admin/saveNotification', ['middleware' => 'auth', 'uses' => 'AdminController@saveNotification']);
 Route::post('/admin/saveSnippet', ['middleware' => 'auth', 'uses' => 'AdminController@saveSnippet']);
