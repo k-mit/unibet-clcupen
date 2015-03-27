@@ -15,49 +15,29 @@ use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 
 // Generate a login URL
 Route::get('/apps', function () {
-   return view('canvas.index');
+    return view('canvas.index');
 });
+Route::any('facebook/canvas', [
+    'uses' => 'facebookController@viewCanvas',
+    'middleware' => 'auth.facebook',
+]);
 Route::get('/facebook/login', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     // Send an array of permissions to request
     $login_url = $fb->getLoginUrl(['email']);
-	return redirect($login_url);
+    return redirect($login_url);
     // Obviously you'd do this in blade :)
 //    echo '<a href="' . $login_url . '">Login with Facebook</a>';
 });
 Route::get('/facebook/friends', 'FacebookController@getFacebookFriends');
 
 Route::get('/facebook/datafeed', 'FacebookController@datafeed');
-Route::get('/testsavebet',function(){
-	return view('testsavebet');
-});
-Route::post('/facebook/canvas', function (LaravelFacebookSdk $fb) {
-    try {
-        $token = $fb->getCanvasHelper()->getAccessToken();
-    } catch (Facebook\Exceptions\FacebookSDKException $e) {
-        // Failed to obtain access token
-        return view('canvas.login');
-
-    }
-    $fc = new FacebookController();
-
-    return view('canvas.index',$fc->getAllVars($token));
-});
-Route::get('/facebook/canvas', function (LaravelFacebookSdk $fb) {
-
-    try {
-        $token = $fb->getJavaScriptHelper()->getAccessToken();
-    } catch (Facebook\Exceptions\FacebookSDKException $e) {
-        // Failed to obtain access token
-        Clockwork::info($e);
-        return view('canvas.login');
-    }
-    Clockwork::info($token);
-    $fb->setDefaultAccessToken($token);
-    $fc = new FacebookController();
-    return view('canvas.index',$fc->getAllVars($token));
+Route::get('/testsavebet', function () {
+    return view('testsavebet');
 });
 
-Route::get('/', 'FacebookController@getUserInfo');
+
+
+Route::get('/', function () {return '';});
 
 Route::get('/calculateRound', ['middleware' => 'auth', 'uses' => 'FacebookController@calculateRound']);
 Route::post('/saveBet', ['middleware' => 'auth', 'uses' => 'FacebookController@saveBet']);
@@ -135,71 +115,71 @@ Route::get('facebook/connected', function (SammyK\LaravelFacebookSdk\LaravelFace
 
     return redirect('/')->with('message', 'Successfully logged in with Facebook');
 
-});
+}, []);
 
 Route::get('facebook/callback', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
-	// Obtain an access token.
-	try {
-		$token = $fb->getAccessTokenFromRedirect();
+    // Obtain an access token.
+    try {
+        $token = $fb->getAccessTokenFromRedirect();
 
-	} catch (Facebook\Exceptions\FacebookSDKException $e) {
-		dd($e->getMessage());
-	}
+    } catch (Facebook\Exceptions\FacebookSDKException $e) {
+        dd($e->getMessage());
+    }
 
-	// Access token will be null if the user denied the request
-	// or if someone just hit this URL outside of the OAuth flow.
-	if (!$token) {
-		// Get the redirect helper
-		$helper = $fb->getRedirectLoginHelper();
+    // Access token will be null if the user denied the request
+    // or if someone just hit this URL outside of the OAuth flow.
+    if (!$token) {
+        // Get the redirect helper
+        $helper = $fb->getRedirectLoginHelper();
 
-		if (!$helper->getError()) {
-			abort(403, 'Unauthorized action.');
-		}
+        if (!$helper->getError()) {
+            abort(403, 'Unauthorized action.');
+        }
 
-		// User denied the request
-		dd(
-			$helper->getError(),
-			$helper->getErrorCode(),
-			$helper->getErrorReason(),
-			$helper->getErrorDescription()
-		);
-	}
+        // User denied the request
+        dd(
+            $helper->getError(),
+            $helper->getErrorCode(),
+            $helper->getErrorReason(),
+            $helper->getErrorDescription()
+        );
+    }
 
-	if (!$token->isLongLived()) {
-		// OAuth 2.0 client handler
-		$oauth_client = $fb->getOAuth2Client();
+    if (!$token->isLongLived()) {
+        // OAuth 2.0 client handler
+        $oauth_client = $fb->getOAuth2Client();
 
-		// Extend the access token.
-		try {
-			$token = $oauth_client->getLongLivedAccessToken($token);
-		} catch (Facebook\Exceptions\FacebookSDKException $e) {
-			dd($e->getMessage());
-		}
-	}
+        // Extend the access token.
+        try {
+            $token = $oauth_client->getLongLivedAccessToken($token);
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
+            dd($e->getMessage());
+        }
+    }
 
-	$fb->setDefaultAccessToken($token);
+    $fb->setDefaultAccessToken($token);
 
-	// Save for later
-	Session::put('fb_user_access_token', (string)$token);
+    // Save for later
+    Session::put('fb_user_access_token', (string)$token);
 
-	// Get basic info on the user from Facebook.
-	try {
-		$response = $fb->get('/me?fields=id,name,email,user_friends');
-	} catch (Facebook\Exceptions\FacebookSDKException $e) {
-		dd($e->getMessage());
-	}
+    // Get basic info on the user from Facebook.
+    try {
+        $response = $fb->get('/me?fields=id,name,email,user_friends');
+    } catch (Facebook\Exceptions\FacebookSDKException $e) {
+        dd($e->getMessage());
+    }
 
-	// Convert the response to a `Facebook/GraphNodes/GraphUser` collection
-	$facebook_user = $response->getGraphUser();
+    // Convert the response to a `Facebook/GraphNodes/GraphUser` collection
+    $facebook_user = $response->getGraphUser();
 
-	// Create the user if it does not exist or update the existing entry.
-	// This will only work if you've added the SyncableGraphNodeTrait to your User model.
-	$user = App\User::createOrUpdateGraphNode($facebook_user);
+    // Create the user if it does not exist or update the existing entry.
+    // This will only work if you've added the SyncableGraphNodeTrait to your User model.
+    $user = App\User::createOrUpdateGraphNode($facebook_user);
 
-	// Log the user into Laravel
-	Auth::login($user);
+    // Log the user into Laravel
+    Auth::login($user);
 
-	return redirect('/')->with('message', 'Successfully logged in with Facebook');
+    return redirect('/')->with('message', 'Successfully logged in with Facebook');
 
 });
 

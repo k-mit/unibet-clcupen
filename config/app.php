@@ -138,7 +138,7 @@ return [
 		'Illuminate\Html\HtmlServiceProvider',
 		'SammyK\LaravelFacebookSdk\LaravelFacebookSdkServiceProvider',
 		'Clockwork\Support\Laravel\ClockworkServiceProvider',
-
+		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		/*
 		 * Application Service Providers...
 		 */
