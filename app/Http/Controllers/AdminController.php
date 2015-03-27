@@ -11,16 +11,7 @@ use App\User;
 class AdminController extends Controller {
 
 
-	public function notifyAll(Request $request) {
-		$all_users = User::get();
-		foreach ($all_users as $user) {
-			//echo 'Sending to: ' . $user->name . '(' . $user->facebook_user_id . ')' . '<br>';
-			$this->dispatch(
-				new FacebookNotification(User::where('facebook_user_id', '=', $user->facebook_user_id)->first(), Notification::where('id', '=', $request->input('notification_id'))->first())
-			);
-		}
-		return redirect('admin/notifications');
-	}
+
 
 	public function snippets(){
 		return view('admin/snippets',['snippets_list'=>Snippet::get()]);
@@ -44,5 +35,23 @@ class AdminController extends Controller {
 		\Session::flash('flash_message','Snippet "'.$request['snippet_name'].'" saved.');
 		return redirect('admin/snippets');
 	}
-
+	public function notifyAll(Request $request) {
+		$all_users = User::get();
+		foreach ($all_users as $user) {
+			//echo 'Sending to: ' . $user->name . '(' . $user->facebook_user_id . ')' . '<br>';
+			$this->dispatch(
+				new FacebookNotification(User::where('facebook_user_id', '=', $user->facebook_user_id)->first(), Notification::where('id', '=', $request->input('notification_id'))->first())
+			);
+		}
+		return redirect('admin/notifications');
+	}
+	public function notifyPersons(Request $request) {
+		$all_users = User::get()-wherein('id',$request->get('user_ids'));
+		foreach ($all_users as $user) {
+			$this->dispatch(
+				new FacebookNotification(User::where('facebook_user_id', '=', $user->facebook_user_id)->first(), Notification::where('id', '=', $request->input('notification_id'))->first())
+			);
+		}
+		return redirect('admin/notifications');
+	}
 }

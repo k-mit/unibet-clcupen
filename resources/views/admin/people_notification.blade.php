@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {!! Form::open(['url'=>'/admin/notifyAll','method'=>'post']) !!}
+    {!! Form::open(['url'=>'/admin/notifyPersons','method'=>'post']) !!}
     <h2>Send notifications to all</h2>
     <table border="1" width="100%">
         <thead>
@@ -12,15 +12,15 @@
             <th>Created at</th>
         </tr>
         </thead>
-    @foreach($notifications_list as $notification_row)
-        <tr>
-            <td align="center">{!! Form::radio('notification_id', $notification_row['id']) !!} </td>
-            <td>{{$notification_row['template']}}</td>
-            <td>{{$notification_row['created_at']}}</td>
+        @foreach($notifications_list as $notification_row)
+            <tr>
+                <td align="center">{!! Form::radio('notification_id', $notification_row['id']) !!} </td>
+                <td>{{$notification_row['template']}}</td>
+                <td>{{$notification_row['created_at']}}</td>
 
-        </tr>
+            </tr>
 
-    @endforeach
+        @endforeach
     </table><br><br>
     <!-- Send notification to all users Form Submit -->
     <div class="form-group">
@@ -41,4 +41,5 @@
     </div>
 
     {!! Form::close() !!}
+    "id":1,"href":"\/","template":"Pontus testar fint","created_at":"-0001-11-30 00:00:00","updated_at":"-0001-11-30 00:00:00"}
 @endsection

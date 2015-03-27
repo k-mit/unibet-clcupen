@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    <h2>Update text snippets</h2>
+    <h2 style="text-align: center">Update text snippets</h2>
     @foreach($snippets_list as $snippet)
         {!! Form::open(['url'=>'/admin/saveSnippet']) !!}
         <!-- Id Form Input -->
@@ -14,9 +14,9 @@
         </div>
 
         <!-- Snippet_value Form Input -->
-        Snippet name: {{$snippet['snippet_name']}}
+
         <div class="form-group">
-            {!! Form::label('snippet_value', 'Snippet value:',['class' => 'form-label']) !!}
+            <h3>{!! Form::label('snippet_value', $snippet['snippet_name'],['class' => 'form-label']) !!}</h3> <strong>{{$snippet['description']}}</strong>
             {!! Form::textarea('snippet_value', $snippet['snippet_value'], ['class' => 'form-control editable','rows'=>'4']) !!}
         </div>
 
@@ -26,5 +26,7 @@
         </div>
 
         {!! Form::close() !!}
+        <hr />
+        <br />
     @endforeach
 @endsection
