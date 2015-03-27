@@ -3,7 +3,7 @@
 @section('content')
 
     {!! Form::open(['url'=>'/admin/notifyPersons','method'=>'post']) !!}
-    <h2>Send notifications to all</h2>
+    <h2>Send notifications to selected users</h2>
     <table border="1" width="100%">
         <thead>
         <tr>
@@ -24,7 +24,7 @@
     </table><br><br>
     <!-- Users Form Input -->
     <div class="form-group">
-        {!! Form::label('users', 'Users to send to:',['class' => 'form-label']) !!}
+        {!! Form::label('users', 'Users to send to (cmd/ctrl/shift click to select more than one):',['class' => 'form-label']) !!}
         {!! Form::select('users[]', $users,null, ['class' => 'form-control', 'multiple']) !!}
     </div>
 

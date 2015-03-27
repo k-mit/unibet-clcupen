@@ -8,7 +8,6 @@ use App\Http\Requests;
 use App\Invite;
 use App\Notification;
 use App\Snippet;
-use Clockwork;
 use Illuminate\Http\Request;
 use Facebook\Exceptions;
 use Illuminate\Support\Facades\DB;
@@ -45,7 +44,7 @@ class FacebookController extends Controller {
      */
     public function __construct() {
         $this->fb = \App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
-//		$this->middleware('auth.facebook', ['only' => ['viewCanvas']]);
+        //$this->getFacebookToken();
         return $this;
     }
 
@@ -58,9 +57,13 @@ class FacebookController extends Controller {
      */
     public function getUserInfo() {
 
-        return \Session::get('facebook_user');
+        $facebook_user = \Session::get('facebook_user');
+        $user = \Auth::getUser();
+        $facebook_user['user_id'] = $user['id'];
+        $facebook_user['tiebreaker'] = $user['tiebreaker'];
+        return $facebook_user;
     }
-
+    
     /**
      * @author  Pontus Kindblad & Anton Kindblad
      * @access  public
@@ -71,7 +74,7 @@ class FacebookController extends Controller {
         try {
             $response = $this->fb->get('/me?fields=friends', $this->token);
         } catch (FacebookSDKException $e) {
-            dd($e);
+            dd(e);
         }
         $grespons = $response->getGraphObject();
         if (!isset($grespons['friends']) || is_null($grespons['friends'])) {
@@ -96,13 +99,9 @@ class FacebookController extends Controller {
      */
     public function getAllVars() {
 
-
         //\Event::fire(new reLogIn());
 
-        $facebook_user = $this->getUserInfo();
-        if (!$facebook_user) {
-            return null;
-        }
+        $facebook_user = $this->getUserInfo()->asArray();
         $active_round = $this->getActiveRound();
         $fbFriends = $this->getFacebookFriends();
         $snippets = $this->getSnippets();
@@ -112,14 +111,17 @@ class FacebookController extends Controller {
             $q->where('rounds.id', '=', $this->getActiveRound()[0]->id);
         })->where('user_id', '=', $facebook_user['id'])->get();
         $havePlacedBet = ($oldbetsforthisround->count() > 1 ? 1 : 0);
+        $tiebreaker_done = ($facebook_user['tiebreaker'] == 0 ? 0 : 1);
+
         return [
-            'facebook_user' => $facebook_user->asArray(),
-            'active_round' => $active_round,
-            'fbFriends' => $fbFriends,
-            'havePlacedBet' => $havePlacedBet,
-            'highscoreAll' => $highscoreAll,
+            'facebook_user'    => $facebook_user,
+            'active_round'     => $active_round,
+            'fbFriends'        => $fbFriends,
+            'havePlacedBet'    => $havePlacedBet,
+            'highscoreAll'     => $highscoreAll,
             'highscoreFriends' => $highscoreFriends,
-            'snippets' => $snippets
+            'snippets'         => $snippets,
+            'tiebreaker_done'  => $tiebreaker_done
         ];
     }
 
@@ -320,11 +322,6 @@ class FacebookController extends Controller {
         }
         return 'save=error';
     }
-
-    /**
-     * Returns the canvas application view to the user
-     * @return \Illuminate\View\View
-     */
     public function viewCanvas() {
         $this->fb->setDefaultAccessToken($this->getFacebookToken());
         return view('canvas.index', $this->getAllVars());
@@ -338,4 +335,3 @@ class FacebookController extends Controller {
         return view('canvas.login');
     }
 }
-
