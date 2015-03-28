@@ -12,7 +12,8 @@
     "sammyk/laravel-facebook-sdk": "~2.0@dev",
     "illuminate/html": "~5.0",
     "itsgoingd/clockwork": "dev-master",
-    "facebook/php-sdk-v4": "~4.1.0@dev"
+    "facebook/php-sdk-v4": "~4.1.0@dev",
+    "maatwebsite/excel": "~2.0.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",

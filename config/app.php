@@ -139,6 +139,7 @@ return [
 		'SammyK\LaravelFacebookSdk\LaravelFacebookSdkServiceProvider',
 		'Clockwork\Support\Laravel\ClockworkServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+		'Maatwebsite\Excel\ExcelServiceProvider',
 		/*
 		 * Application Service Providers...
 		 */
@@ -199,7 +200,7 @@ return [
 		'Html'      => 'Illuminate\Html\HtmlFacade',
 		'Facebook' => 'SammyK\LaravelFacebookSdk\FacebookFacade',
 		'Clockwork' => 'Clockwork\Support\Laravel\Facade',
-
+		'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 	],
 
 ];
