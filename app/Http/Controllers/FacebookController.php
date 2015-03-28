@@ -82,7 +82,6 @@ class FacebookController extends Controller {
         }
         foreach ($grespons['friends'] as $friend_key => $friend) {
             $grespons['friends'][$friend_key]['user_id'] = User::where('facebook_user_id', '=', $friend['id'])->first()['id'];
-
         }
 
         return $grespons['friends'];
@@ -156,7 +155,14 @@ class FacebookController extends Controller {
      * </code>
      */
     public function highScoreAll() {
-        return Highscore::where('round', '=', 10)->with('user')->orderBy('score', 'desc')->get();
+		$highscoreList = DB::select(DB::raw('select (@row_number:=@row_number + 1) AS num, highscores.*, users.name AS user_name FROM `highscores`,users,(SELECT @row_number:=0) AS t where highscores.user_id = users.id AND `round` = 10 order by `score` desc'));
+		foreach ($highscoreList as $highscoreUser){
+			if ($highscoreUser->user_id==Auth::user()->id) {
+				$highscoreList['me']=$highscoreUser;
+				break;
+			}
+		}
+		return $highscoreList;
     }
 
     /**
@@ -170,12 +176,18 @@ class FacebookController extends Controller {
      * </code>
      */
     public function highscoreFriends($fbFriends) {
-        $friendstring = '';
         foreach ($fbFriends as $friend) {
             $friends[] = $friend['user_id'];
         }
         $friends[] = Auth::user()->id;
-        return Highscore::with('user')->where('round', '=', 10)->whereIn('user_id', $friends)->orderBy('score', 'desc')->get();
+		$highscoreFriends = DB::select(DB::raw('select (@row_number:=@row_number + 1) AS num, highscores.*, users.name AS user_name FROM `highscores`,users,(SELECT @row_number:=0) AS t where highscores.user_id = users.id AND `round` = 10 and `user_id` in ('.implode(',',$friends).') order by `score` desc'));
+		foreach ($highscoreFriends as $highscoreFriend){
+			if ($highscoreFriend->user_id==Auth::user()->id) {
+				$highscoreFriends['me']=$highscoreFriend;
+				break;
+			}
+		}
+		return $highscoreFriends;
 
     }
 
@@ -313,7 +325,7 @@ class FacebookController extends Controller {
      */
     public function saveInvite(Request $request) {
         $oldinvites = Invites::where('user_id', '=', $request->user()->id)->get();
-        if ($oldinvites->count() <= $this->getActiveRound()[0]->id * 5) {
+        if ($oldinvites->count() <= 5) {
             $invite = new Invite();
             $invite->user_id = $request->user()->id;
             $invite->round_id = $this->getActiveRound()[0]->id;

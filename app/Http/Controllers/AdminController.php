@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Commands\FacebookNotification;
 
 use App\Notification;
@@ -10,8 +9,6 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Highscore;
 class AdminController extends Controller {
-
-
 
 
 	public function snippets(){
@@ -46,10 +43,11 @@ class AdminController extends Controller {
 	}
 	public function notifyAll(Request $request) {
 		$all_users = User::get();
+		$notification = Notification::where('id', '=', $request->input('notification_id'))->first();
 		foreach ($all_users as $user) {
 			//echo 'Sending to: ' . $user->name . '(' . $user->facebook_user_id . ')' . '<br>';
 			$this->dispatch(
-				new FacebookNotification(User::where('facebook_user_id', '=', $user->facebook_user_id)->first(), Notification::where('id', '=', $request->input('notification_id'))->first())
+				new FacebookNotification($user, $notification)
 			);
 		}
 		return redirect('admin/notifications');

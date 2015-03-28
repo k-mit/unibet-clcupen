@@ -27,6 +27,7 @@
                 @endforeach
                 <br/>
                 <br/>
+                {{$tiebreaker_done}}
                 <br/>
                 <div class="game-table">
                     @foreach($active_round[0]['matches'] as $key=>$match)
@@ -80,13 +81,19 @@
                         </ul>
                         <div class="row contentrow">
                             <div class="col-xs-12 tabcontent">
-                                @foreach($highscoreAll as $highscoreAll_row)
-                                    {{$highscoreAll_row->score}} {{$highscoreAll_row->user->name}}<br/>
+                                @foreach($highscoreAll as $hs_key => $highscoreAll_row)
+                                    @unless($hs_key == 'me')
+                                    {{$highscoreAll_row->num}} {{$highscoreAll_row->user_name}} {{$highscoreAll_row->score}}<br/>
+                                    @endunless
                                 @endforeach
+                                   JAG: {{$highscoreAll['me']->num}} {{$highscoreAll['me']->user_name}} {{$highscoreAll['me']->score}}<br>
                                 <br>Highscore Friends:<br>
-                                @foreach($highscoreFriends as $highscoreAll_row)
-                                    {{$highscoreAll_row->score}} {{$highscoreAll_row->user->name}}<br/>
+                                @foreach($highscoreFriends as $hs_key => $highscoreFriends_row)
+                                        @unless($hs_key == 'me')
+                                        {{$highscoreFriends_row->num}} {{$highscoreFriends_row->user_name}} {{$highscoreFriends_row->score}}<br/>
+                                        @endunless
                                 @endforeach
+                                    JAG: {{$highscoreFriends['me']->num}} {{$highscoreFriends['me']->user_name}} {{$highscoreFriends['me']->score}}
                             </div>
                         </div>
 
@@ -94,7 +101,7 @@
                 </div>
                 <div class="row party-box glenn-bg">
                     <div class="col-xs-12">
-                        {{$tiebreaker_done}}
+
                     </div>
 
                 </div>
