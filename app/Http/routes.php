@@ -29,17 +29,18 @@ Route::post('/saveBet', ['middleware' => 'auth.facebook', 'uses' => 'FacebookCon
 /**
  * admin routes
  */
-Route::get('/admin/notifications', ['as' => 'notifications', 'middleware' => 'auth.facebook', 'uses' => 'AdminController@notifications']);
-Route::get('/admin/notificationsPersons', ['as' => 'notificationsPersons', 'middleware' => 'auth.facebook', 'uses' => 'AdminController@notificationsPersons']);
-Route::get('/admin/snippets', ['as' => 'snippets', 'middleware' => 'auth.facebook', 'uses' => 'AdminController@snippets']);
-Route::get('/admin', ['middleware' => 'auth.facebook', 'uses' => 'AdminController@snippets']);
-Route::get('/admin/roundResults/{round_id}', ['as' => 'roundResults', 'middleware' => 'auth.facebook', 'uses' => 'AdminController@roundResults']);
+Route::get('/admin/notifications', ['as' => 'notifications', 'middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@notifications']);
+Route::get('/admin/notificationsPersons', ['as' => 'notificationsPersons', 'middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@notificationsPersons']);
+Route::get('/admin/snippets', ['as' => 'snippets', 'middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@snippets']);
+Route::get('/admin', ['middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@snippets']);
+Route::get('/admin/roundResults/{round_id}', ['as' => 'roundResults', 'middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@roundResults']);
+
 Route::get('/logout', 'AdminController@logout');
 /**
  * action routes for admin
  */
-Route::get('/calculateRound', ['middleware' => 'auth.facebook', 'uses' => 'FacebookController@calculateRound']);
-Route::post('/admin/notifyAll', ['middleware' => 'auth.facebook', 'uses' => 'AdminController@notifyAll']);
-Route::post('/admin/notifyPersons', ['middleware' => 'auth.facebook', 'uses' => 'AdminController@notifyPersons']);
-Route::post('/admin/saveNotification', ['middleware' => 'auth.facebook', 'uses' => 'AdminController@saveNotification']);
-Route::post('/admin/saveSnippet', ['middleware' => 'auth', 'auth.facebook' => 'AdminController@saveSnippet']);
+Route::get('/calculateRound', ['middleware' => 'auth.facebook_admin', 'uses' => 'FacebookController@calculateRound']);
+Route::post('/admin/notifyAll', ['middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@notifyAll']);
+Route::post('/admin/notifyPersons', ['middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@notifyPersons']);
+Route::post('/admin/saveNotification', ['middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@saveNotification']);
+Route::post('/admin/saveSnippet', ['middleware' => 'auth', 'auth.facebook_admin' => 'AdminController@saveSnippet']);

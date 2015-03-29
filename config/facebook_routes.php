@@ -5,9 +5,12 @@ return [
      *  Define the endpoints for facebook exceptions
      *  Please provide full namespace for controller-paths
      */
-//    'login' => 'App\Http\Controllers\FacebookController@viewLogin',
-    'login' => function () {
-        return view('canvas.login');
-    },
-    'reauth' => 'App\Http\Controllers\FacebookController@viewReauth'
+//    'login' => function () {
+//        return view('canvas.login');
+//    },
+    'login' => 'App\Http\Controllers\FacebookController@viewLogin',
+    'reauth' => 'App\Http\Controllers\FacebookController@viewReauth',
+    'notadmin' => function () {
+        return "Not authorized";
+    }
 ];

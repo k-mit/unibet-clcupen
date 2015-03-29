@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Highscore;
 use Session;
-use Illuminate\Support\Facades\DB;
-use Auth;
 
 class AdminController extends Controller {
 
@@ -24,6 +22,12 @@ class AdminController extends Controller {
 	public function logout() {
 		\Auth::logout();
 		Session::forget('facebook_access_token');
+		Session::forget('facebook_user');
+
+		//TODO clear the facebook cookie so we don't pull it when coming back, the following lines do not work
+		$fb_key = 'fbsr_'.config('laravel-facebook-sdk.facebook_config.app_id');
+		setcookie($fb_key, '', time()-3600);
+
 		return 'logged out';
 	}
 
@@ -58,7 +62,8 @@ class AdminController extends Controller {
 	}
 
 	public function roundResults($round){
-		return view('admin/roundresults',['highscore' => $this->highScoreRound($round),'round'=>$round]);
+		dd($round);
+		view('admin.roundresults',$this->highScoreRound($round));
 	}
 
 	public function saveNotification(Request $request) {

@@ -28,7 +28,8 @@ class Kernel extends HttpKernel {
 		'auth' => 'App\Http\Middleware\Authenticate',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
-		'auth.facebook' => 'App\Http\Middleware\FacebookLoginMiddleware'
+		'auth.facebook' => 'App\Http\Middleware\FacebookLoginMiddleware',
+		'auth.facebook_admin' => 'App\Http\Middleware\FacebookAdminMiddleware'
 	];
 
 }

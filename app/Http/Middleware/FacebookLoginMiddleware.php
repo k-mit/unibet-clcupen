@@ -13,7 +13,9 @@ use Session;
 
 class FacebookLoginMiddleware {
 
-    private $facebook;
+    protected $facebook;
+    protected $facebook_acesstoken;
+    protected $facebook_user;
 
     /**
      * Handle an incoming request trough the facebook api.
@@ -23,34 +25,9 @@ class FacebookLoginMiddleware {
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        Clockwork::startEvent('facebookMiddleware','starting the facebook authentication');
-        $this->facebook = \App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
+        Clockwork::startEvent('facebookMiddleware', 'starting the facebook authentication');
 
-        switch ($request->getMethod()) {
-            case 'GET':
-
-                break;
-            case 'POST':
-                break;
-
-        }
-        $token = $this->checkAccessToken($this->facebook);
-        Clockwork::info($token);
-        if (!$token) {
-            $this->applyNewRoute('login');
-        } else if(is_int($token)) {
-            Clockwork::info('Getting a facebook error: ' . $token);
-            switch($token) {
-                case 100:
-                    $this->applyNewRoute('login');
-                    break;
-                default:
-                    $this->applyNewRoute('login');
-                    break;
-            }
-        }
-
-
+        $token = $this->handleFacebook();
 
         Clockwork::endEvent('facebookMiddleware');
         return $next($request);
@@ -62,11 +39,46 @@ class FacebookLoginMiddleware {
      * this endpoints are setup in the /config/facebook_routes.php file
      *
      */
-    private function applyNewRoute($target) {
+    protected function applyNewRoute($target) {
+
         $action = Route::current()->getAction();
-        $action['uses'] = config('facebook_routes.' . $target);
+        if (Route::getCurrentRequest()->isJson()) {
+            //TODO Better JSON error-response
+            $action['uses'] = function () {
+                return json_encode(array("status" => "error", "data" => null, "message" => "this is probably a unauthorized request"));
+            };
+        } else {
+            $action['uses'] = config('facebook_routes.' . $target);
+
+        }
         Route::current()->setAction($action);
 
+    }
+
+
+    /**
+     * Start the facebook authentication
+     * @return AccessToken|int|null
+     */
+    protected function handleFacebook() {
+        $this->facebook = \App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
+
+        $token = $this->checkAccessToken($this->facebook);
+
+        if (!$token) {
+            $this->applyNewRoute('login');
+        } else if (is_int($token)) {
+            Clockwork::info('Getting a facebook error: ' . $token);
+            switch ($token) {
+                case 100:
+                    $this->applyNewRoute('login');
+                    break;
+                default:
+                    $this->applyNewRoute('login');
+                    break;
+            }
+        }
+        return $token;
     }
 
     /**
@@ -76,6 +88,7 @@ class FacebookLoginMiddleware {
      *
      */
     private function checkAccessToken(LaravelFacebookSdk $facebook) {
+
         $token = Session::get('facebook_access_token');
 
         if (!$token) {
@@ -100,31 +113,38 @@ class FacebookLoginMiddleware {
      * @return AccessToken|int
      */
     private function validateToken($token) {
-        if(!$token instanceof AccessToken) {
+        if (!$token instanceof AccessToken) {
 //            Auth::logout();
             return $token;
         }
         try {
-            $facebook_request = $this->facebook->get('/me?fields=id,name,email',$token);
+            $facebook_request = $this->facebook->get('/me?fields=id,name,email', $token);
         } catch (FacebookSDKException $exception) {
             Clockwork::info([$exception->getMessage(), $exception->getCode()]);
             Session::forget('facebook_access_token');
             Auth::logout();
+
             return $exception->getCode();
 
         }
-        Session::set('facebook_access_token',$token);
-        $this->facebook->setDefaultAccessToken($token);
-        $facebook_user = $facebook_request->getGraphUser();
-        $user = User::createOrUpdateGraphNode($facebook_user);
-        Session::set('facebook_user',$facebook_user);
 
+        /*
+         * All is good, lets store the goodies
+         */
+
+        $this->facebook_acesstoken = $token;
+        $this->facebook->setDefaultAccessToken($token);
+        $this->facebook_user = $facebook_request->getGraphUser();
+
+
+        Session::set('facebook_access_token', $token);
+        Session::set('facebook_user', $this->facebook_user);
+
+        $user = User::createOrUpdateGraphNode($this->facebook_user);
         Auth::login($user);
 
-        Clockwork::info($facebook_request);
         return $token;
     }
-
 
 
     /**
@@ -153,7 +173,7 @@ class FacebookLoginMiddleware {
 
             }
         }
-        Clockwork::info($token);
+        Clockwork::info(['pullAccessToken', $token]);
         return $token;
     }
 
