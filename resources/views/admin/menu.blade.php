@@ -17,6 +17,7 @@
                 <li><a href="{{route('roundResults',['round'=>2])}}"><span>Round 2</span></a></li>
                 <li><a href="{{route('roundResults',['round'=>3])}}"><span>Round 3</span></a></li>
                 <li><a href="{{route('roundResults',['round'=>4])}}"><span>Round 4</span></a></li>
+                <li><a href="{{route('roundResults',['round'=>10])}}"><span>All rounds</span></a></li>
             </ul>
         </li>
     </ul>

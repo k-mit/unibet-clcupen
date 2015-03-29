@@ -33,7 +33,7 @@ Route::get('/admin/notifications', ['as' => 'notifications', 'middleware' => 'au
 Route::get('/admin/notificationsPersons', ['as' => 'notificationsPersons', 'middleware' => 'auth.facebook', 'uses' => 'AdminController@notificationsPersons']);
 Route::get('/admin/snippets', ['as' => 'snippets', 'middleware' => 'auth.facebook', 'uses' => 'AdminController@snippets']);
 Route::get('/admin', ['middleware' => 'auth.facebook', 'uses' => 'AdminController@snippets']);
-Route::get('/admin', ['as' => 'roundResults', 'middleware' => 'auth.facebook', 'uses' => 'AdminController@roundResults']);
+Route::get('/admin/roundResults/{round_id}', ['as' => 'roundResults', 'middleware' => 'auth.facebook', 'uses' => 'AdminController@roundResults']);
 Route::get('/logout', 'AdminController@logout');
 /**
  * action routes for admin

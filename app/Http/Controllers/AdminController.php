@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Highscore;
 use Session;
+use Illuminate\Support\Facades\DB;
+use Auth;
 
 class AdminController extends Controller {
 
@@ -47,7 +49,7 @@ class AdminController extends Controller {
 	 * @package
 	 */
 	public function highScoreRound($round_id) {
-		$highscoreList = DB::select(DB::raw('select users.extra_score+highscores.score as total_score,highscores.*, users.name AS user_name FROM users, `highscores` where highscores.user_id = users.id AND `round` = ' . $round_id . ' order by `total_score` desc'));
+		$highscoreList = DB::select(DB::raw('select users.extra_score+highscores.score as total_score,highscores.*, users.*  FROM users, `highscores` where highscores.user_id = users.id AND `round` = ' . $round_id . ' order by `total_score` desc'));
 		$auth_id = Auth::user()->id;
 		foreach ($highscoreList as $key => $highscoreUser) {
 			$highscoreList[$key]->num=$key+1;
@@ -56,8 +58,7 @@ class AdminController extends Controller {
 	}
 
 	public function roundResults($round){
-		dd($round);
-		view('admin.roundresults',$this->highScoreRound($round));
+		return view('admin/roundresults',['highscore' => $this->highScoreRound($round),'round'=>$round]);
 	}
 
 	public function saveNotification(Request $request) {
