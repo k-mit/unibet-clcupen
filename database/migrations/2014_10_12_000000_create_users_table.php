@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration {
 			$table->integer('tiebreaker');
 			$table->string('shirt_size','20');
 			$table->string('email2');
+			$table->text('address');
 			$table->rememberToken();
 			$table->timestamps();
 		});

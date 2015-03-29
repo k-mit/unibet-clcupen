@@ -176,7 +176,6 @@ class FacebookController extends Controller {
 	 * @access public
 	 * @package
 	 * @param $fbFriends
-	 * @todo   What if highscore is empty? And what about invite scores?
 	 */
 	public function highscoreFriends($fbFriends) {
 		foreach ($fbFriends as $friend) {
@@ -223,7 +222,6 @@ class FacebookController extends Controller {
 	 * @author Pontus Kindblad & Anton Kindblad
 	 * @access public
 	 * @package
-	 * @todo   to save the combined scores to highscore table
 	 * <code>
 	 *
 	 * </code>
@@ -325,6 +323,9 @@ class FacebookController extends Controller {
 		}
 		if ($request->input('email2')) {
 			$user->email2 = $request->input('email2');
+		}
+		if ($request->input('address')) {
+			$user->address = $request->input('address');
 		}
 		$user->save();
 		if ($count > 0) return '{"status":ok,"count_saved":' . $count . '}';
