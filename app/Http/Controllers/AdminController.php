@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Highscore;
 use Session;
+use Excel;
+use Illuminate\Support\Facades\DB;
+use Auth;
 
 class AdminController extends Controller {
 
@@ -25,8 +28,8 @@ class AdminController extends Controller {
 		Session::forget('facebook_user');
 
 		//TODO clear the facebook cookie so we don't pull it when coming back, the following lines do not work
-		$fb_key = 'fbsr_'.config('laravel-facebook-sdk.facebook_config.app_id');
-		setcookie($fb_key, '', time()-3600);
+		$fb_key = 'fbsr_' . config('laravel-facebook-sdk.facebook_config.app_id');
+		setcookie($fb_key, '', time() - 3600);
 
 		return 'logged out';
 	}
@@ -47,23 +50,9 @@ class AdminController extends Controller {
 		return view('admin/people_notification', ['notifications_list' => Notification::get(), 'users' => $hiscoreUsers]);
 	}
 
-	/**
-	 * @author Pontus Kindblad & Anton Kindblad
-	 * @access public
-	 * @package
-	 */
-	public function highScoreRound($round_id) {
-		$highscoreList = DB::select(DB::raw('select users.extra_score+highscores.score as total_score,highscores.*, users.*  FROM users, `highscores` where highscores.user_id = users.id AND `round` = ' . $round_id . ' order by `total_score` desc'));
-		$auth_id = Auth::user()->id;
-		foreach ($highscoreList as $key => $highscoreUser) {
-			$highscoreList[$key]->num=$key+1;
-		}
-		return $highscoreList;
-	}
 
-	public function roundResults($round){
-		dd($round);
-		view('admin.roundresults',$this->highScoreRound($round));
+	public function roundResults($round) {
+		return view('admin.roundresults', ['highscore'=>$this->highScoreRoundPage($round),'round'=>$round]);
 	}
 
 	public function saveNotification(Request $request) {
@@ -105,4 +94,50 @@ class AdminController extends Controller {
 
 		return redirect('admin/notificationsPersons');
 	}
+
+	public function highScoreRoundPage($round_id) {
+		$highscoreList = DB::select(DB::raw('select users.extra_score+highscores.score as total_score,highscores.*, users.*  FROM users, highscores WHERE highscores.user_id = users.id AND `round` = ' . $round_id . ' ORDER BY `total_score` desc'));
+		foreach ($highscoreList as $key => $highscoreUser) {
+			$highscoreList[$key]->num = $key + 1;
+		}
+		return $highscoreList;
+	}
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 */
+	public function highScoreRound($round_id) {
+		$highscoreList = Highscore::with('user')->where('round', '=', $round_id)->orderBy('score', 'desc')->get();
+
+//		$highscoreList = DB::select(DB::raw('select users.extra_score+highscores.score as total_score,highscores.*, users.*  FROM users, highscores WHERE highscores.user_id = users.id AND `round` = ' . $round_id . ' ORDER BY `total_score` desc'));
+		foreach ($highscoreList as $key => $highscoreUser) {
+			$highscoreList[$key]->num = $key + 1;
+		}
+		return $highscoreList;
+	}
+
+	public function excelExport($round) {
+		$model = $this->highScoreRound($round)->toArray();
+		foreach ($model as $key => $value) {
+			foreach($value['user'] as $user_key => $user_value){
+				$model[$key][$user_key]=$user_value;
+			}
+			if ($round>4) {
+				$model[$key]['total_score'] = $model[$key]['score'] + $model[$key]['extra_score'];
+			}
+		}
+		Excel::create('unibet_round', function ($excel) use ($model) {
+
+			$excel->sheet('Round', function ($sheet) use ($model) {
+				$sheet->setColumnFormat(array(
+											'I' => '0'
+										));
+				$sheet->fromArray($model, null, 'A1', true);
+
+			});
+
+		})->export('xls');
+	}
+
 }

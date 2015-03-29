@@ -43,4 +43,5 @@ Route::get('/calculateRound', ['middleware' => 'auth.facebook_admin', 'uses' => 
 Route::post('/admin/notifyAll', ['middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@notifyAll']);
 Route::post('/admin/notifyPersons', ['middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@notifyPersons']);
 Route::post('/admin/saveNotification', ['middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@saveNotification']);
-Route::post('/admin/saveSnippet', ['middleware' => 'auth', 'auth.facebook_admin' => 'AdminController@saveSnippet']);
+Route::post('/admin/saveSnippet', ['middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@saveSnippet']);
+Route::get('/admin/excelExport/{round_id}', ['as'=>'excel','middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@excelExport']);
