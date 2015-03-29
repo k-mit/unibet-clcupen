@@ -1,4 +1,4 @@
-@extends('app')
+@extends('admin')
 
 @section('content')
     <h2 style="text-align: center">Update text snippets</h2>

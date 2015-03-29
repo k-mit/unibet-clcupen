@@ -151,31 +151,23 @@ class FacebookController extends Controller {
 	 * @package
 	 */
 	public function highScoreAll() {
-		$highscoreList = DB::select(DB::raw('select (@row_number:=@row_number + 1) AS num, highscores.*, users.name AS user_name FROM `highscores`,users,(SELECT @row_number:=0) AS t where highscores.user_id = users.id AND `round` = 10 order by `score` desc'));
+		$highscoreList = DB::select(DB::raw('select users.extra_score+highscores.score as total_score,highscores.*, users.name AS user_name FROM users,`highscores` where highscores.user_id = users.id AND `round` = 10 order by `total_score` desc'));
 		$auth_id = Auth::user()->id;
-		foreach ($highscoreList as $highscoreUser) {
+		foreach ($highscoreList as $key => $highscoreUser) {
+			$highscoreList[$key]->num=$key+1;
 			if ($highscoreUser->user_id == $auth_id) {
 				$highscoreList['me'] = $highscoreUser;
-				break;
+				$highscoreList['me']->num = $highscoreList[$key]->num;
 			}
 		}
-		return $highscoreList;
-	}
+		if (!isset($highscoreFriends['me'])) {
+			$highscoreFriends['me'] = Highscore::firstOrCreate(['user_id' => $auth_id, 'round' => 10]);
+			$user = User::where('id', '=', $auth_id)->first();
+			$highscoreFriends['me']->total_score = $user->extra_score;
+			$highscoreFriends['me']->user_name = $user->name;
+			$highscoreFriends['me']->num = count($highscoreFriends);
+		}
 
-	/**
-	 * @author Pontus Kindblad & Anton Kindblad
-	 * @access public
-	 * @package
-	 */
-	public function highScoreRound($round_id) {
-		$highscoreList = DB::select(DB::raw('select (@row_number:=@row_number + 1) AS num, highscores.*, users.name AS user_name FROM `highscores`,users,(SELECT @row_number:=0) AS t where highscores.user_id = users.id AND `round` = '.$round_id.' order by `score` desc'));
-		$auth_id = Auth::user()->id;
-		foreach ($highscoreList as $highscoreUser) {
-			if ($highscoreUser->user_id == $auth_id) {
-				$highscoreList['me'] = $highscoreUser;
-				break;
-			}
-		}
 		return $highscoreList;
 	}
 
@@ -184,6 +176,7 @@ class FacebookController extends Controller {
 	 * @access public
 	 * @package
 	 * @param $fbFriends
+	 * @todo   What if highscore is empty? And what about invite scores?
 	 */
 	public function highscoreFriends($fbFriends) {
 		foreach ($fbFriends as $friend) {
@@ -191,12 +184,23 @@ class FacebookController extends Controller {
 		}
 		$auth_id = Auth::user()->id;
 		$friends[] = $auth_id;
-		$highscoreFriends = DB::select(DB::raw('select (@row_number:=@row_number + 1) AS num, highscores.*, users.name AS user_name FROM `highscores`,users,(SELECT @row_number:=0) AS t where highscores.user_id = users.id AND `round` = 10 and `user_id` in (' . implode(',', $friends) . ') order by `score` desc'));
-		foreach ($highscoreFriends as $highscoreFriend) {
+		$friendsstring = implode(',', $friends);
+		$friendsstring = str_replace(',,', ',', $friendsstring);
+		$highscoreFriends = DB::select(DB::raw('select users.extra_score+highscores.score as total_score, highscores.*, users.name AS user_name FROM users,`highscores` where highscores.user_id = users.id AND `round` = 10 and `user_id` in (' . $friendsstring . ') order by `total_score` desc'));
+		foreach ($highscoreFriends as $key => $highscoreFriend) {
+			$highscoreFriends[$key]->num=$key+1;
 			if ($highscoreFriend->user_id == $auth_id) {
 				$highscoreFriends['me'] = $highscoreFriend;
-				break;
+				$highscoreFriends['me']->num = $highscoreFriends[$key]->num;
+
 			}
+		}
+		if (!isset($highscoreFriends['me'])) {
+			$highscoreFriends['me'] = Highscore::firstOrCreate(['user_id' => $auth_id, 'round' => 10]);
+			$user = User::where('id', '=', $auth_id)->first();
+			$highscoreFriends['me']->total_score = $user->extra_score;
+			$highscoreFriends['me']->user_name = $user->name;
+			$highscoreFriends['me']->num = count($highscoreFriends);
 		}
 		return $highscoreFriends;
 
@@ -251,8 +255,9 @@ class FacebookController extends Controller {
 			if ($invite->total_invites > 5) $invite->total_invites = 5;
 			if (!isset($highscore_users[$invite->user_id])) $highscore_users[$invite->user_id] = 0;
 			if (!isset($highscore_users_per_round[10])) $highscore_users_per_round[10] = 0;
-			$highscore_users[$invite->user_id] += $invite->total_invites;
-			$highscore_users_per_round[10][$invite->user_id] += $invite->total_invites;
+			$user_obj = User::where('id', '=', $invite->user_id)->first();
+			$user_obj->extra_score = $invite->total_invites;
+			$user_obj->save();
 		}
 		foreach ($highscore_users_per_round as $round => $user_array) {
 			foreach ($user_array as $user_id => $user_score) {
@@ -311,11 +316,17 @@ class FacebookController extends Controller {
 				$count++;
 			}
 		}
+		$user = User::where('id', '=', $request->user()->id)->first();
 		if ($request->input('tiebreaker')) {
-			$user = User::where('id', '=', $request->user()->id)->first();
 			$user->tiebreaker = $request->input('tiebreaker');
-			$user->save();
 		}
+		if ($request->input('shirt_size')) {
+			$user->shirt_size = $request->input('shirt_size');
+		}
+		if ($request->input('email2')) {
+			$user->email2 = $request->input('email2');
+		}
+		$user->save();
 		if ($count > 0) return '{"status":ok,"count_saved":' . $count . '}';
 		return '{"status":fail,"count_saved":0}';
 
@@ -331,7 +342,10 @@ class FacebookController extends Controller {
 	 */
 	public function saveInvite(Request $request) {
 		$oldinvites = Invites::where('user_id', '=', $request->user()->id)->get();
-		if ($oldinvites->count() <= 5) {
+		if ($oldinvites->count() < 5) {
+			$user = User::where('id', '=', $request->user()->id)->first();
+			$user->extra_score++;
+			$user->save();
 			$invite = new Invite();
 			$invite->user_id = $request->user()->id;
 			$invite->round_id = $this->getActiveRound()[0]->id;

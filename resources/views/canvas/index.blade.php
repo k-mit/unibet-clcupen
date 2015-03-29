@@ -29,6 +29,7 @@
                 <br/>
                 {{$tiebreaker_done}}
                 <br/>
+
                 <div class="game-table">
                     @foreach($active_round[0]['matches'] as $key=>$match)
                         <div class="match-row">
@@ -36,14 +37,16 @@
                                 {{$match['team1']['team_name']}} - {{$match['team2']['team_name']}}
                             </div>
                             <div class="match-result">
-                                <input size="2" class="match-result-input" name="team1"/> - <input size="2" class="match-result-input" name="team2"/>
+                                <input size="2" class="match-result-input" name="team1"/> - <input size="2"
+                                                                                                   class="match-result-input"
+                                                                                                   name="team2"/>
                             </div>
                         </div>
                         {{--{{$match['match_time']}}--}}
-                            {{--<img src="{!!$match['team1']['logo_path']!!}" width="25" height="25"><img--}}
-                                {{--src="{!!$match['team1']['country_flag_path']!!}">{{$match['team1']['team_name']}}-<img--}}
-                                {{--src="{!!$match['team2']['logo_path']!!}" width="25" height="25"><img--}}
-                                {{--src="{!!$match['team2']['country_flag_path']!!}">{{$match['team2']['team_name']}}<br>--}}
+                        {{--<img src="{!!$match['team1']['logo_path']!!}" width="25" height="25"><img--}}
+                        {{--src="{!!$match['team1']['country_flag_path']!!}">{{$match['team1']['team_name']}}-<img--}}
+                        {{--src="{!!$match['team2']['logo_path']!!}" width="25" height="25"><img--}}
+                        {{--src="{!!$match['team2']['country_flag_path']!!}">{{$match['team2']['team_name']}}<br>--}}
                     @endforeach
 
                 </div>
@@ -82,18 +85,21 @@
                         <div class="row contentrow">
                             <div class="col-xs-12 tabcontent">
                                 @foreach($highscoreAll as $hs_key => $highscoreAll_row)
-                                    @unless($hs_key == 'me')
-                                    {{$highscoreAll_row->num}} {{$highscoreAll_row->user_name}} {{$highscoreAll_row->score}}<br/>
-                                    @endunless
+                                    @if(is_numeric($hs_key))
+                                        {{$highscoreAll_row->num}} {{$highscoreAll_row->user_name}} {{$highscoreAll_row->total_score}}
+                                        <br/>
+                                    @endif
                                 @endforeach
-                                   JAG: {{$highscoreAll['me']->num}} {{$highscoreAll['me']->user_name}} {{$highscoreAll['me']->score}}<br>
+                                JAG: {{$highscoreAll['me']->num}} {{$highscoreAll['me']->user_name}} {{$highscoreAll['me']->total_score}}
+                                <br>
                                 <br>Highscore Friends:<br>
                                 @foreach($highscoreFriends as $hs_key => $highscoreFriends_row)
-                                        @unless($hs_key == 'me')
-                                        {{$highscoreFriends_row->num}} {{$highscoreFriends_row->user_name}} {{$highscoreFriends_row->score}}<br/>
-                                        @endunless
+                                    @if(is_numeric($hs_key))
+                                        {{$highscoreFriends_row->num}} {{$highscoreFriends_row->user_name}} {{$highscoreFriends_row->total_score}}
+                                        <br/>
+                                    @endif
                                 @endforeach
-                                    JAG: {{$highscoreFriends['me']->num}} {{$highscoreFriends['me']->user_name}} {{$highscoreFriends['me']->score}}
+                                JAG: {{$highscoreFriends['me']->num}} {{$highscoreFriends['me']->user_name}} {{$highscoreFriends['me']->total_score}}
                             </div>
                         </div>
 
