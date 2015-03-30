@@ -6247,7 +6247,7 @@ main,
   top: 0;
   left: 0;
   color: #fff;
-  padding: 1em;
+  padding: 1em 1em 0 1em;
 }
 .cl-logo {
   text-indent: -999em;
@@ -6269,7 +6269,7 @@ main,
   background-position: 80% 100%;
 }
 .tool-boxes {
-  height: 33%;
+  height: auto;
   position: absolute;
   width: 100%;
   padding-top: 2em;
@@ -6300,6 +6300,9 @@ main,
 .tool-boxes .tool .tabrow li a {
   color: inherit;
   white-space: nowrap;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
 }
 .tool-boxes .tool .tabrow li.active {
   background: #38a932;
@@ -6362,8 +6365,17 @@ main,
   width: 100%;
   padding: 1em;
 }
-.game-table:before,
-.game-table:after {
+.game-table .game-table-footer {
+  background: black;
+  height: 10px;
+  padding: 0;
+  position: absolute;
+  width: calc(100% - 10px);
+  left: 5px;
+  top: 100%;
+}
+.game-table .game-table-footer:before,
+.game-table .game-table-footer:after {
   content: '';
   display: block;
   position: absolute;
@@ -6373,13 +6385,19 @@ main,
   border-width: 0 5px 10px 0;
   border-color: transparent #000000 transparent transparent;
   top: 0;
-  left: 0;
+  left: -5px;
 }
-.game-table:after {
-  left: inherit;
-  right: 0;
+.game-table .game-table-footer:after {
+  left: 100%;
   border-width: 10px 5px 0 0;
   border-color: #000000 transparent transparent transparent;
+}
+.tabcontent {
+  display: none;
+  padding: 1.5em 1em;
+}
+.tabcontent.active {
+  display: block;
 }
 .match-row {
   height: 2.5em;
@@ -6395,6 +6413,21 @@ main,
 .match-row .match-result {
   display: inline-block;
   float: right;
+}
+.match-row .match-result .match-result-input {
+  border-radius: 5px;
+  color: black;
+  border: none;
+  text-align: center;
+  padding: .3em .66em;
+}
+.match-row .match-result .divider {
+  border-top: 1px solid white;
+  width: .75em;
+  height: 0.45em;
+  display: inline-block;
+  position: relative;
+  margin: 0 .25em;
 }
 
 /*# sourceMappingURL=app.css.map */

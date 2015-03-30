@@ -27,18 +27,6 @@
 
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>
-    $('div.alert').delay(3000).slideUp(300);
-</script>
-<script>
-    (function ($) {
-        $('.tabrow li a').click(function (e) {
-            e.preventDefault();
-            var t = $(this);
-            t.parents('.tabrow').find('.active').removeClass('active');
-            t.parent().addClass('active');
-        })
-    })(jQuery);
-</script>
+<script src="/js/main.js"></script>
 </body>
 </html>

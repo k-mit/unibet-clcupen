@@ -3,6 +3,7 @@
 use App\Bet;
 use App\Commands\FacebookNotification;
 use App\Events\reLogIn;
+use App\Helpers\ViewHelper;
 use App\Highscore;
 use App\Http\Requests;
 use App\Invite;
@@ -103,7 +104,7 @@ class FacebookController extends Controller {
 		$facebook_user = $this->getUserInfo()->asArray();
 		$active_round = $this->getActiveRound();
 		$fbFriends = $this->getFacebookFriends();
-		$snippets = $this->getSnippets();
+
 		$highscoreAll = $this->highScoreAll();
 		$highscoreFriends = $this->highscoreFriends($fbFriends);
 		$oldbetsforthisround = Bet::whereHas('match.round', function ($q) {
@@ -119,7 +120,7 @@ class FacebookController extends Controller {
 			'havePlacedBet'    => $havePlacedBet,
 			'highscoreAll'     => $highscoreAll,
 			'highscoreFriends' => $highscoreFriends,
-			'snippets'         => $snippets,
+			'page'         => new ViewHelper(),
 			'tiebreaker_done'  => $tiebreaker_done
 		];
 	}
