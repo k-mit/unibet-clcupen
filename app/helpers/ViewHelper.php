@@ -14,6 +14,12 @@ class ViewHelper {
         $this->snippets = Snippet::get()->keyBy('snippet_name');
     }
 
+    /**
+     * Returns the snippet requested, if in debug returns the $key as a string.
+     * 
+     * @param $key
+     * @return string
+     */
     public function snippet ($key) {
 
         try {
