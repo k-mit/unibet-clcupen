@@ -2,7 +2,6 @@
 
 use App\Bet;
 use App\Commands\FacebookNotification;
-use App\Events\reLogIn;
 use App\Helpers\ViewHelper;
 use App\Highscore;
 use App\Http\Requests;
@@ -39,6 +38,7 @@ class FacebookController extends Controller {
 	 * @var
 	 */
 	public $token;
+
 
 	/**
 	 *
@@ -125,6 +125,12 @@ class FacebookController extends Controller {
 		];
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @return mixed
+	 */
 	public function getSnippets() {
 		$all_db_snippets = Snippet::get();
 		return $all_db_snippets->keyBy('snippet_name');
@@ -223,9 +229,6 @@ class FacebookController extends Controller {
 	 * @author Pontus Kindblad & Anton Kindblad
 	 * @access public
 	 * @package
-	 * <code>
-	 *
-	 * </code>
 	 */
 	public function calculateRound() {
 		$highscore_users = array();
@@ -281,10 +284,6 @@ class FacebookController extends Controller {
 	 * @param $result1
 	 * @param $result2
 	 * @return string
-	 * @todo   ToDo
-	 * <code>
-	 *
-	 * </code>
 	 */
 	public function get1x2($result1, $result2) {
 		if ($result1 == $result2) return 'x';
@@ -357,6 +356,12 @@ class FacebookController extends Controller {
 		return 'save=error';
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @return \Illuminate\View\View
+	 */
 	public function viewCanvas() {
 		$this->fb->setDefaultAccessToken($this->getFacebookToken());
 		return view('canvas.index', $this->getAllVars());

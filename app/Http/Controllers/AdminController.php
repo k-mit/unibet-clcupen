@@ -13,8 +13,20 @@ use Excel;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
+/**
+ * Class AdminController
+ *
+ * @package App\Http\Controllers
+ */
 class AdminController extends Controller {
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @param Request $request
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
 	public function boot(Request $request) {
 		if (\Auth::user()->id > 4) {
 
@@ -22,6 +34,12 @@ class AdminController extends Controller {
 		}
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @return string
+	 */
 	public function logout() {
 		\Auth::logout();
 		Session::forget('facebook_access_token');
@@ -34,14 +52,32 @@ class AdminController extends Controller {
 		return 'logged out';
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @return \Illuminate\View\View
+	 */
 	public function snippets() {
 		return view('admin/snippets', ['snippets_list' => Snippet::get()]);
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @return \Illuminate\View\View
+	 */
 	public function notifications() {
 		return view('admin/notifications', ['notifications_list' => Notification::get()]);
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @return \Illuminate\View\View
+	 */
 	public function notificationsPersons() {
 		$hiscoreUsers_raw = Highscore::with('user')->where('round', '=', 10)->orderBy('score', 'desc')->get();
 		foreach ($hiscoreUsers_raw as $hiscoreUser) {
@@ -51,10 +87,24 @@ class AdminController extends Controller {
 	}
 
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @param $round
+	 * @return \Illuminate\View\View
+	 */
 	public function roundResults($round) {
 		return view('admin.roundresults', ['highscore'=>$this->highScoreRoundPage($round),'round'=>$round]);
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @param Request $request
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
 	public function saveNotification(Request $request) {
 		Notification::create($request->all());
 		\Session::flash('flash_message', 'Notification saved.');
@@ -62,6 +112,13 @@ class AdminController extends Controller {
 		return redirect('admin/notifications');
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @param Request $request
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
 	public function saveSnippet(Request $request) {
 		$allrequests = $request->all();
 		$allrequests = array_except($allrequests, ['_token', 'id']);
@@ -70,6 +127,13 @@ class AdminController extends Controller {
 		return redirect('admin/snippets');
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @param Request $request
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
 	public function notifyAll(Request $request) {
 		$all_users = User::get();
 		$notification = Notification::where('id', '=', $request->input('notification_id'))->first();
@@ -82,6 +146,13 @@ class AdminController extends Controller {
 		return redirect('admin/notifications');
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @param Request $request
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
 	public function notifyPersons(Request $request) {
 		$users_selected = array_values($request->get('users'));
 		$all_users = User::wherein('id', $users_selected)->get();
@@ -95,6 +166,13 @@ class AdminController extends Controller {
 		return redirect('admin/notificationsPersons');
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @param $round_id
+	 * @return mixed
+	 */
 	public function highScoreRoundPage($round_id) {
 		$highscoreList = DB::select(DB::raw('select users.extra_score+highscores.score as total_score,highscores.*, users.*  FROM users, highscores WHERE highscores.user_id = users.id AND `round` = ' . $round_id . ' ORDER BY `total_score` desc'));
 		foreach ($highscoreList as $key => $highscoreUser) {
@@ -106,17 +184,23 @@ class AdminController extends Controller {
 	 * @author Pontus Kindblad & Anton Kindblad
 	 * @access public
 	 * @package
+	 * @return model with highscores in
 	 */
 	public function highScoreRound($round_id) {
 		$highscoreList = Highscore::with('user')->where('round', '=', $round_id)->orderBy('score', 'desc')->get();
 
-//		$highscoreList = DB::select(DB::raw('select users.extra_score+highscores.score as total_score,highscores.*, users.*  FROM users, highscores WHERE highscores.user_id = users.id AND `round` = ' . $round_id . ' ORDER BY `total_score` desc'));
 		foreach ($highscoreList as $key => $highscoreUser) {
 			$highscoreList[$key]->num = $key + 1;
 		}
 		return $highscoreList;
 	}
 
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 * @param $round
+	 */
 	public function excelExport($round) {
 		$model = $this->highScoreRound($round)->toArray();
 		foreach ($model as $key => $value) {

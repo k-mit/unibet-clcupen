@@ -38,9 +38,8 @@ class FacebookNotification extends Command implements SelfHandling, ShouldBeQueu
 		$response = $facebook->post('/' . $fb_user_id . '/notifications', array(
 			'href'     => '',
 			'template' => $this->notification->template,
-		),'1445118565779083'.'|'.'e398f31a2385f33f91d5abeb9ec7e5a4');
+		), config('laravel-facebook-sdk.facebook_config.app_id').'|'.config('laravel-facebook-sdk.facebook_config.app_secret'));
 
-		//print_r($response->getGraphObject());
 	}
 
 }
