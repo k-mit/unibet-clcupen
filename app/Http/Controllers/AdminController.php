@@ -207,7 +207,8 @@ class AdminController extends Controller {
 			foreach($value['user'] as $user_key => $user_value){
 				$model[$key][$user_key]=$user_value;
 			}
-			if ($round>4) {
+			if ($round<9) {
+ 				$model[$key]['score']= $model[$key]['score'] + $model[$key]['extra_score'];
 				$model[$key]['total_score'] = $model[$key]['score'] + $model[$key]['extra_score'];
 			}
 		}
