@@ -3,6 +3,9 @@
 @btn-font-weight: 300;
 @font-family-sans-serif: "Roboto", Helvetica, Arial, sans-serif;
 
+@highlight: #fbc500;
+
+
 body, label, .checkbox label {
   font-weight : 300;
 }
@@ -71,7 +74,7 @@ main, #main {
       li {
         list-style  : none;
         background  : #1c4e1b;
-        color       : #ffc601;
+        color       : @highlight;
         line-height : 3em;
         text-align  : center;
         padding     : 0;
@@ -205,6 +208,9 @@ main, #main {
   }
   .team-name {
     color: #fff;
+    &.active {
+      color: @highlight;
+    }
 
   }
   .match-result {
@@ -254,17 +260,23 @@ hr {
 }
 
 #teamform {
+
+  h3 {
+    text-align: center;
+    margin: 0 0 1.5em;
+    .t2 {
+      color: @highlight;
+    }
+  }
   white-space : nowrap;
   .grid {
-    height   : 10em;
+    height   : 13em;
     width    : 100%;
     position : relative;
     &.t2 {
       position: absolute;
       top: 0;
       left: 0;
-      padding: 0 1em;
-      margin-top: 1.5em;
     }
   }
   ul {
@@ -402,7 +414,7 @@ hr {
       border : none;
       &.w, &.l, &.d {
         &:after {
-          background: #FCC660;
+          background: @highlight;
         }
         &:before {
           background : linear-gradient(to top left,
@@ -428,7 +440,7 @@ hr {
       &.d + .d, &.l + .l, &.w + .w {
         &:before {
           background    : none;
-          border-bottom : 1px solid #FCC660;
+          border-bottom : 1px solid @highlight;
         }
       }
     }

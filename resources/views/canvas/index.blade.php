@@ -39,7 +39,7 @@
                     @foreach($active_round[0]['matches'] as $key=>$match)
                         <div class="match-row">
                             <div class="match-teams">
-                                <a href="#" class="team-name" data-teamid="{{$match['team1']['id']}}">{{$match['team1']['team_name']}}</a> -  <a href="#" class="team-name" data-teamid="{{$match['team2']['id']}}">{{$match['team2']['team_name']}}</a>
+                                <a href="#" class="team-name" data-stats="{{$page->snippet($match['team1']['team_name'].' statistik')}}" data-teamid="{{$match['team1']['id']}}">{{$match['team1']['team_name']}}</a> -  <a href="#" class="team-name" data-stats="{{$page->snippet($match['team2']['team_name'].' statistik')}}" data-teamid="{{$match['team2']['id']}}">{{$match['team2']['team_name']}}</a>
                             </div>
                             <div class="match-result">
                                 <input size="2" class="match-result-input" name="team1"/>
@@ -84,8 +84,10 @@
                                 {!!$page->snippet('10_tips')!!}<br><br>
                             </div>
                             <div id="teamform" class="col-xs-12 tabcontent active">
-                                <div class="grid"><?php $str = "wdl";?>
-                                    <ul class="g desc {{$str[rand(0,2)]}}">
+                                <h3><span class="team1">{{$active_round[0]['matches'][0]["team1"]["team_name"]}}</span> - <span class="team2 t2">{{$active_round[0]['matches'][0]["team2"]["team_name"]}}</span></h3>
+                                <div id="statistics">
+                                <div class="grid"><?php $team1 = explode(',',$page->snippet($active_round[0]['matches'][0]["team1"]["team_name"].' statistik'));?>
+                                    <ul class="g desc {{$team1[0]}}">
                                         <li><span>V</span></li>
                                         <li><span>O</span></li>
                                         <li><span>F</span></li>
@@ -93,15 +95,16 @@
                                     </ul>
 
                                    @for($i=0;$i<10;$i++)
-                                        <ul class="g {{$i<9?$str[rand(0,2)]:''}}">
+                                        <ul class="g {{$i<9?$team1[$i+1]:''}}">
                                             <li></li><li></li><li></li><li></li>
                                         </ul>
                                     @endfor
                                 </div>
-                                <div class="grid t2"><?php $str = "wdl";?>
+                                <div class="grid t2"><?php $team2 = explode(',',$page->snippet($active_round[0]['matches'][0]["team2"]["team_name"].' statistik'));?>
                                     @for($i=0;$i<11;$i++)
-                                        <ul class="g t2 "></ul>
+                                        <ul class="g t2 {{$i<10?$team2[$i]:''}}"></ul>
                                     @endfor
+                                </div>
                                 </div>
                             </div>
                             <div id="glennstips" class="col-xs-12 tabcontent">
