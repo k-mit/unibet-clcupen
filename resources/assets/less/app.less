@@ -203,6 +203,10 @@ main, #main {
     float       : left;
     line-height : 2em;
   }
+  .team-name {
+    color: #fff;
+
+  }
   .match-result {
     display : inline-block;
     float   : right;
@@ -264,7 +268,7 @@ hr {
     }
   }
   ul {
-    width       : 8.3333333333%;
+    width       : 9.090909%;
     float       : left;
     height      : 13em;
     display     : inline-block;
@@ -273,18 +277,31 @@ hr {
     margin      : 0;
     padding     : 0;
     border-left : 1px solid black;
-
+    &.desc {
+      span {
+        display: block;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        margin-top: -1.4em;
+        text-align: center;
+      }
+    }
     li {
       border-top : solid 1px black;
       display    : block;
       margin     : 0;
       padding    : 0;
       list-style : none;
-      height     : 25%;
+      height     : 35%;
       width      : 100%;
       position   : relative;
       &:first-child {
         border : none;
+        height: 15%;
+      }
+      &:last-child {
+        height: 15%;
       }
     }
     &.w, &.l, &.d {
@@ -295,7 +312,7 @@ hr {
         width         : 1em;
         height        : 1em;
         left          : 100%;
-        top           : 25%;
+        top           : 15%;
         border-radius : 50%;
         background    : white;
         margin-left   : -.5em;
@@ -304,7 +321,7 @@ hr {
       }
     }
     &.l:after {
-      top : 75%;
+      top : 85%;
     }
     &.d:after {
       top : 50%;
@@ -315,8 +332,8 @@ hr {
         display    : block;
         content    : '';
         width      : 100%;
-        height     : 25%;
-        top        : 25%;
+        height     : 35%;
+        top        : 15%;
         position   : absolute;
         background : linear-gradient(to top left,
         rgba(255, 255, 255, 0) 0%,
@@ -330,12 +347,12 @@ hr {
     }
     &.l + .w {
       &:before {
-        height : 50%;
+        height : 70%;
       }
     }
     &.l + .d {
       &:before {
-        height : 25%;
+        height : 35%;
         top    : 50%;
       }
     }
@@ -351,6 +368,7 @@ hr {
     }
     &.w + .w:before {
       top : 0%;
+      height: 15%;
     }
     &.w + .d, &.d + .l, &.w + .l {
       &:before {
@@ -363,12 +381,12 @@ hr {
       }
     }
     &.w + .d:before {
-      top    : 25%;
-      height : 25%;
+      top    : 15%;
+      height : 35%;
     }
     &.w + .l:before {
-      top    : 25%;
-      height : 50%;
+      top    : 15%;
+      height : 70%;
     }
     &.d + .l:before {
       top : 50%;

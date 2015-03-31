@@ -39,7 +39,7 @@
                     @foreach($active_round[0]['matches'] as $key=>$match)
                         <div class="match-row">
                             <div class="match-teams">
-                                {{$match['team1']['team_name']}} - {{$match['team2']['team_name']}}
+                                <a href="#" class="team-name" data-teamid="{{$match['team1']['id']}}">{{$match['team1']['team_name']}}</a> -  <a href="#" class="team-name" data-teamid="{{$match['team2']['id']}}">{{$match['team2']['team_name']}}</a>
                             </div>
                             <div class="match-result">
                                 <input size="2" class="match-result-input" name="team1"/>
@@ -85,19 +85,22 @@
                             </div>
                             <div id="teamform" class="col-xs-12 tabcontent active">
                                 <div class="grid"><?php $str = "wdl";?>
-                                    @for($i=0;$i<12;$i++)
-                                        <ul class="g {{$i<11?$str[rand(0,2)]:''}}">
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
+                                    <ul class="g desc {{$str[rand(0,2)]}}">
+                                        <li><span>V</span></li>
+                                        <li><span>O</span></li>
+                                        <li><span>F</span></li>
+                                        <li></li>
+                                    </ul>
+
+                                   @for($i=0;$i<10;$i++)
+                                        <ul class="g {{$i<9?$str[rand(0,2)]:''}}">
+                                            <li></li><li></li><li></li><li></li>
                                         </ul>
                                     @endfor
                                 </div>
                                 <div class="grid t2"><?php $str = "wdl";?>
-                                    @for($i=0;$i<12;$i++)
-                                        <ul class="g t2 {{$i<11?$str[rand(0,2)]:''}}">
-                                        </ul>
+                                    @for($i=0;$i<11;$i++)
+                                        <ul class="g t2 "></ul>
                                     @endfor
                                 </div>
                             </div>
