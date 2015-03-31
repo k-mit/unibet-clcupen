@@ -16,7 +16,7 @@ class ViewHelper {
 
     /**
      * Returns the snippet requested, if in debug returns the $key as a string.
-     * 
+     *
      * @param $key
      * @return string
      */

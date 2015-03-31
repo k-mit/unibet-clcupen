@@ -19,21 +19,23 @@
                     </div>
                 </div>
                 <div class="debug" style="display:none">
-                @foreach($facebook_user as $var)
-                    {{$var}}<br>
-                @endforeach
-                @foreach($fbFriends as $var)
-                    {{$var}}<br>
-                @endforeach
-                <br/>
-                <br/>
-                {{$tiebreaker_done}}
+                    @foreach($facebook_user as $var)
+                        {{$var}}<br>
+                    @endforeach
+                    @foreach($fbFriends as $var)
+                        {{$var}}<br>
+                    @endforeach
+                    <br/>
+                    <br/>
+                    {{$tiebreaker_done}}
                 </div>
 
                 <div class="game-table">
                     <div class="game-table-header">
-                        <h3>{!!$page->snippet('tippa_rubrik')!!}</h3>
+                        <h3 class="game_header">{!!$page->snippet('tippa_rubrik')!!}</h3>
+                        <span class="game_sub_header">{!!$page->snippet('tippa_rubrik_ingress')!!}</span>
                     </div>
+                    <hr/>
                     @foreach($active_round[0]['matches'] as $key=>$match)
                         <div class="match-row">
                             <div class="match-teams">
@@ -41,6 +43,7 @@
                             </div>
                             <div class="match-result">
                                 <input size="2" class="match-result-input" name="team1"/>
+
                                 <div class="divider"></div>
                                 <input size="2" class="match-result-input" name="team2"/>
                             </div>
@@ -51,6 +54,13 @@
                         {{--src="{!!$match['team2']['logo_path']!!}" width="25" height="25"><img--}}
                         {{--src="{!!$match['team2']['country_flag_path']!!}">{{$match['team2']['team_name']}}<br>--}}
                     @endforeach
+                    <hr/>
+                    <div class="tiebreaker">
+                        <span class="game_sub_header">{{$page->snippet('tiebreaker_ingress')}}</span>
+
+                        <h3 class="tiebreaker_header">{{$page->snippet('tiebreaker_rubrik')}}</h3>
+                        <input size="2" class="match-result-input" name="tiebreaker">
+                    </div>
                     <div class="game-table-footer"></div>
                 </div>
 
@@ -70,10 +80,26 @@
                             </li>
                         </ul>
                         <div class="row contentrow">
-                            <div id="tips10" class="col-xs-12 tabcontent active">
+                            <div id="tips10" class="col-xs-12 tabcontent ">
                                 {!!$page->snippet('10_tips')!!}<br><br>
                             </div>
-                            <div id="teamform" class="col-xs-12 tabcontent">
+                            <div id="teamform" class="col-xs-12 tabcontent active">
+                                <div class="grid"><?php $str = "wdl";?>
+                                    @for($i=0;$i<12;$i++)
+                                        <ul class="g {{$i<11?$str[rand(0,2)]:''}}">
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                        </ul>
+                                    @endfor
+                                </div>
+                                <div class="grid t2"><?php $str = "wdl";?>
+                                    @for($i=0;$i<12;$i++)
+                                        <ul class="g t2 {{$i<11?$str[rand(0,2)]:''}}">
+                                        </ul>
+                                    @endfor
+                                </div>
                             </div>
                             <div id="glennstips" class="col-xs-12 tabcontent">
                                 {!!$page->snippet('glenns_tips')!!}<br>
