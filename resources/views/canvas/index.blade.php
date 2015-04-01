@@ -161,7 +161,6 @@
                                         <br/>
                                     @endif
                                 @endforeach
-                                JAG: {{$highscoreFriends['me']->num}} {{$highscoreFriends['me']->user_name}} {{$highscoreFriends['me']->total_score}}
                             </div>
                             <div id="highscoreGlobal" class="col-xs-12 tabcontent">
                                 @foreach($highscoreAll as $hs_key => $highscoreAll_row)
@@ -170,7 +169,6 @@
                                         <br/>
                                     @endif
                                 @endforeach
-                                {{$highscoreAll['me']->num}} {{$highscoreAll['me']->user_name}} {{$highscoreAll['me']->total_score}}
                             </div>
                         </div>
 
