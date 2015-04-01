@@ -6270,9 +6270,10 @@ main,
 }
 .tool-boxes {
   height: auto;
-  position: absolute;
+  position: relative;
   width: 100%;
   padding-top: 2em;
+  margin: 0;
 }
 .tool-boxes .tool {
   height: 100%;
@@ -6341,10 +6342,10 @@ main,
   background: #1c4e1b;
 }
 .party-box {
-  height: 66%;
   width: 100%;
-  position: absolute;
-  bottom: 0;
+  position: relative;
+  margin-left: -5px;
+  margin-top: 1em;
 }
 .rightpart {
   position: absolute;
@@ -6392,6 +6393,25 @@ main,
   border-width: 10px 5px 0 0;
   border-color: #000000 transparent transparent transparent;
 }
+.game-table-buttons {
+  margin: 1em 0 0em;
+  padding: 1em 1em 4em 1em;
+}
+.game-table-buttons .game-button {
+  float: left;
+  background: #1c4e1b;
+  color: white;
+  border: none;
+  border-bottom: 3px solid black;
+  height: 3em;
+  display: inline-block;
+  text-align: center;
+  line-height: 2em;
+  width: calc(50% - .5em);
+}
+.game-table-buttons .game-button + .game-button {
+  margin-left: 1em;
+}
 .tabcontent {
   display: none;
   padding: 1.5em 1em;
@@ -6421,8 +6441,8 @@ main,
   float: right;
 }
 .match-row .match-result .divider {
-  border-top: 1px solid white;
-  width: .75em;
+  border-top: 2px solid white;
+  width: .5em;
   height: 0.45em;
   display: inline-block;
   position: relative;
@@ -6434,6 +6454,10 @@ main,
   border: none;
   text-align: center;
   padding: .3em .66em;
+}
+.match-result-input:disabled {
+  background: transparent;
+  color: white;
 }
 .game_header {
   margin: .5em 0 0 0;
@@ -6605,6 +6629,10 @@ hr {
 #teamform ul.t2.w + .w:before {
   background: none;
   border-bottom: 1px solid #fbc500;
+}
+.tiebreaker_header {
+  font-size: 1.2em;
+  width: 80%;
 }
 
 /*# sourceMappingURL=app.css.map */

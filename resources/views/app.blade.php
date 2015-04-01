@@ -27,6 +27,7 @@
 
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
 <script src="/js/main.js"></script>
 </body>
 </html>

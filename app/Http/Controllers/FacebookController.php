@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use App\Match;
 use App\Round;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Redirect;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk as LaravelFacebookSdk;
 use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
 use Facebook\Exceptions\FacebookSDKException;
@@ -107,9 +108,9 @@ class FacebookController extends Controller {
 
 		$highscoreAll = $this->highScoreAll();
 		$highscoreFriends = $this->highscoreFriends($fbFriends);
-		$oldbetsforthisround = Bet::whereHas('match.round', function ($q) {
-			$q->where('rounds.id', '=', $this->getActiveRound()[0]->id);
-		})->where('user_id', '=', $facebook_user['id'])->get();
+		$oldbetsforthisround = Bet::whereHas('match', function ($q) {
+			$q->where('matches.round_id', '=', $this->getActiveRound()[0]->id);
+		})->where('user_id', '=', $facebook_user['user_id'])->get();
 		$havePlacedBet = ($oldbetsforthisround->count() > 1 ? 1 : 0);
 		$tiebreaker_done = ($facebook_user['tiebreaker'] == 0 ? 0 : 1);
 
@@ -121,7 +122,8 @@ class FacebookController extends Controller {
 			'highscoreAll'     => $highscoreAll,
 			'highscoreFriends' => $highscoreFriends,
 			'page'         => new ViewHelper(),
-			'tiebreaker_done'  => $tiebreaker_done
+			'tiebreaker_done'  => $tiebreaker_done,
+			'bets'				=> $oldbetsforthisround
 		];
 	}
 
@@ -328,7 +330,9 @@ class FacebookController extends Controller {
 			$user->address = $request->input('address');
 		}
 		$user->save();
-		if ($count > 0) return '{"status":ok,"count_saved":' . $count . '}';
+		if ($count > 0) return Redirect::back();
+//		if ($count > 0) return '{"status":ok,"count_saved":' . $count . '}';
+		return Redirect::back();
 		return '{"status":fail,"count_saved":0}';
 
 	}

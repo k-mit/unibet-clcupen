@@ -29,12 +29,13 @@
         $s.find('.w,.l,.d').removeClass('w l d');
         grids.each(function () {
             if($(this).is('.t2')) {
-                console.log();
+                console.log(match.find('.active'));
                 var stats = match.find('.active').attr('data-stats').split(',');
                 $(this).find('ul').each(function (i,el) {
                     if(i<10) $(el).addClass(stats[i]);
                 });
             } else {
+                console.log(match.find(':not(.active)').get(0));
                 var stats = match.find(':not(.active)').attr('data-stats').split(',');
                 $(this).find('ul').each(function (i,el) {
                     if(i<10) $(el).addClass(stats[i]);
@@ -46,5 +47,9 @@
         });
 
     }
+    $(document).ready(function(){
+        // Target your .container, .wrapper, .post, etc.
+        $(".party-box").fitVids();
+    });
     window.renderstats = renderStats;
 })(jQuery);

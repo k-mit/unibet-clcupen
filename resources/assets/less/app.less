@@ -4,7 +4,8 @@
 @font-family-sans-serif: "Roboto", Helvetica, Arial, sans-serif;
 
 @highlight: #fbc500;
-
+@darkgreen: #1c4e1b;
+@lightgreen: #38a932;
 
 body, label, .checkbox label {
   font-weight : 300;
@@ -57,9 +58,10 @@ main, #main {
 
 .tool-boxes  {
   height      : auto;
-  position    : absolute;
+  position    : relative;
   width       : 100%;
   padding-top : 2em;
+  margin: 0;
   .tool {
     height        : 100%;
     .tabrow {
@@ -73,7 +75,7 @@ main, #main {
       }
       li {
         list-style  : none;
-        background  : #1c4e1b;
+        background  : @darkgreen;
         color       : @highlight;
         line-height : 3em;
         text-align  : center;
@@ -86,9 +88,9 @@ main, #main {
           display     : inline-block;
         }
         &.active {
-          background              : #38a932;
+          background              : @lightgreen;
           color                   : #fff;
-          border-top              : 5px solid #38a932;
+          border-top              : 5px solid @lightgreen;
           margin-top              : -5px;
           border-top-right-radius : 5px;
           border-top-left-radius  : 5px;
@@ -130,10 +132,10 @@ main, #main {
 }
 
 .party-box  {
-  height   : 66%;
   width    : 100%;
-  position : absolute;
-  bottom   : 0;
+  position : relative;
+  margin-left: -5px;
+  margin-top: 1em;
 }
 
 .rightpart {
@@ -187,6 +189,26 @@ main, #main {
   }
 
 }
+.game-table-buttons {
+  margin: 1em 0 0em;
+  padding: 1em 1em 4em 1em;
+  .game-button {
+    float: left;
+    background: @darkgreen;
+    color: white;
+    border: none;
+    border-bottom: 3px solid black;
+    height: 3em;
+    display: inline-block;
+    text-align: center;
+    line-height: 2em;
+
+    width: calc(~"50% - .5em");
+    +.game-button {
+      margin-left: 1em;
+    }
+  }
+}
 
 .tabcontent {
   display : none;
@@ -217,8 +239,8 @@ main, #main {
     display : inline-block;
     float   : right;
     .divider {
-      border-top : 1px solid white;
-      width      : .75em;
+      border-top : 2px solid white;
+      width      : .5em;
       height     : 0.45em;
       display    : inline-block;
       position   : relative;
@@ -234,7 +256,10 @@ main, #main {
   border        : none;
   text-align    : center;
   padding       : .3em .66em;
-
+  &:disabled {
+    background: transparent;
+    color: white;
+  }
 }
 
 .game_header {
@@ -254,6 +279,7 @@ main, #main {
     display : block;
   }
 }
+
 
 hr {
   opacity : .5;
@@ -445,4 +471,9 @@ hr {
       }
     }
   }
+}
+
+.tiebreaker_header {
+  font-size: 1.2em;
+  width: 80%;
 }
