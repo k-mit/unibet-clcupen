@@ -140,6 +140,7 @@ return [
 		'Clockwork\Support\Laravel\ClockworkServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
+		'Zofe\Rapyd\RapydServiceProvider',
 		/*
 		 * Application Service Providers...
 		 */

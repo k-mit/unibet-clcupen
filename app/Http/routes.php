@@ -45,3 +45,5 @@ Route::post('/admin/notifyPersons', ['middleware' => 'auth.facebook_admin', 'use
 Route::post('/admin/saveNotification', ['middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@saveNotification']);
 Route::post('/admin/saveSnippet', ['middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@saveSnippet']);
 Route::get('/admin/excelExport/{round_id}', ['as'=>'excel','middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@excelExport']);
+Route::controller('/admin/rounds','AdminRoundsController');
+Route::controller('/admin/results','AdminResultsController');
