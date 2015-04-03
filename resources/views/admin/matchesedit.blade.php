@@ -1,7 +1,7 @@
 @extends('admin')
 
 @section('content')
-    <h1>Results</h1>
+    <h1>Matches</h1>
     <p>
 
         {!! $edit !!}

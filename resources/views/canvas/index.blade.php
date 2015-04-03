@@ -42,7 +42,8 @@
                         @foreach($active_round[0]['matches'] as $key=>$match)
 
                             <div class="match-row">
-                                <input type="hidden" name="match_id_{{$key+1}}" value="{{$match['id']}}" />
+                                <input type="hidden" name="match_id_{{$key+1}}" value="{{$match['id']}}"/>
+
                                 <div class="match-teams">
                                     <a href="#" class="team-name"
                                        data-stats="{{$page->snippet($match['team1']['team_name'].' statistik')}}"
@@ -54,13 +55,19 @@
                                 </div>
                                 <div class="match-result">
                                     <?php
-                                    $matchbet = $bets->where('match_id',$match['id'])->first();
+                                    $matchbet = $bets->where('match_id', $match['id'])->first();
                                     ?>
 
-                                    <input size="2" required tabindex="1" {{isset($matchbet->bet_team1)?'disabled ':''}}class="match-result-input" name="bet_team1_{{$key+1}}" value="{{isset($matchbet->id)?$matchbet->bet_team1:''}}"/>
+                                    <input size="2" required tabindex="1"
+                                           {{isset($matchbet->bet_team1)?'disabled ':''}}class="match-result-input"
+                                           name="bet_team1_{{$key+1}}"
+                                           value="{{isset($matchbet->id)?$matchbet->bet_team1:''}}"/>
 
                                     <div class="divider"></div>
-                                    <input size="2" required tabindex="1" {{isset($matchbet->bet_team1)?'disabled ':''}}class="match-result-input" name="bet_team2_{{$key+1}}" value="{{isset($matchbet->id)?$matchbet->bet_team2:''}}"/>
+                                    <input size="2" required tabindex="1"
+                                           {{isset($matchbet->bet_team1)?'disabled ':''}}class="match-result-input"
+                                           name="bet_team2_{{$key+1}}"
+                                           value="{{isset($matchbet->id)?$matchbet->bet_team2:''}}"/>
                                 </div>
                             </div>
                             {{--{{$match['match_time']}}--}}
@@ -72,9 +79,13 @@
                         <hr/>
                         <div class="tiebreaker">
                             <span class="game_sub_header">{{$page->snippet('tiebreaker_ingress')}}</span>
+
                             <div class="input-group">
                                 <h3 class="tiebreaker_header">{{$page->snippet('tiebreaker_rubrik')}}</h3>
-                                <input size="2" required tabindex="1" {{isset($facebook_user['tiebreaker'])?'disabled ':''}} class="match-result-input" name="tiebreaker" value="{{isset($facebook_user['tiebreaker'])?$facebook_user['tiebreaker']:''}}">
+                                <input size="2" required
+                                       tabindex="1" {{isset($facebook_user['tiebreaker'])?'disabled ':''}}
+                                       class="match-result-input" name="tiebreaker"
+                                       value="{{isset($facebook_user['tiebreaker'])?$facebook_user['tiebreaker']:''}}">
                             </div>
                         </div>
                         <div class="game-table-footer"></div>
@@ -176,7 +187,8 @@
                 </div>
                 <div class="row party-box">
                     <div class="col-xs-12">
-                        <iframe src="https://player.vimeo.com/video/26152501" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <iframe src="https://player.vimeo.com/video/26152501" width="500" height="281" frameborder="0"
+                                webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     </div>
 
                 </div>
@@ -184,5 +196,7 @@
             </div>
         </main>
     </div>
-
+    @if ($errors->any())
+        {{dd($errors)}}
+    @endif
 @endsection

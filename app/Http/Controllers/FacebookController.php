@@ -22,6 +22,7 @@ use Facebook\Exceptions\FacebookSDKException;
 use Illuminate\Support\Facades\Session;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CreateBetRequest;
 
 /**
  * Class FacebookController
@@ -300,7 +301,7 @@ class FacebookController extends Controller {
 	 * @param Request $request
 	 * @return string
 	 */
-	public function saveBet(Request $request) {
+	public function saveBet(CreateBetRequest $request) {
 		$count = 0;
 		for ($bet_nr = 1; $bet_nr < 5; $bet_nr++) {
 			$oldbets = Bet::whereHas('match.round', function ($q) {

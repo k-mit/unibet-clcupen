@@ -47,3 +47,4 @@ Route::post('/admin/saveSnippet', ['middleware' => 'auth.facebook_admin', 'uses'
 Route::get('/admin/excelExport/{round_id}', ['as'=>'excel','middleware' => 'auth.facebook_admin', 'uses' => 'AdminController@excelExport']);
 Route::controller('/admin/rounds','AdminRoundsController');
 Route::controller('/admin/results','AdminResultsController');
+Route::controller('/admin/matches','AdminMatchesController');

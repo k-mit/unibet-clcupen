@@ -11,6 +11,8 @@
     @yield('font')
     <!-- css -->
     <link href="/css/admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    {!! Rapyd::styles() !!}
     @yield('css')
     <!-- js -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -33,5 +35,8 @@
     $('div.alert').delay(3000).slideUp(300);
 </script>
 @yield('bottom_js')
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+{!! Rapyd::scripts() !!}
 </body>
 </html>

@@ -20,5 +20,15 @@
                 <li><a href="{{route('roundResults',['round'=>10])}}"><span>All rounds</span></a></li>
             </ul>
         </li>
+<li class='active has-sub'><a href='#'><span>Game data</span></a>
+            <ul>
+                <li><a href="{{url('/admin/rounds/grid')}}"><span>Rounds</span></a></li>
+                <li><a href="{{url('/admin/results/grid')}}"><span>Match results</span></a></li>
+                <li><a href="{{url('/admin/matches/grid')}}"><span>Matches</span></a></li>
+            </ul>
+        </li>
+
+
+
     </ul>
 </div>
