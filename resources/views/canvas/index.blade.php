@@ -166,12 +166,12 @@
                         </ul>
                         <div class="row contentrow">
                             <div id="highscoreFriends" class="col-xs-12 tabcontent active">
-                                {{--@foreach($highscoreFriends as $hs_key => $highscoreFriends_row)--}}
-                                    {{--@if(is_numeric($hs_key))--}}
-                                        {{--{{$highscoreFriends_row->num}} {{$highscoreFriends_row->user_name}} {{$highscoreFriends_row->total_score}}--}}
+                                @foreach($highscoreFriends as $hs_key => $highscoreFriends_row)
+                                    @if(is_numeric($hs_key))
+                                        {{$highscoreFriends_row->num}} {{$highscoreFriends_row->user_name}} {{$highscoreFriends_row->total_score}}
                                         <br/>
-                                    {{--@endif--}}
-                                {{--@endforeach--}}
+                                    @endif
+                                @endforeach
                             </div>
                             <div id="highscoreGlobal" class="col-xs-12 tabcontent">
                                 @foreach($highscoreAll as $hs_key => $highscoreAll_row)
