@@ -226,16 +226,40 @@
                             <div id="highscoreFriends" class="col-xs-12 tabcontent active">
                                 @foreach($highscoreFriends as $hs_key => $highscoreFriends_row)
                                     @if(is_numeric($hs_key))
-                                        {{$highscoreFriends_row->num}} {{$highscoreFriends_row->user_name}} {{$highscoreFriends_row->total_score}}
-                                        <br/>
+                                        <li class="userrow">
+                                            <div class="placement">
+                                                {{$highscoreFriends_row->num}}
+                                            </div>
+                                            <div class="userimage">
+                                                <img src="https://graph.facebook.com/{{$highscoreFriends_row->id}}/picture">
+                                            </div>
+                                            <div class="username">
+                                                {{$highscoreFriends_row->user_name}}
+                                            </div>
+                                            <div class="userscore">
+                                                {{$highscoreFriends_row->total_score}}
+                                            </div>
+                                        </li>
                                     @endif
                                 @endforeach
                             </div>
                             <div id="highscoreGlobal" class="col-xs-12 tabcontent">
                                 @foreach($highscoreAll as $hs_key => $highscoreAll_row)
                                     @if(is_numeric($hs_key))
-                                        {{$highscoreAll_row->num}} {{$highscoreAll_row->user_name}} {{$highscoreAll_row->total_score}}
-                                        <br/>
+                                        <li class="userrow">
+                                            <div class="placement">
+                                                {{$highscoreAll_row->num}}
+                                            </div>
+                                            <div class="userimage">
+                                                <img src="https://graph.facebook.com/{{$highscoreAll_row->id}}/picture">
+                                            </div>
+                                            <div class="username">
+                                                {{$highscoreAll_row->user_name}}
+                                            </div>
+                                            <div class="userscore">
+                                                {{$highscoreAll_row->total_score}}
+                                            </div>
+                                        </li>
                                     @endif
                                 @endforeach
                             </div>
