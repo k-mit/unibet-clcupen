@@ -16,6 +16,7 @@
         event.preventDefault();
         $('.game-table .active').removeClass('active');
         $(this).addClass('active');
+        $('a[href="#teamform"]').click();
 
         renderStats($(this).parent());
 

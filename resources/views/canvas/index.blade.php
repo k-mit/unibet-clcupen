@@ -3,7 +3,7 @@
 @section('content')
     <div id="main" class="container">
         <main class="row">
-            <div class="col-sm-12 col-md-4 full-height">
+            <div class="col-sm-12 col-md-6 col-lg-4 full-height">
                 <div class="comp-info">
                     <div class="row">
                         <div class="col-sm-8">
@@ -101,9 +101,9 @@
                 </form>
             </div>
 
-            <div class="col-sm-12 col-md-8  full-height">
+            <div class="col-sm-12 col-md-6 col-lg-8 full-height right-col">
                 <div class="row tool-boxes">
-                    <div class="col-xs-12 col-sm-6 tool">
+                    <div class="col-xs-12 col-lg-6 tool">
                         <ul class="row tabrow">
                             <li class="col-xs-4 active">
                                 <a href="#tips10">10 Tips</a>
@@ -115,11 +115,21 @@
                                 <a href="#glennstips">Glenns&nbsp;Tips</a>
                             </li>
                         </ul>
+                        <ul class="row tabrow only-medium">
+                            <li class="col-xs-6">
+                                <a href="#highscoreGlobal1">Highscore Alla</a>
+                            </li>
+                            <li class="col-xs-6">
+                                <a href="#highscoreFriends1">Highscore Vänner</a>
+                            </li>
+                        </ul>
+
+
                         <div class="row contentrow">
-                            <div id="tips10" class="col-xs-12 tabcontent ">
+                            <div id="tips10" class="col-xs-12 tabcontent active">
                                 {!!$page->snippet('10_tips')!!}<br><br>
                             </div>
-                            <div id="teamform" class="col-xs-12 tabcontent active">
+                            <div id="teamform" class="col-xs-12 tabcontent">
                                 <h3><span class="team1">{{$active_round[0]['matches'][0]["team1"]["team_name"]}}</span>
                                     -
                                     <span class="team2 t2">{{$active_round[0]['matches'][0]["team2"]["team_name"]}}</span>
@@ -153,9 +163,57 @@
                             <div id="glennstips" class="col-xs-12 tabcontent">
                                 {!!$page->snippet('glenns_tips')!!}<br>
                             </div>
+                            <div class="only-medium">
+                                <div id="highscoreFriends1" class="col-xs-12 tabcontent">
+                                    <ul class="userlist">
+                                    @foreach($highscoreFriends as $hs_key => $highscoreFriends_row)
+                                            @if(is_numeric($hs_key))
+                                                <li class="userrow">
+                                                    <div class="placement">
+                                                        {{$highscoreFriends_row->num}}
+                                                    </div>
+                                                    <div class="userimage">
+                                                        <img src="https://graph.facebook.com/{{$highscoreFriends_row->id}}/picture">
+                                                    </div>
+                                                    <div class="username">
+                                                        {{$highscoreFriends_row->user_name}}
+                                                    </div>
+                                                    <div class="userscore">
+                                                        {{$highscoreFriends_row->total_score}}
+                                                    </div>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <div id="highscoreGlobal1" class="col-xs-12 tabcontent">
+                                    <ul class="userlist">
+                                    @foreach($highscoreAll as $hs_key => $highscoreAll_row)
+                                        @if(is_numeric($hs_key))
+                                                <li class="userrow">
+                                                    <div class="placement">
+                                                        {{$highscoreAll_row->num}}
+                                                    </div>
+                                                    <div class="userimage">
+                                                        <img src="https://graph.facebook.com/{{$highscoreAll_row->id}}/picture">
+                                                    </div>
+                                                    <div class="username">
+                                                        {{$highscoreAll_row->user_name}}
+                                                    </div>
+                                                    <div class="userscore">
+                                                        {{$highscoreAll_row->total_score}}
+                                                    </div>
+                                                </li>
+                                        @endif
+                                    @endforeach
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
+                        <div class="tool-footer"></div>
+
                     </div>
-                    <div class="col-xs-12 col-sm-6 tool">
+                    <div class="col-xs-12 col-sm-6 tool not-medium">
                         <ul class="row tabrow">
                             <li class="col-xs-6">
                                 <a href="#highscoreGlobal">Alla</a>

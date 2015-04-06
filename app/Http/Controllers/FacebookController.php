@@ -167,7 +167,7 @@ class FacebookController extends Controller {
 	 * @package
 	 */
 	public function highScoreAll() {
-		$highscoreList = DB::select(DB::raw('select users.extra_score+highscores.score as total_score,highscores.*, users.name AS user_name FROM users,`highscores` where highscores.user_id = users.id AND `round` = 10 order by `total_score` desc'));
+		$highscoreList = DB::select(DB::raw('select users.facebook_user_id as id, users.extra_score+highscores.score as total_score,highscores.*, users.name AS user_name FROM users,`highscores` where highscores.user_id = users.id AND `round` = 10 order by `total_score` desc'));
 		$auth_id = Auth::user()->id;
 		foreach ($highscoreList as $key => $highscoreUser) {
 			$highscoreList[$key]->num=$key+1;
@@ -201,7 +201,7 @@ class FacebookController extends Controller {
 		$friends[] = $auth_id;
 		$friendsstring = implode(',', $friends);
 		$friendsstring = str_replace(',,', ',', $friendsstring);
-		$highscoreFriends = DB::select(DB::raw('select users.extra_score+highscores.score as total_score, highscores.*, users.name AS user_name FROM users,`highscores` where highscores.user_id = users.id AND `round` = 10 and `user_id` in (' . $friendsstring . ') order by `total_score` desc'));
+		$highscoreFriends = DB::select(DB::raw('select users.facebook_user_id as id, users.extra_score+highscores.score as total_score, highscores.*, users.name AS user_name FROM users,`highscores` where highscores.user_id = users.id AND `round` = 10 and `user_id` in (' . $friendsstring . ') order by `total_score` desc'));
 		foreach ($highscoreFriends as $key => $highscoreFriend) {
 			$highscoreFriends[$key]->num=$key+1;
 			if ($highscoreFriend->user_id == $auth_id) {
