@@ -83,11 +83,17 @@ class FacebookController extends Controller {
 		if (!isset($grespons['friends']) || is_null($grespons['friends'])) {
 			$grespons['friends'] = array();
 		}
+		$friends = array();
 		foreach ($grespons['friends'] as $friend_key => $friend) {
-			$grespons['friends'][$friend_key]['user_id'] = User::where('facebook_user_id', '=', $friend['id'])->first()['id'];
+			$id = User::where('facebook_user_id', '=', $friend['id'])->first()['id'];
+			if($id) {
+				$grespons['friends'][$friend_key]['user_id'] = $id;
+				$friends[] = $grespons['friends'][$friend_key];
+			}
+
 		}
 
-		return $grespons['friends'];
+		return $friends;
 
 	}
 
@@ -108,7 +114,7 @@ class FacebookController extends Controller {
 		$fbFriends = $this->getFacebookFriends();
 
 		$highscoreAll = $this->highScoreAll();
-		$highscoreFriends = $this->highscoreFriends($fbFriends);
+//		$highscoreFriends = $this->highscoreFriends($fbFriends);
 		$oldbetsforthisround = Bet::whereHas('match', function ($q) {
 			$q->where('matches.round_id', '=', $this->getActiveRound()[0]->id);
 		})->where('user_id', '=', $facebook_user['user_id'])->get();
@@ -121,7 +127,7 @@ class FacebookController extends Controller {
 			'fbFriends'        => $fbFriends,
 			'havePlacedBet'    => $havePlacedBet,
 			'highscoreAll'     => $highscoreAll,
-			'highscoreFriends' => $highscoreFriends,
+//			'highscoreFriends' => $highscoreFriends,
 			'page'         => new ViewHelper(),
 			'tiebreaker_done'  => $tiebreaker_done,
 			'bets'				=> $oldbetsforthisround
