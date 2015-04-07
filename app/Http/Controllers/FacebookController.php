@@ -314,13 +314,15 @@ class FacebookController extends Controller {
 				$q->where('rounds.id', '=', $this->getActiveRound()[0]->id);
 			})->where('user_id', '=', $request->user()->id)->where('match_id', '=', $request->input('match_id_' . $bet_nr))->get();
 			if ($oldbets->count() == 0) {
-				$bet = new Bet();
-				$bet->user_id = $request->user()->id;
-				$bet->bet_team1 = $request->input('bet_team1_' . $bet_nr);
-				$bet->bet_team2 = $request->input('bet_team2_' . $bet_nr);
-				$bet->match_id = $request->input('match_id_' . $bet_nr);
-				$bet->save();
-				$count++;
+				if ($request->input('bet_team1_' . $bet_nr)&&$request->input('bet_team2_' . $bet_nr)&&$request->input('match_id' . $bet_nr)) {
+					$bet = new Bet();
+					$bet->user_id = $request->user()->id;
+					$bet->bet_team1 = $request->input('bet_team1_' . $bet_nr);
+					$bet->bet_team2 = $request->input('bet_team2_' . $bet_nr);
+					$bet->match_id = $request->input('match_id_' . $bet_nr);
+					$bet->save();
+					$count++;
+				}
 			}
 		}
 		$user = User::where('id', '=', $request->user()->id)->first();
