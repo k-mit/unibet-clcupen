@@ -169,11 +169,12 @@ main, #main {
 
 .party-box  {
   width    : 100%;
-  position : relative;
+  position : absolute;
+  bottom: 0;
 
   margin: 1em 0 0 0;
   > div {
-    padding: 10px;
+    padding: 10px 10px 0 10px;
   }
 }
 
@@ -582,4 +583,12 @@ hr {
     display: none;
   }
 
+}
+img {
+  max-width: 100%;
+}
+@media screen and (max-width: @screen-sm-max) {
+  .tool +.tool {
+    margin-top: 2em;
+  }
 }

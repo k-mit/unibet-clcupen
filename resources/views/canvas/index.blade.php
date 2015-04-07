@@ -213,7 +213,7 @@
                         <div class="tool-footer"></div>
 
                     </div>
-                    <div class="col-xs-12 col-sm-6 tool not-medium">
+                    <div class="col-xs-12 col-md-6 tool not-medium">
                         <ul class="row tabrow">
                             <li class="col-xs-6">
                                 <a href="#highscoreGlobal">Alla</a>
@@ -273,9 +273,7 @@
                 </div>
                 <div class="row party-box">
                     <div class="col-xs-12">
-                        <iframe src="https://player.vimeo.com/video/26152501" width="500" height="281" frameborder="0"
-                                webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                    </div>
+                        <img src="/img/glenn.png" alt="1:A pris, din egen CL-final för 50 000sek, Glenn inkluderad">
 
                 </div>
 
