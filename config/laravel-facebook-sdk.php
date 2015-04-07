@@ -14,8 +14,8 @@ return [
      * https://github.com/facebook/facebook-php-sdk-v4/blob/master/src/Facebook/Facebook.php#L132
      */
     'facebook_config' => [
-        'app_id' => '1445118565779083',
-        'app_secret' => 'e398f31a2385f33f91d5abeb9ec7e5a4',
+        'app_id' => env('FB_APP_ID', '1456225654668374'),
+        'app_secret' => env('FB_APP_SECRET','d692d76c6268b923cebd0e5050728ed6'),
         'default_graph_version' => 'v2.2',
         //'enable_beta_mode' => true,
         //'http_client_handler' => 'guzzle',

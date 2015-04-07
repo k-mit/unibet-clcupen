@@ -10,6 +10,7 @@
 
         t.parent().addClass('active');
         $(t.attr('href')).addClass('active');
+        onResize();
     })
 
     $('.team-name').click(function (event) {
@@ -19,6 +20,7 @@
         $('a[href="#teamform"]').click();
 
         renderStats($(this).parent());
+
 
     });
     function renderStats (match) {
@@ -77,4 +79,19 @@
             console.log(response);
         });
     })
+    $(window).on('resize',onResize());
+    function onResize () {
+        var cols = $('.full-height').removeAttr('style');
+        if($(window).width()<800) cols = cols.eq(1);
+        var maxH = 0;
+
+        cols.each(function(){
+            maxH = Math.max($(this).height(),maxH);
+        });
+        maxH = Math.max(maxH, ($('.tool-boxes').height()+ $('.party-box img').height() +60));
+        maxH = Math.max(maxH,$(document).height())
+        cols.height(maxH);
+
+        return onResize;
+    }
 })(jQuery);
