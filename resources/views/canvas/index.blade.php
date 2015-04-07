@@ -279,6 +279,7 @@
                 </div>
 
             </div>
+            <div id="unibetlogo"></div>
 
         @include('canvas.terms')
         </main>

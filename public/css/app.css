@@ -6481,8 +6481,17 @@ main,
 .full-height {
   height: 100%;
 }
+#unibetlogo {
+  width: 159px;
+  height: 43px;
+  background: url(../img/unibetlogo.png) no-repeat;
+  background-size: 159px 43px;
+  bottom: 1em;
+  position: absolute;
+  right: 0;
+}
 .comp-info {
-  padding-top: 4em;
+  padding-top: 2em;
 }
 .comp-info .row + .row {
   margin-top: 1.5em;
