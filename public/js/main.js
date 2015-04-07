@@ -79,6 +79,7 @@
     function onChallenge() {
         sendChallenge(null,'Var med och tävla och vinn din egen Champions League drömfinal', function(response) {
             console.log('sendChallenge',response);
+            $.ajax('/saveInvite',{type: "post", dataType: "json", data: {facebook_friend_id:response.to}})
         });
     }
     function sendChallenge(to, message, callback) {
