@@ -83,7 +83,7 @@
                             <div class="input-group">
                                 <h3 class="tiebreaker_header">{{$page->snippet('tiebreaker_rubrik')}}</h3>
                                 <input size="2" required
-                                       tabindex="1" {{isset($facebook_user['tiebreaker'])?'disabled ':''}}
+                                       tabindex="1" {{isset($facebook_user['tiebreaker_'.$active_round[0]['id']])?'disabled ':''}}
                                        class="match-result-input" name="tiebreaker_{{$active_round[0]['id']}}"
                                        value="{{isset($facebook_user['tiebreaker_'.$active_round[0]['id']])?$facebook_user['tiebreaker_'.$active_round[0]['id']]:''}}">
                             </div>
