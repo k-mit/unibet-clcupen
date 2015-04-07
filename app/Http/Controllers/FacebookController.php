@@ -124,7 +124,6 @@ class FacebookController extends Controller {
 		})->where('user_id', '=', $facebook_user['user_id'])->get();
 		$havePlacedBet = ($oldbetsforthisround->count() > 1 ? 1 : 0);
 		$tiebreaker_done = ($facebook_user['tiebreaker_' . $this->getActiveRound()[0]->id] == 0 ? 0 : 1);
-		$this->saveInvite();
 		return [
 			'facebook_user'    => $facebook_user,
 			'active_round'     => $active_round,
