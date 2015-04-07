@@ -91,7 +91,7 @@
                         <div class="game-table-footer"></div>
                     </div>
                     <div class="game-table-buttons">
-                        <button class="game-button">
+                        <button class="game-button invite-friend">
                             <span>UTMANA EN VÄN</span>
                         </button>
                         <button type="submit" class="game-button">

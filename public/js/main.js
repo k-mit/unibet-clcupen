@@ -48,9 +48,33 @@
         });
 
     }
+    $('.invite-friend').click(function (e) {
+        e.preventDefault();
+        onChallenge();
+    })
     $(document).ready(function(){
         // Target your .container, .wrapper, .post, etc.
         $(".party-box").fitVids();
     });
     window.renderstats = renderStats;
+    function onChallenge() {
+        sendChallenge(null,'Spela CL-Cupen och ha en chans att vinna en superduperfest!', function(response) {
+            console.log('sendChallenge',response);
+        });
+    }
+    function sendChallenge(to, message, callback) {
+        var options = {
+            method: 'apprequests'
+        };
+        if(to) options.to = to;
+        if(message) options.message = message;
+        FB.ui(options, function(response) {
+            if(callback) callback(response);
+        });
+    }
+    $('h1').click(function () {
+        FB.api('/me', {fields: 'apprequests'}, function(response) {
+            console.log(response);
+        });
+    })
 })(jQuery);
