@@ -50,3 +50,4 @@ Route::get('/admin/excelExport/{round_id}', ['as'=>'excel','middleware' => 'auth
 Route::controller('/admin/rounds','AdminRoundsController');
 Route::controller('/admin/results','AdminResultsController');
 Route::controller('/admin/matches','AdminMatchesController');
+Route::controller('/admin/tiebreaker','AdminTiebreakerResultsController');

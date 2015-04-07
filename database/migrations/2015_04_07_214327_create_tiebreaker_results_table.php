@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTiebreakerResults extends Migration {
+class CreateTiebreakerResultsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -28,7 +28,7 @@ class CreateTiebreakerResults extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('tiebreaker_results');
 	}
 
 }
