@@ -26,6 +26,7 @@ Route::any('facebook/login', ['uses' => 'FacebookController@viewLogin']);
  * Action routes for campaign page
  */
 Route::post('/saveBet', ['middleware' => 'auth.facebook', 'uses' => 'FacebookController@saveBet']);
+Route::post('/saveInvite', ['middleware' => 'auth.facebook', 'uses' => 'FacebookController@saveInvite']);
 
 /**
  * admin routes
