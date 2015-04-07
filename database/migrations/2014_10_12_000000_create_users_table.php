@@ -21,7 +21,10 @@ class CreateUsersTable extends Migration {
 			$table->string('password', 60);
 			$table->string('access_token')->nullable();
 			$table->integer('extra_score');
-			$table->integer('tiebreaker');
+			$table->integer('tiebreaker_1')->nullable();
+			$table->integer('tiebreaker_2')->nullable();
+			$table->integer('tiebreaker_3')->nullable();
+			$table->integer('tiebreaker_4')->nullable();
 			$table->string('shirt_size','20');
 			$table->string('email2');
 			$table->text('address');

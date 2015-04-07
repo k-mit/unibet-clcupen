@@ -32,7 +32,10 @@ class CreateBetRequest extends Request {
 			'match_id_2'  => 'integer',
 			'match_id_3'  => 'integer',
 			'match_id_4'  => 'integer',
-			'tiebreaker'  => 'integer',
+			'tiebreaker_1'  => 'integer',
+			'tiebreaker_2'  => 'integer',
+			'tiebreaker_3'  => 'integer',
+			'tiebreaker_4'  => 'integer',
 			'shirt_size' => 'max:10',
 			'email2' => 'email|max 100'
 		];
