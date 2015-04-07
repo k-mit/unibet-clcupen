@@ -3,6 +3,13 @@
  */
 
 (function ($) {
+    $('#close-terms').click(function () {
+       $('#terms').hide();
+    });
+
+    $('a[href="#terms"]').click(function (){
+       $('#terms').show();
+    });
     $('.tabrow li a').click(function (e) {
         e.preventDefault();
         var t = $(this);

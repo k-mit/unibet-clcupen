@@ -274,11 +274,13 @@
                 </div>
                 <div class="row party-box">
                     <div class="col-xs-12">
-                        <img src="/img/glenn.png" alt="1:A pris, din egen CL-final för 50 000sek, Glenn inkluderad">
+                        <a href="#terms"><img src="/img/glenn.png" alt="1:A pris, din egen CL-final för 50 000sek, Glenn inkluderad"></a>
                     </div>
                 </div>
 
             </div>
+
+        @include('canvas.terms')
         </main>
     </div>
     @if ($errors->any())

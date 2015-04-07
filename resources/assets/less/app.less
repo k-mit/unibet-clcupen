@@ -25,9 +25,16 @@ body, label, .checkbox label {
 }
 
 body {
-  margin           : 0;
-  background-image : radial-gradient(#2f8e2c, #2e7423);
-  background-size  : cover;
+  margin          : 0;
+  background      : #2f8e2c; /* Old browsers */
+  background      : -moz-radial-gradient(center, ellipse cover, #2f8e2c 0%, #2e7423 100%); /* FF3.6+ */
+  background      : -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #2f8e2c), color-stop(100%, #2e7423)); /* Chrome,Safari4+ */
+  background      : -webkit-radial-gradient(center, ellipse cover, #2f8e2c 0%, #2e7423 100%); /* Chrome10+,Safari5.1+ */
+  background      : -o-radial-gradient(center, ellipse cover, #2f8e2c 0%, #2e7423 100%); /* Opera 12+ */
+  background      : -ms-radial-gradient(center, ellipse cover, #2f8e2c 0%, #2e7423 100%); /* IE10+ */
+  background      : radial-gradient(ellipse at center, #2f8e2c 0%, #2e7423 100%); /* W3C */
+  filter          : progid:DXImageTransform.Microsoft.gradient(startColorstr='#2f8e2c', endColorstr='#2e7423', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+  background-size : cover;
 
 }
 
@@ -605,28 +612,61 @@ img {
   strong {
     display       : block;
     margin-bottom : 1em;
-    cursor: pointer;
+    cursor        : pointer;
     &:after {
-      content: '+';
-      display: block;
-      float: right;
+      content : '+';
+      display : block;
+      float   : right;
 
     }
     + p {
       display : none;
     }
     &.active {
-      margin-bottom: .5em;
+      margin-bottom : .5em;
       + p {
         display : block;
       }
       &:after {
-        content: '-';
-        margin-right: .3em;
+        content      : '-';
+        margin-right : .3em;
 
       }
 
     }
   }
 
+}
+
+#terms {
+  display: none;
+  #close-terms {
+    float: right;
+    color: white;
+    height: 2em;
+    width: 2em;
+    border: 1px solid white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1.9em;
+    &:hover {
+      text-decoration : none;
+      opacity: .8;
+    }
+
+  }
+  position   : absolute;
+  width      : 100%;
+  padding    : 2em;
+  background : darkgreen;
+  min-height     : 100%;
+  top        : 0;
+  h2 {
+    font-family: unibet;
+    text-align: center;
+  }
+  .wrap {
+    max-width: 42em;
+    margin:0 auto;
+  }
 }

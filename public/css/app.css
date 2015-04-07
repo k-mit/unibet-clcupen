@@ -6240,7 +6240,17 @@ label,
 }
 body {
   margin: 0;
-  background-image: radial-gradient(#2f8e2c, #2e7423);
+  background: #2f8e2c;
+  /* Old browsers */
+  /* FF3.6+ */
+  /* Chrome,Safari4+ */
+  /* Chrome10+,Safari5.1+ */
+  /* Opera 12+ */
+  /* IE10+ */
+  background: radial-gradient(ellipse at center, #2f8e2c 0%, #2e7423 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2f8e2c', endColorstr='#2e7423', GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
   background-size: cover;
 }
 div {
@@ -6752,6 +6762,37 @@ img {
 #tips10 strong.active:after {
   content: '-';
   margin-right: .3em;
+}
+#terms {
+  display: none;
+  position: absolute;
+  width: 100%;
+  padding: 2em;
+  background: darkgreen;
+  min-height: 100%;
+  top: 0;
+}
+#terms #close-terms {
+  float: right;
+  color: white;
+  height: 2em;
+  width: 2em;
+  border: 1px solid white;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1.9em;
+}
+#terms #close-terms:hover {
+  text-decoration: none;
+  opacity: .8;
+}
+#terms h2 {
+  font-family: unibet;
+  text-align: center;
+}
+#terms .wrap {
+  max-width: 42em;
+  margin: 0 auto;
 }
 
 /*# sourceMappingURL=app.css.map */
