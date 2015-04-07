@@ -87,6 +87,7 @@
             maxH = Math.max($(this).height(),maxH);
         });
         maxH = Math.max(maxH, ($('.tool-boxes').height()+ $('.party-box img').height() +60));
+        maxH = Math.max(maxH,$(document).height())
         cols.height(maxH);
 
         return onResize;
