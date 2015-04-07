@@ -10,6 +10,7 @@
 
         t.parent().addClass('active');
         $(t.attr('href')).addClass('active');
+        onResize();
     })
 
     $('.team-name').click(function (event) {
@@ -19,6 +20,7 @@
         $('a[href="#teamform"]').click();
 
         renderStats($(this).parent());
+
 
     });
     function renderStats (match) {
