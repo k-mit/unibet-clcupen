@@ -330,13 +330,13 @@ class FacebookController extends Controller {
 		}
 		$user = User::where('id', '=', $request->user()->id)->first();
 		if ($request->has('tiebreaker_1')) {
-			$user->tiebreaker_1 = $request->input('tiebreaker_4');
+			$user->tiebreaker_1 = $request->input('tiebreaker_1');
 		}
 		if ($request->has('tiebreaker_2')) {
-			$user->tiebreaker_2 = $request->input('tiebreaker_4');
+			$user->tiebreaker_2 = $request->input('tiebreaker_2');
 		}
 		if ($request->has('tiebreaker_3')) {
-			$user->tiebreaker_3 = $request->input('tiebreaker_4');
+			$user->tiebreaker_3 = $request->input('tiebreaker_3');
 		}
 		if ($request->has('tiebreaker_4')) {
 			$user->tiebreaker_4 = $request->input('tiebreaker_4');
