@@ -77,7 +77,7 @@
     });
     window.renderstats = renderStats;
     function onChallenge() {
-        sendChallenge(null,'Spela CL-Cupen och ha en chans att vinna en superduperfest!', function(response) {
+        sendChallenge(null,'Var med och tävla och vinn din egen Champions League drömfinal', function(response) {
             console.log('sendChallenge',response);
         });
     }
