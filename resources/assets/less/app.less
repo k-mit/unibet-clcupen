@@ -1,15 +1,15 @@
 @import "bootstrap/bootstrap";
 
 @font-face {
-  font-family: 'unibet';
-  src: url('/fonts/Unibet Pro (superstar edit)-webfont.eot');
-  src: url('/fonts/Unibet Pro (superstar edit)-webfont.eot?#iefix') format('embedded-opentype'),
+  font-family : 'unibet';
+  src         : url('/fonts/Unibet Pro (superstar edit)-webfont.eot');
+  src         : url('/fonts/Unibet Pro (superstar edit)-webfont.eot?#iefix') format('embedded-opentype'),
   url('/fonts/Unibet Pro (superstar edit)-webfont.woff2') format('woff2'),
   url('/fonts/Unibet Pro (superstar edit)-webfont.woff') format('woff'),
   url('/fonts/Unibet Pro (superstar edit)-webfont.ttf') format('truetype'),
   url('/fonts/Unibet Pro (superstar edit)-webfont.svg#unibet_pro_superstar_editRg') format('svg');
-  font-weight: normal;
-  font-style: normal;
+  font-weight : normal;
+  font-style  : normal;
 
 }
 
@@ -42,12 +42,13 @@ main, #main {
   top        : 0;
   left       : 0;
   color      : #fff;
-  padding: 0 0 0 1em;
+  padding    : 0 0 0 1em;
 }
 
 .right-col {
-  padding: 0;
+  padding : 0;
 }
+
 .cl-logo {
   text-indent       : -999em;
   background-image  : url(../img/clcup-logo.png);
@@ -76,13 +77,13 @@ main, #main {
   position    : relative;
   width       : 100%;
   padding-top : 2em;
-  margin: 0;
+  margin      : 0;
   .tool {
     height        : 100%;
     .tabrow {
       padding       : 0;
       margin-bottom : 0;
-      font-family: 'unibet';
+      font-family   : 'unibet';
 
       :first-child {
         border-top-left-radius : 5px;
@@ -104,7 +105,7 @@ main, #main {
           height      : 100%;
           display     : inline-block;
           &:hover {
-            color: white;
+            color : white;
 
           }
         }
@@ -126,8 +127,8 @@ main, #main {
           border-top-right-radius : 0;
         }
         li.active {
-          border-top-right-radius: 5px;
-          border-top-left-radius: 5px;
+          border-top-right-radius : 5px;
+          border-top-left-radius  : 5px;
         }
       }
 
@@ -136,7 +137,6 @@ main, #main {
     padding-left  : 20px;
   }
 }
-
 
 .contentrow {
   padding : 0 5px;
@@ -163,52 +163,53 @@ main, #main {
     height     : 100%;
     border-top : 10px solid black;
     background : #1c4e1b;
-    min-height: 15em;
+    min-height : 15em;
   }
 }
 
 .party-box  {
   width    : 100%;
   position : absolute;
-  bottom: 0;
+  bottom   : 0;
 
-  margin: 1em 0 0 0;
+  margin   : 1em 0 0 0;
   > div {
-    padding: 10px 10px 0 10px;
+    padding : 10px 10px 0 10px;
   }
 }
 
 .userlist {
-  list-style: none;
-  padding: 0;
+  list-style : none;
+  padding    : 0;
 
   .userrow {
-    list-style: none;
+    list-style : none;
     > div {
-      display: inline-block;
+      display : inline-block;
     }
     + .userrow {
-      border-top: 1px solid rgba(255,255,255,.5);
+      border-top : 1px solid rgba(255, 255, 255, .5);
     }
   }
   .placement {
     font-family : unibet;
-    font-size: 1.3em;
-    width: 2em;
-    text-align: center;
+    font-size   : 1.3em;
+    width       : 2em;
+    text-align  : center;
 
   }
   .userimage {
 
   }
   .userscore {
-    float: right;
-    line-height:50px;
-    padding: 0 1em;
+    float       : right;
+    line-height : 50px;
+    padding     : 0 1em;
 
   }
 
 }
+
 .rightpart {
   position : absolute;
   width    : 100%;
@@ -232,8 +233,8 @@ main, #main {
   width      : 100%;
   padding    : 1em;
 
-
 }
+
 .game-table-footer, .tool-footer {
   &:before, &:after {
     content      : '';
@@ -263,35 +264,38 @@ main, #main {
 }
 
 .tool-footer {
-  width      : calc(~"100% - 30px");
-  left: 15px;
+  width : calc(~"100% - 30px");
+  left  : 15px;
 }
+
 .game-table-buttons {
-  margin: 1em 0 0em;
-  padding: 1em 1em 4em 1em;
+  margin  : 1em 0 0em;
+  padding : 1em 1em 4em 1em;
 
 }
-.game-button {
-  font-family: unibet;
-  font-size: 1.3em;
-  float: left;
-  background: @darkgreen;
-  color: white;
-  border: none;
-  border-bottom: 3px solid black;
-  height: 3em;
-  display: inline-block;
-  text-align: center;
-  line-height: 2em;
 
-  width: calc(~"50% - .5em");
-  +.game-button {
-    margin-left: 1em;
+.game-button {
+  font-family   : unibet;
+  font-size     : 1.3em;
+  float         : left;
+  background    : @darkgreen;
+  color         : white;
+  border        : none;
+  border-bottom : 3px solid black;
+  height        : 3em;
+  display       : inline-block;
+  text-align    : center;
+  line-height   : 2em;
+
+  width         : calc(~"50% - .5em");
+  + .game-button {
+    margin-left : 1em;
   }
   &:hover {
-    color: @highlight;
+    color : @highlight;
   }
 }
+
 .tabcontent {
   display : none;
   padding : 1.5em 1em;
@@ -312,9 +316,9 @@ main, #main {
   }
 
   .team-name {
-    color: #fff;
+    color : #fff;
     &.active {
-      color: @highlight;
+      color : @highlight;
     }
   }
 
@@ -334,17 +338,17 @@ main, #main {
 }
 
 .match-result-input {
-  border-radius : 5px;
-  color         : black;
-  border        : none;
-  text-align    : center;
-  padding       : .3em .66em;
-  -webkit-box-shadow : inset 0 3px 3px rgba(0,0,0,.5);
-  -moz-box-shadow    : inset 0 3px 3px rgba(0,0,0,.5);
-  box-shadow         : inset 0 3px 3px rgba(0,0,0,.5);
+  border-radius      : 5px;
+  color              : black;
+  border             : none;
+  text-align         : center;
+  padding            : .3em .66em;
+  -webkit-box-shadow : inset 0 3px 3px rgba(0, 0, 0, .5);
+  -moz-box-shadow    : inset 0 3px 3px rgba(0, 0, 0, .5);
+  box-shadow         : inset 0 3px 3px rgba(0, 0, 0, .5);
   &:disabled {
-    background: transparent;
-    color: white;
+    background         : transparent;
+    color              : white;
     -webkit-box-shadow : none;
     -moz-box-shadow    : none;
     box-shadow         : none;
@@ -352,14 +356,14 @@ main, #main {
 }
 
 .game_header {
-  margin : .5em 0 0 0;
-  font-family: unibet;
+  margin      : .5em 0 0 0;
+  font-family : unibet;
 }
 
 .tiebreaker_header {
-  margin  : 0 0 .5em 0;
-  display : inline-block;
-  font-family: unibet;
+  margin      : 0 0 .5em 0;
+  display     : inline-block;
+  font-family : unibet;
 }
 
 .tiebreaker {
@@ -371,7 +375,6 @@ main, #main {
   }
 }
 
-
 hr {
   opacity : .5;
 }
@@ -379,10 +382,10 @@ hr {
 #teamform {
 
   h3 {
-    text-align: center;
-    margin: 0 0 1.5em;
+    text-align : center;
+    margin     : 0 0 1.5em;
     .t2 {
-      color: @highlight;
+      color : @highlight;
     }
   }
   white-space : nowrap;
@@ -391,9 +394,9 @@ hr {
     width    : 100%;
     position : relative;
     &.t2 {
-      position: absolute;
-      top: 0;
-      left: 0;
+      position : absolute;
+      top      : 0;
+      left     : 0;
     }
   }
   ul {
@@ -408,12 +411,12 @@ hr {
     border-left : 1px solid black;
     &.desc {
       span {
-        display: block;
-        width: 100%;
-        position: absolute;
-        top: 100%;
-        margin-top: -1.4em;
-        text-align: center;
+        display    : block;
+        width      : 100%;
+        position   : absolute;
+        top        : 100%;
+        margin-top : -1.4em;
+        text-align : center;
       }
     }
     li {
@@ -427,10 +430,10 @@ hr {
       position   : relative;
       &:first-child {
         border : none;
-        height: 15%;
+        height : 15%;
       }
       &:last-child {
-        height: 15%;
+        height : 15%;
       }
     }
     &.w, &.l, &.d {
@@ -496,8 +499,8 @@ hr {
       top : 50%;
     }
     &.w + .w:before {
-      top : 0%;
-      height: 15%;
+      top    : 0%;
+      height : 15%;
     }
     &.w + .d, &.d + .l, &.w + .l {
       &:before {
@@ -531,7 +534,7 @@ hr {
       border : none;
       &.w, &.l, &.d {
         &:after {
-          background: @highlight;
+          background : @highlight;
         }
         &:before {
           background : linear-gradient(to top left,
@@ -565,30 +568,65 @@ hr {
 }
 
 .tiebreaker_header {
-  font-size: 1.2em;
-  width: 80%;
+  font-size : 1.2em;
+  width     : 80%;
 }
+
 .debug {
-  display: none;
+  display : none;
 }
+
 .only-medium {
-  display: none;
-  @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-    display: block;
+  display : none;
+  @media screen and (min-width : @screen-md-min) and (max-width : @screen-md-max) {
+    display : block;
   }
 }
+
 .not-medium {
-  display: block;
-  @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-    display: none;
+  display : block;
+  @media screen and (min-width : @screen-md-min) and (max-width : @screen-md-max) {
+    display : none;
   }
 
 }
+
 img {
-  max-width: 100%;
+  max-width : 100%;
 }
-@media screen and (max-width: @screen-sm-max) {
-  .tool +.tool {
-    margin-top: 2em;
+
+@media screen and (max-width : @screen-sm-max) {
+  .tool + .tool {
+    margin-top : 2em;
   }
+}
+
+#tips10 {
+  strong {
+    display       : block;
+    margin-bottom : 1em;
+    cursor: pointer;
+    &:after {
+      content: '+';
+      display: block;
+      float: right;
+
+    }
+    + p {
+      display : none;
+    }
+    &.active {
+      margin-bottom: .5em;
+      + p {
+        display : block;
+      }
+      &:after {
+        content: '-';
+        margin-right: .3em;
+
+      }
+
+    }
+  }
+
 }

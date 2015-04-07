@@ -23,6 +23,16 @@
 
 
     });
+    $('#tips10').find('strong').click(function () {
+        if($(this).is('.active')) {
+            $('#tips10').find('.active').removeClass('active');
+            onResize();
+            return;
+        }
+        $('#tips10').find('.active').removeClass('active');
+        $(this).addClass('active');
+        onResize();
+    });
     function renderStats (match) {
         var teams = match.find('.team-name');
         $('#teamform>h3').html('<span class="team1'+(+teams.eq(0).is('.active')?' t2':'')+'">'+teams.eq(0).text()+'</span> - <span class="team2'+(+teams.eq(1).is('.active')?' t2':'')+'">'+teams.eq(1).text()+'</span>');
@@ -94,4 +104,5 @@
 
         return onResize;
     }
+
 })(jQuery);

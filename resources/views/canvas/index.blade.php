@@ -84,8 +84,8 @@
                                 <h3 class="tiebreaker_header">{{$page->snippet('tiebreaker_rubrik')}}</h3>
                                 <input size="2" required
                                        tabindex="1" {{isset($facebook_user['tiebreaker'])?'disabled ':''}}
-                                       class="match-result-input" name="tiebreaker"
-                                       value="{{isset($facebook_user['tiebreaker'])?$facebook_user['tiebreaker']:''}}">
+                                       class="match-result-input" name="tiebreaker_{{$active_round[0]['id']}}"
+                                       value="{{isset($facebook_user['tiebreaker_'.$active_round[0]['id']])?$facebook_user['tiebreaker_'.$active_round[0]['id']]:''}}">
                             </div>
                         </div>
                         <div class="game-table-footer"></div>
@@ -106,7 +106,7 @@
                     <div class="col-xs-12 col-lg-6 tool">
                         <ul class="row tabrow">
                             <li class="col-xs-4 active">
-                                <a href="#tips10">10 Tips</a>
+                                <a href="#tips10">Matchtips</a>
                             </li>
                             <li class="col-xs-4 ">
                                 <a href="#teamform">Form</a>
@@ -268,13 +268,14 @@
                                 </ul>
                             </div>
                         </div>
+                        <div class="tool-footer"></div>
 
                     </div>
                 </div>
                 <div class="row party-box">
                     <div class="col-xs-12">
                         <img src="/img/glenn.png" alt="1:A pris, din egen CL-final för 50 000sek, Glenn inkluderad">
-
+                    </div>
                 </div>
 
             </div>
