@@ -63,7 +63,10 @@ class FacebookController extends Controller {
 		$facebook_user = \Session::get('facebook_user');
 		$user = \Auth::getUser();
 		$facebook_user['user_id'] = $user['id'];
-		$facebook_user['tiebreaker'] = $user['tiebreaker'];
+		$facebook_user['tiebreaker_1'] = $user['tiebreaker_1'];
+		$facebook_user['tiebreaker_2'] = $user['tiebreaker_2'];
+		$facebook_user['tiebreaker_3'] = $user['tiebreaker_3'];
+		$facebook_user['tiebreaker_4'] = $user['tiebreaker_4'];
 		return $facebook_user;
 	}
 
@@ -119,7 +122,7 @@ class FacebookController extends Controller {
 			$q->where('matches.round_id', '=', $this->getActiveRound()[0]->id);
 		})->where('user_id', '=', $facebook_user['user_id'])->get();
 		$havePlacedBet = ($oldbetsforthisround->count() > 1 ? 1 : 0);
-		$tiebreaker_done = ($facebook_user['tiebreaker'] == 0 ? 0 : 1);
+		$tiebreaker_done = ($facebook_user['tiebreaker_'.$this->getActiveRound()[0]->id] == 0 ? 0 : 1);
 
 		return [
 			'facebook_user'    => $facebook_user,
