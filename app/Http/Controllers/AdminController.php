@@ -174,9 +174,14 @@ class AdminController extends Controller {
 	 * @return mixed
 	 */
 	public function highScoreRoundPage($round_id) {
+		if ($round_id==10){
+			$tie_sql = 'cast(SUM(tiebreaker_results.result) as signed)-(users.tiebreaker_1+users.tiebreaker_2+users.tiebreaker_3+users.tiebreaker_4)';
+		}else{
+			$tie_sql = 'cast(tiebreaker_results.result as signed)-users.tiebreaker_'.$round_id;
+		}
 		$highscoreList = DB::select(DB::raw('select
 												users.extra_score+highscores.score as total_score,
-												ABS(cast(tiebreaker_results.result as signed)-users.tiebreaker_'.$round_id.') AS tiebreaker_diff,
+												ABS('.$tie_sql.') AS tiebreaker_diff,
 												highscores.*,
 												users.*
 												FROM
