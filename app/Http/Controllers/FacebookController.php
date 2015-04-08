@@ -375,9 +375,9 @@ class FacebookController extends Controller {
 			foreach ($request->input('facebook_friend_id', []) as $facebook_friend_id) {
 			$oldinvites = Invite::where('user_id', '=', $request->user()->id)->get();
 				if ($oldinvites->count() < 5) {
-					$user = User::where('id', '=', $request->user()->id)->first();
+/*					$user = User::where('id', '=', $request->user()->id)->first();
 					$user->extra_score++;
-					$user->save();
+					$user->save();*/
 					$invite = new Invite();
 					$invite->user_id = $request->user()->id;
 					$invite->round_id = $this->getActiveRound()[0]->id;
