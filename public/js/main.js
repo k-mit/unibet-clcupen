@@ -17,6 +17,7 @@
 
         t.parent().addClass('active');
         $(t.attr('href')).addClass('active');
+        checkScroll( $(t.attr('href')));
         onResize();
     })
 
@@ -75,6 +76,36 @@
         // Target your .container, .wrapper, .post, etc.
         $(".party-box").fitVids();
     });
+    function checkScroll(item) {
+        item.find('.userlist').each(function (){
+
+            if(this.scrollHeight>300) {
+                $(this).scrollTop(0,0);
+                $(this).siblings('.scrolldown').addClass('active');
+            }
+        });
+
+
+    }
+
+    checkScroll($('#main'));
+    $('.scrolldown').click(function (e) {
+        e.preventDefault();
+        var ul=$(this).siblings('.userlist');
+        ul.scrollTop(ul.scrollTop()+300);
+        console.log(ul.scrollTop(), ul.get(0).scrollHeight);
+        if(ul.scrollTop()+300 >= ul.get(0).scrollHeight) ul.siblings('.scrolldown').removeClass('active');
+        $(this).siblings('.scrollup').addClass('active');
+
+    });
+    $('.scrollup').click(function (e) {
+        e.preventDefault();
+        var ul=$(this).siblings('.userlist');
+        ul.scrollTop(ul.scrollTop()-300);
+        if(ul.scrollTop()<1) ul.siblings('.scrollup').removeClass('active');
+        $(this).siblings('.scrolldown').addClass('active');
+    });
+
     window.renderstats = renderStats;
     function onChallenge() {
         sendChallenge(null,'Var med och tävla och vinn din egen Champions League drömfinal', function(response) {
@@ -82,6 +113,7 @@
             $.ajax('/saveInvite',{type: "post", dataType: "json", data: {facebook_friend_id:response.to}})
         });
     }
+
     function sendChallenge(to, message, callback) {
         var options = {
             method: 'apprequests'

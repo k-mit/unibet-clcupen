@@ -108,6 +108,8 @@ main, #main {
         text-align  : center;
         padding     : 0;
         border-right: 1px solid rgba(0,0,0,.25);
+        font-size: 1.2em;
+
         a {
           color       : inherit;
           white-space : nowrap;
@@ -188,11 +190,33 @@ main, #main {
   }
 }
 
+.scrollup,.scrolldown {
+  width: 100%;
+  margin-top: -.5em;
+  display: block;
+  text-align: center;
+  font-size: 1.3em;
+  color: #fff;
+  visibility:hidden;
+  &:hover {
+    text-decoration : none;
+  }
+  &.active {
+    visibility: visible;
+  }
+}
+.scrolldown {
+
+  margin: 0 0 -.5em 0;
+}
+
 .userlist {
   list-style : none;
   padding    : 0;
-
+  max-height: 300px;
+  overflow: hidden;
   .userrow {
+    white-space: nowrap;
     list-style : none;
     > div {
       display : inline-block;
@@ -209,6 +233,10 @@ main, #main {
 
   }
   .userimage {
+
+  }
+  .username {
+    white-space: nowrap;
 
   }
   .userscore {
@@ -390,9 +418,10 @@ main, #main {
   .match-result-input {
     float : right;
   }
-  .game_sub_header {
-    display : block;
-  }
+}
+.game_sub_header {
+  display : block;
+  font-style: italic;
 }
 
 hr {
@@ -621,7 +650,11 @@ img {
   }
 }
 
+#glennstips {
+  font-style: italic;
+}
 #tips10 {
+  font-style: italic;
   strong {
     display       : block;
     margin-bottom : 1em;
