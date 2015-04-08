@@ -165,6 +165,7 @@
                             </div>
                             <div class="only-medium">
                                 <div id="highscoreFriends1" class="col-xs-12 tabcontent">
+                                    <a class="glyphicon glyphicon-chevron-up scrollup" href="#"></a>
                                     <ul class="userlist">
                                     @foreach($highscoreFriends as $hs_key => $highscoreFriends_row)
                                             @if(is_numeric($hs_key))
@@ -185,11 +186,14 @@
                                             @endif
                                         @endforeach
                                     </ul>
+                                    <a class="glyphicon glyphicon-chevron-down scrolldown" href="#"></a>
+
                                 </div>
                                 <div id="highscoreGlobal1" class="col-xs-12 tabcontent">
+                                    <a class="glyphicon glyphicon-chevron-up scrollup" href="#"></a>
                                     <ul class="userlist">
-                                    @foreach($highscoreAll as $hs_key => $highscoreAll_row)
-                                        @if(is_numeric($hs_key))
+                                        @foreach($highscoreAll as $hs_key => $highscoreAll_row)
+                                            @if(is_numeric($hs_key))
                                                 <li class="userrow">
                                                     <div class="placement">
                                                         {{$highscoreAll_row->num}}
@@ -204,9 +208,11 @@
                                                         {{$highscoreAll_row->total_score}}
                                                     </div>
                                                 </li>
-                                        @endif
-                                    @endforeach
+                                            @endif
+
+                                        @endforeach
                                     </ul>
+                                    <a class="glyphicon glyphicon-chevron-down scrolldown" href="#"></a>
                                 </div>
                             </div>
                         </div>
@@ -224,6 +230,7 @@
                         </ul>
                         <div class="row contentrow">
                             <div id="highscoreFriends" class="col-xs-12 tabcontent active">
+                                <a class="glyphicon glyphicon-chevron-up scrollup" href="#"></a>
                                 <ul class="userlist">
                                     @foreach($highscoreFriends as $hs_key => $highscoreFriends_row)
                                     @if(is_numeric($hs_key))
@@ -244,8 +251,12 @@
                                     @endif
                                 @endforeach
                                 </ul>
+                                <a class="glyphicon glyphicon-chevron-down scrolldown" href="#"></a>
+
                             </div>
                             <div id="highscoreGlobal" class="col-xs-12 tabcontent">
+                                <a class="glyphicon glyphicon-chevron-up scrollup" href="#"></a>
+
                                 <ul class="userlist">
                                 @foreach($highscoreAll as $hs_key => $highscoreAll_row)
                                     @if(is_numeric($hs_key))
@@ -266,6 +277,8 @@
                                     @endif
                                 @endforeach
                                 </ul>
+                                <a class="glyphicon glyphicon-chevron-down scrolldown" href="#"></a>
+
                             </div>
                         </div>
                         <div class="tool-footer"></div>
