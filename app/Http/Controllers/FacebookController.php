@@ -407,6 +407,6 @@ class FacebookController extends Controller {
 	 * @return \Illuminate\View\View
 	 */
 	public function viewLogin() {
-		return view('canvas.login');
+		return view('canvas.login',array('page' => new ViewHelper()));
 	}
 }

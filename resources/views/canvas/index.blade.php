@@ -303,7 +303,7 @@
     <script>
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '1445118565779083',
+                appId      : '{{config('laravel-facebook-sdk.facebook_config.app_id')}}',
                 xfbml      : true,
                 version    : 'v2.2',
                 cookie     : true
@@ -317,7 +317,6 @@
                     // and signed request each expire
                     var uid = response.authResponse.userID;
                     var accessToken = response.authResponse.accessToken;
-                    console.log('doooit!')
                 } else if (response.status === 'not_authorized') {
                     // the user is logged in to Facebook,
                     // but has not authenticated your app

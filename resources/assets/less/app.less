@@ -101,14 +101,14 @@ main, #main {
         border-top-right-radius : 5px;
       }
       li {
-        list-style  : none;
-        background  : @darkgreen;
-        color       : @highlight;
-        line-height : 3em;
-        text-align  : center;
-        padding     : 0;
-        border-right: 1px solid rgba(0,0,0,.25);
-        font-size: 1.2em;
+        list-style   : none;
+        background   : @darkgreen;
+        color        : @highlight;
+        line-height  : 3em;
+        text-align   : center;
+        padding      : 0;
+        border-right : 1px solid rgba(0, 0, 0, .25);
+        font-size    : 1.2em;
 
         a {
           color       : inherit;
@@ -128,7 +128,7 @@ main, #main {
           margin-top              : -5px;
           border-top-right-radius : 5px;
           border-top-left-radius  : 5px;
-          border-right: none;
+          border-right            : none;
         }
       }
       &.only-medium {
@@ -190,34 +190,35 @@ main, #main {
   }
 }
 
-.scrollup,.scrolldown {
-  width: 100%;
-  margin-top: -.5em;
-  display: block;
-  text-align: center;
-  font-size: 1.3em;
-  color: #fff;
-  visibility:hidden;
+.scrollup, .scrolldown {
+  width      : 100%;
+  margin-top : -.5em;
+  display    : block;
+  text-align : center;
+  font-size  : 1.3em;
+  color      : #fff;
+  visibility : hidden;
   &:hover {
     text-decoration : none;
   }
   &.active {
-    visibility: visible;
+    visibility : visible;
   }
 }
+
 .scrolldown {
 
-  margin: 0 0 -.5em 0;
+  margin : 0 0 -.5em 0;
 }
 
 .userlist {
   list-style : none;
   padding    : 0;
-  max-height: 300px;
-  overflow: hidden;
+  max-height : 300px;
+  overflow   : hidden;
   .userrow {
-    white-space: nowrap;
-    list-style : none;
+    white-space : nowrap;
+    list-style  : none;
     > div {
       display : inline-block;
     }
@@ -236,7 +237,7 @@ main, #main {
 
   }
   .username {
-    white-space: nowrap;
+    white-space : nowrap;
 
   }
   .userscore {
@@ -259,15 +260,16 @@ main, #main {
 }
 
 #unibetlogo {
-  width:159px;
-  height:43px;
-  background : url(../img/unibetlogo.png) no-repeat;
-  background-size: 159px 43px;
-  bottom: 1em;
-  position: absolute;
-  right: 0;
+  width           : 159px;
+  height          : 43px;
+  background      : url(../img/unibetlogo.png) no-repeat;
+  background-size : 159px 43px;
+  bottom          : 1em;
+  position        : absolute;
+  right           : 0;
 
 }
+
 .comp-info {
   padding-top : 2em;
   .row + .row {
@@ -318,7 +320,15 @@ main, #main {
 
 .game-table-buttons {
   margin  : 1em 0 0em;
-  padding : 1em 1em 4em 1em;
+  padding : 1em 1em 1em 1em;
+  &.single {
+    text-align : center;
+    .game-button  {
+      margin-right: 2em;
+      float : none;
+    }
+
+  }
 
 }
 
@@ -419,9 +429,10 @@ main, #main {
     float : right;
   }
 }
+
 .game_sub_header {
-  display : block;
-  font-style: italic;
+  display    : block;
+  font-style : italic;
 }
 
 hr {
@@ -651,10 +662,11 @@ img {
 }
 
 #glennstips {
-  font-style: italic;
+  font-style : italic;
 }
+
 #tips10 {
-  font-style: italic;
+  font-style : italic;
   strong {
     display       : block;
     margin-bottom : 1em;
@@ -685,19 +697,19 @@ img {
 }
 
 #terms {
-  display: none;
+  display    : none;
   #close-terms {
-    float: right;
-    color: white;
-    height: 2em;
-    width: 2em;
-    border: 1px solid white;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 1.9em;
+    float         : right;
+    color         : white;
+    height        : 2em;
+    width         : 2em;
+    border        : 1px solid white;
+    border-radius : 50%;
+    text-align    : center;
+    line-height   : 1.9em;
     &:hover {
       text-decoration : none;
-      opacity: .8;
+      opacity         : .8;
     }
 
   }
@@ -705,14 +717,19 @@ img {
   width      : 100%;
   padding    : 2em;
   background : darkgreen;
-  min-height     : 100%;
+  min-height : 100%;
   top        : 0;
   h2 {
-    font-family: unibet;
-    text-align: center;
+    font-family : unibet;
+    text-align  : center;
   }
   .wrap {
-    max-width: 42em;
-    margin:0 auto;
+    max-width : 42em;
+    margin    : 0 auto;
   }
+}
+
+.center-content {
+  text-align : center;
+  display    : block;
 }

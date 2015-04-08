@@ -132,17 +132,37 @@
     $(window).on('resize',onResize());
     function onResize () {
         var cols = $('.full-height').removeAttr('style');
-        if($(window).width()<800) cols = cols.eq(1);
+        if($(window).width()<800) {
+            if($('#main').is('.login')) {
+                cols = cols.eq(1);
+
+            } else {
+                cols = cols.eq(1);
+
+            }
+        }
         var maxH = 0;
 
         cols.each(function(){
             maxH = Math.max($(this).height(),maxH);
         });
         maxH = Math.max(maxH, ($('.tool-boxes').height()+ $('.party-box img').height() +60));
-        maxH = Math.max(maxH,$(document).height())
+        if(cols.length > 1) maxH = Math.max(maxH,$(document).height())
         cols.height(maxH);
 
         return onResize;
     }
+    $('.facebook-login').click(function (e) {
+        e.preventDefault();
+        FB.login(function(response) {
+            if (response.authResponse) {
+                console.log(response.authResponse);
+                window.location.reload();
 
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        },{scope: 'email,user_friends'});
+
+    })
 })(jQuery);
