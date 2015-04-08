@@ -25,6 +25,7 @@
                 <li><a href="{{url('/admin/rounds/grid')}}"><span>Rounds</span></a></li>
                 <li><a href="{{url('/admin/results/grid')}}"><span>Match results</span></a></li>
                 <li><a href="{{url('/admin/matches/grid')}}"><span>Matches</span></a></li>
+                <li><a href="{{url('/admin/tiebreaker/grid')}}"><span>Tiebreaker results</span></a></li>
             </ul>
         </li>
 
