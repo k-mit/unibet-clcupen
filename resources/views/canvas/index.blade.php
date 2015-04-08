@@ -290,7 +290,7 @@
     <script>
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '{{config('laravel-facebook-sdk.facebook_config.app_id')}}',
+                appId      : '1445118565779083',
                 xfbml      : true,
                 version    : 'v2.2',
                 cookie     : true
