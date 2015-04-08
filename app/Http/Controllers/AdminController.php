@@ -174,7 +174,22 @@ class AdminController extends Controller {
 	 * @return mixed
 	 */
 	public function highScoreRoundPage($round_id) {
-		$highscoreList = DB::select(DB::raw('select users.extra_score+highscores.score as total_score,highscores.*, users.*  FROM users, highscores WHERE highscores.user_id = users.id AND `round` = ' . $round_id . ' ORDER BY `total_score` desc'));
+		$highscoreList = DB::select(DB::raw('select
+												users.extra_score+highscores.score as total_score,
+												ABS(cast(tiebreaker_results.result as signed)-users.tiebreaker_'.$round_id.') AS tiebreaker_diff,
+												highscores.*,
+												users.*
+												FROM
+													users,
+													highscores,
+													tiebreaker_results
+												WHERE
+													tiebreaker_results.round_id =highscores.round AND
+													highscores.user_id = users.id AND
+													`round` = ' . $round_id . '
+												ORDER BY
+													`total_score` desc,
+													tiebreaker_diff asc'));
 		foreach ($highscoreList as $key => $highscoreUser) {
 			$highscoreList[$key]->num = $key + 1;
 		}

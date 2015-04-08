@@ -16,7 +16,10 @@
             <th> score</th>
             <th> email</th>
             <th> email2</th>
-            <th> tiebreaker</th>
+            <th> tiebreaker 1</th>
+            <th> tiebreaker 2</th>
+            <th> tiebreaker 3</th>
+            <th> tiebreaker 4</th>
         </tr>
         </thead>
         @foreach($highscore as $highscore_row)
@@ -30,7 +33,10 @@
                 @endif
                 <td>{{$highscore_row->email}}</td>
                 <td>{{$highscore_row->email2}}</td>
-                <td class="centered">{{$highscore_row->tiebreaker}}</td>
+                <td class="centered">@if(isset($highscore_row->tiebreaker_1)){{$highscore_row->tiebreaker_1}}@endif</td>
+                <td class="centered">@if(isset($highscore_row->tiebreaker_2)){{$highscore_row->tiebreaker_2}}@endif</td>
+                <td class="centered">@if(isset($highscore_row->tiebreaker_3)){{$highscore_row->tiebreaker_3}}@endif</td>
+                <td class="centered">@if(isset($highscore_row->tiebreaker_4)){{$highscore_row->tiebreaker_4}}@endif</td>
             </tr>
         @endforeach
     </table>
