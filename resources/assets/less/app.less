@@ -748,3 +748,91 @@ img {
   left: 0;
 }
 }
+#main.login {
+  max-width: 729px;
+  background: url(../img/intro_image.png) no-repeat;
+  background-size: contain;
+  height: 0;
+  min-height: inherit;
+  left: 45%;
+  width: 90%;
+  -webkit-transform : translateX(-50%);
+  -moz-transform    : translateX(-50%);
+  -ms-transform     : translateX(-50%);
+  -o-transform      : translateX(-50%);
+  transform         : translateX(-50%);
+  padding-bottom: 54%;
+  margin: 1em;
+
+  main {
+    max-height:505px;
+    min-height: inherit;
+    height: 100%;
+    > div:first-child {
+      height: 100%;
+      padding: 0;
+    }
+    .game-table-buttons {
+      width: 100%;
+      text-align: left;
+      padding: 0;
+
+    }
+  }
+  .game-table-buttons {
+    position:absolute;
+    bottom: -5em;
+    padding-left: 0;
+    .game-button {
+      width: auto;
+      padding: 0 2em;
+      white-space: nowrap;
+      margin: 0;
+    }
+  }
+
+}
+#badge {
+  width: 35%;
+  background: url(../img/intro_badge.png) no-repeat;
+  padding-bottom: 47.3%%;
+  height: 0;
+  position: absolute;
+  background-size: contain;
+  bottom: -6em;
+  right: -14%;
+}
+
+@media screen and (max-width: 700px) {
+  #main.login {
+    width: 100%;
+    left: 50%;
+    padding-bottom: 70%;
+
+    main {
+      width: 100%;
+      .game-table-buttons {
+        text-align: center;
+      }
+
+    }
+  }
+    #badge {
+    width             : 279px;
+    height            : 368px;
+    position          : relative;
+    right             : inherit;
+    left              : 50%;
+    -webkit-transform : translateX(-50%);
+    -moz-transform    : translateX(-50%);
+    -ms-transform     : translateX(-50%);
+    -o-transform      : translateX(-50%);
+    transform         : translateX(-50%);
+    margin            : 0;
+    padding           : 0;
+  }
+
+
+
+}
+
