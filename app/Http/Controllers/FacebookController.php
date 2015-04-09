@@ -383,8 +383,8 @@ class FacebookController extends Controller {
 				$invite->round_id = $this->getActiveRound()[0]->id;
 				$invite->facebook_friend_id = $facebook_friend_id;
 				$invite->save();
-				return 'save=ok';
 			}
+			return '{"count":'.Invite::where('user_id', '=', $request->user()->id)->groupBy('facebook_friend_id')->count().'}';
 		}
 		return 'save=error';
 	}
