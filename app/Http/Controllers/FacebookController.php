@@ -134,7 +134,7 @@ class FacebookController extends Controller {
 			'page'             => new ViewHelper(),
 			'tiebreaker_done'  => $tiebreaker_done,
 			'bets'             => $oldbetsforthisround,
-			'invites'          => Invite::where('user_id', '=', $facebook_user['user_id'])->groupBy('facebook_friend_id')->count()
+			'invites'          => count(Invite::where('user_id', '=', $facebook_user['user_id'])->groupBy('facebook_friend_id')->distinct()->get())
 		];
 	}
 
@@ -266,14 +266,10 @@ class FacebookController extends Controller {
 
 			$bet->save();
 		}
-		$invites = Invite::select('user_id', 'round_id', DB::raw('count(*) as total_invites'))->groupBy('user_id')->get();
-		foreach ($invites as $invite) {
-			if ($invite->total_invites > 5) $invite->total_invites = 5;
-			if (!isset($highscore_users[$invite->user_id])) $highscore_users[$invite->user_id] = 0;
-			if (!isset($highscore_users_per_round[10])) $highscore_users_per_round[10] = 0;
-			$user_obj = User::where('id', '=', $invite->user_id)->first();
-			$user_obj->extra_score = $invite->total_invites;
-			$user_obj->save();
+		$allUsers = User::get();
+		foreach($allUsers as $user){
+			$user->extra_score = $this->meMax(count(Invite::where('user_id', '=', $user->id)->groupBy('facebook_friend_id')->distinct()->get()),5);
+			$user->save();
 		}
 		foreach ($highscore_users_per_round as $round => $user_array) {
 			foreach ($user_array as $user_id => $user_score) {
@@ -384,7 +380,7 @@ class FacebookController extends Controller {
 				$invite->facebook_friend_id = $facebook_friend_id;
 				$invite->save();
 			}
-			return '{"count":'.Invite::where('user_id', '=', $request->user()->id)->groupBy('facebook_friend_id')->count().'}';
+			return '{"count":'.count(Invite::where('user_id', '=', $request->user()->id)->groupBy('facebook_friend_id')->distinct()->get()).'}';
 		}
 		return 'save=error';
 	}
@@ -407,5 +403,8 @@ class FacebookController extends Controller {
 	 */
 	public function viewLogin() {
 		return view('canvas.login',array('page' => new ViewHelper()));
+	}
+	public function meMax($value,$maxValue){
+		return ($value>$maxValue) ? $maxValue : $value;
 	}
 }
