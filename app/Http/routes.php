@@ -13,7 +13,7 @@
 
 
 Route::get('/', function () {
-	return '';
+	return Redirect::to('https://apps.facebook.com/cl-cupen/');
 });
 
 /*
