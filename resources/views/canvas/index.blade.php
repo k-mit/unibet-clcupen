@@ -92,7 +92,7 @@
                     </div>
                     <div class="game-table-buttons">
                         <button class="game-button invite-friend">
-                            <span>UTMANA EN VÄN</span>
+                            <span>UTMANA EN VÄN</span> <span class="invites"><span class="fine-print">({{$invites}}/5)</span></span>
                         </button>
                         <button type="submit" class="game-button">
                             <span>LÄMNA IN</span>

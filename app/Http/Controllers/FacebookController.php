@@ -133,7 +133,8 @@ class FacebookController extends Controller {
 			'highscoreFriends' => $highscoreFriends,
 			'page'             => new ViewHelper(),
 			'tiebreaker_done'  => $tiebreaker_done,
-			'bets'             => $oldbetsforthisround
+			'bets'             => $oldbetsforthisround,
+			'invites'          => Invite::where('user_id', '=', $facebook_user['user_id'])->groupBy('facebook_friend_id')->count()
 		];
 	}
 
@@ -370,21 +371,19 @@ class FacebookController extends Controller {
 	 * @return string
 	 */
 	public function saveInvite(Request $request) {
-		$oldinvites = Invite::where('user_id', '=', $request->user()->id)->get();
 		if ($request->has('facebook_friend_id')) {
 			foreach ($request->input('facebook_friend_id', []) as $facebook_friend_id) {
-			$oldinvites = Invite::where('user_id', '=', $request->user()->id)->get();
-				if ($oldinvites->count() < 5) {
-/*					$user = User::where('id', '=', $request->user()->id)->first();
-					$user->extra_score++;
-					$user->save();*/
-					$invite = new Invite();
-					$invite->user_id = $request->user()->id;
-					$invite->round_id = $this->getActiveRound()[0]->id;
-					$invite->facebook_friend_id = $facebook_friend_id;
-					$invite->save();
-					return 'save=ok';
-				}
+				/*
+				$user = User::where('id', '=', $request->user()->id)->first();
+				$user->extra_score++;
+				$user->save();
+				*/
+				$invite = new Invite();
+				$invite->user_id = $request->user()->id;
+				$invite->round_id = $this->getActiveRound()[0]->id;
+				$invite->facebook_friend_id = $facebook_friend_id;
+				$invite->save();
+				return 'save=ok';
 			}
 		}
 		return 'save=error';
