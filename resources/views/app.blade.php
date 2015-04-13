@@ -31,7 +31,7 @@ och semifinalerna och ha cnahs att vinna din egen CL-final med Glenn. Varje omgÃ
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
-<script src="/js/main.js"></script>
+<script src="/js/main.js?ts=1428915892"></script>
 
 </body>
 </html>
