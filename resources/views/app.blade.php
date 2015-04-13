@@ -9,7 +9,7 @@
           content="Vinn din egen CL-final med Glenn" />
     <meta property="og:description" content="Tippa slutresultat (Ordinarie tid) i varje enskild match i CL-slutspelet från kvartsfinalerna
 och semifinalerna och ha cnahs att vinna din egen CL-final med Glenn. Varje omgångsvinnare vinner biljetter till Sverige-Moldavien " />
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/app.css?ts=1428915892" rel="stylesheet">
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
