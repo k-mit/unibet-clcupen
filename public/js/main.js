@@ -10,6 +10,14 @@
     $('a[href="#terms"]').click(function (){
        $('#terms').show();
     });
+    $('.share-button').click(function (e) {
+        e.preventDefault();
+        FB.ui({
+            method: 'share',
+            href: 'https://apps.facebook.com/cl-cupen/',
+        }, function(response){});
+
+    });
     $('.tabrow li a').click(function (e) {
         e.preventDefault();
         var t = $(this);
@@ -92,7 +100,7 @@
     $('.scrolldown').click(function (e) {
         e.preventDefault();
         var ul=$(this).siblings('.userlist');
-        ul.scrollTop(ul.scrollTop()+300);
+        ul.scrollTop(ul.scrollTop()+306);
         console.log(ul.scrollTop(), ul.get(0).scrollHeight);
         if(ul.scrollTop()+300 >= ul.get(0).scrollHeight) ul.siblings('.scrolldown').removeClass('active');
         $(this).siblings('.scrollup').addClass('active');
@@ -101,9 +109,21 @@
     $('.scrollup').click(function (e) {
         e.preventDefault();
         var ul=$(this).siblings('.userlist');
-        ul.scrollTop(ul.scrollTop()-300);
+        ul.scrollTop(ul.scrollTop()-306);
         if(ul.scrollTop()<1) ul.siblings('.scrollup').removeClass('active');
         $(this).siblings('.scrolldown').addClass('active');
+    });
+
+    $('.like-button').click(function (e) {
+
+        e.preventDefault();
+        FB.ui({
+            method: 'share',
+            href: 'https://www.facebook.com/UnibetSverige',
+        }, function(response){});
+
+
+
     });
 
     window.renderstats = renderStats;

@@ -4,8 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Unibet</title>
-
+    <title>Unibet CL-Cupen | Vinn din egen CL-final med Glenn</title>
+    <meta property="og:title"
+          content="Vinn din egen CL-final med Glenn" />
+    <meta property="og:description" content="Tippa slutresultat (Ordinarie tid) i varje enskild match i CL-slutspelet från kvartsfinalerna
+och semifinalerna och ha cnahs att vinna din egen CL-final med Glenn. Varje omgångsvinnare vinner biljetter till Sverige-Moldavien " />
     <link href="/css/app.css" rel="stylesheet">
 
     <!-- Fonts -->

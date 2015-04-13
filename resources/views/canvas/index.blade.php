@@ -8,6 +8,14 @@
                     <div class="row">
                         <div class="col-sm-8">
                             <h1 class="cl-logo">CL-CUPEN</h1>
+
+                            <div class="like-button">
+                                <div class="fb-like" data-href="https://www.facebook.com/UnibetSverige" data-width="100"
+                                     data-layout="button_count" data-action="like" data-show-faces="false"
+                                     data-share="false"></div>
+
+                            </div>
+
                         </div>
                     </div>
                     <div class="row">
@@ -35,12 +43,17 @@
                         <input type="hidden" name="user_id" value="{{$facebook_user['user_id']}}">
 
                         <div class="game-table-header">
-                            <h3 class="game_header">{!!$page->snippet('tippa_rubrik')!!}</h3>
-                            <span class="game_sub_header">{!!$page->snippet('tippa_rubrik_ingress')!!}</span>
+                            @if (!isset($facebook_user['tiebreaker_'.$active_round[0]['id']]))
+                                <h3 class="game_header">{!!$page->snippet('tippa_rubrik')!!}</h3>
+                                <span class="game_sub_header">{!!$page->snippet('tippa_rubrik_ingress')!!}</span>
+                            @else
+                                <h3 class="game_header">{!!$page->snippet('tippa_done_rubrik')!!}</h3>
+                                <span class="game_sub_header">{!!$page->snippet('tippa_done_rubrik_ingress')!!}</span>
+                            @endif
                         </div>
                         <hr/>
+                        <?php $emptyfield = false; ?>
                         @foreach($active_round[0]['matches'] as $key=>$match)
-
                             <div class="match-row">
                                 <input type="hidden" name="match_id_{{$key+1}}" value="{{$match['id']}}"/>
 
@@ -56,6 +69,8 @@
                                 <div class="match-result">
                                     <?php
                                     $matchbet = $bets->where('match_id', $match['id'])->first();
+                                    $emptyfield = (!isset($matchbet->bet_team1) || !isset($matchbet->bet_team2)) ? true : $emptyfield;
+
                                     ?>
 
                                     <input size="2" required tabindex="1"
@@ -86,18 +101,27 @@
                                        tabindex="1" {{isset($facebook_user['tiebreaker_'.$active_round[0]['id']])?'disabled ':''}}
                                        class="match-result-input" name="tiebreaker_{{$active_round[0]['id']}}"
                                        value="{{isset($facebook_user['tiebreaker_'.$active_round[0]['id']])?$facebook_user['tiebreaker_'.$active_round[0]['id']]:''}}">
+                                <?php $emptyfield = !isset($facebook_user['tiebreaker_' . $active_round[0]['id']]) ? true : $emptyfield; ?>
                             </div>
                         </div>
                         <div class="game-table-footer"></div>
                     </div>
                     <div class="game-table-buttons">
                         <button class="game-button invite-friend">
-                            <span>UTMANA EN VÄN</span> <span class="invites"><span class="fine-print">({{$invites}}/5)</span></span>
+                            <span>UTMANA EN VÄN</span> <span class="invites"><span class="fine-print">({{$invites}}
+                                    /5)</span></span>
                         </button>
-                        <button type="submit" class="game-button">
-                            <span>LÄMNA IN</span>
-                        </button>
+                        @if($emptyfield)
+                            <button type="submit" class="game-button">
+                                <span>LÄMNA IN</span>
+                            </button>
+                        @else
+                            <button type="submit" class="game-button share-button">
+                                <span>DELA TÄVLINGEN</span>
+                            </button>
+                        @endif
                     </div>
+
                 </form>
             </div>
 
@@ -167,7 +191,7 @@
                                 <div id="highscoreFriends1" class="col-xs-12 tabcontent">
                                     <a class="glyphicon glyphicon-chevron-up scrollup" href="#"></a>
                                     <ul class="userlist">
-                                    @foreach($highscoreFriends as $hs_key => $highscoreFriends_row)
+                                        @foreach($highscoreFriends as $hs_key => $highscoreFriends_row)
                                             @if(is_numeric($hs_key))
                                                 <li class="userrow">
                                                     <div class="placement">
@@ -233,23 +257,23 @@
                                 <a class="glyphicon glyphicon-chevron-up scrollup" href="#"></a>
                                 <ul class="userlist">
                                     @foreach($highscoreFriends as $hs_key => $highscoreFriends_row)
-                                    @if(is_numeric($hs_key))
-                                        <li class="userrow">
-                                            <div class="placement">
-                                                {{$highscoreFriends_row->num}}
-                                            </div>
-                                            <div class="userimage">
-                                                <img src="https://graph.facebook.com/{{$highscoreFriends_row->id}}/picture">
-                                            </div>
-                                            <div class="username">
-                                                {{$highscoreFriends_row->user_name}}
-                                            </div>
-                                            <div class="userscore">
-                                                {{$highscoreFriends_row->total_score}}
-                                            </div>
-                                        </li>
-                                    @endif
-                                @endforeach
+                                        @if(is_numeric($hs_key))
+                                            <li class="userrow">
+                                                <div class="placement">
+                                                    {{$highscoreFriends_row->num}}
+                                                </div>
+                                                <div class="userimage">
+                                                    <img src="https://graph.facebook.com/{{$highscoreFriends_row->id}}/picture">
+                                                </div>
+                                                <div class="username">
+                                                    {{$highscoreFriends_row->user_name}}
+                                                </div>
+                                                <div class="userscore">
+                                                    {{$highscoreFriends_row->total_score}}
+                                                </div>
+                                            </li>
+                                        @endif
+                                    @endforeach
                                 </ul>
                                 <a class="glyphicon glyphicon-chevron-down scrolldown" href="#"></a>
 
@@ -258,24 +282,24 @@
                                 <a class="glyphicon glyphicon-chevron-up scrollup" href="#"></a>
 
                                 <ul class="userlist">
-                                @foreach($highscoreAll as $hs_key => $highscoreAll_row)
-                                    @if(is_numeric($hs_key))
-                                        <li class="userrow">
-                                            <div class="placement">
-                                                {{$highscoreAll_row->num}}
-                                            </div>
-                                            <div class="userimage">
-                                                <img src="https://graph.facebook.com/{{$highscoreAll_row->id}}/picture">
-                                            </div>
-                                            <div class="username">
-                                                {{$highscoreAll_row->user_name}}
-                                            </div>
-                                            <div class="userscore">
-                                                {{$highscoreAll_row->total_score}}
-                                            </div>
-                                        </li>
-                                    @endif
-                                @endforeach
+                                    @foreach($highscoreAll as $hs_key => $highscoreAll_row)
+                                        @if(is_numeric($hs_key))
+                                            <li class="userrow">
+                                                <div class="placement">
+                                                    {{$highscoreAll_row->num}}
+                                                </div>
+                                                <div class="userimage">
+                                                    <img src="https://graph.facebook.com/{{$highscoreAll_row->id}}/picture">
+                                                </div>
+                                                <div class="username">
+                                                    {{$highscoreAll_row->user_name}}
+                                                </div>
+                                                <div class="userscore">
+                                                    {{$highscoreAll_row->total_score}}
+                                                </div>
+                                            </li>
+                                        @endif
+                                    @endforeach
                                 </ul>
                                 <a class="glyphicon glyphicon-chevron-down scrolldown" href="#"></a>
 
@@ -285,30 +309,33 @@
 
                     </div>
                 </div>
+
                 <div class="row party-box">
                     <div class="col-xs-12">
-                        <a href="#terms"><img src="/img/glenn.png" alt="1:A pris, din egen CL-final för 50 000sek, Glenn inkluderad"></a>
+                        <a href="#terms"><img src="/img/glenn.png"
+                                              alt="1:A pris, din egen CL-final för 50 000sek, Glenn inkluderad"></a>
                     </div>
                 </div>
 
             </div>
             <div id="unibetlogo"></div>
 
-        @include('canvas.terms')
+            @include('canvas.terms')
         </main>
     </div>
     @if ($errors->any())
         {{--{{dd($errors)}}--}}
     @endif
     <script>
-        window.fbAsyncInit = function() {
+        window.fbAsyncInit = function () {
             FB.init({
-                appId      : '{{config('laravel-facebook-sdk.facebook_config.app_id')}}',
-                xfbml      : true,
-                version    : 'v2.2',
-                cookie     : true
+                appId: '{{config('laravel-facebook-sdk.facebook_config.app_id')}}',
+                xfbml: true,
+                version: 'v2.2',
+                cookie: true
             });
-            FB.getLoginStatus(function(response) {
+            FB.Canvas.setAutoGrow();
+            FB.getLoginStatus(function (response) {
                 if (response.status === 'connected') {
                     // the user is logged in and has authenticated your
                     // app, and response.authResponse supplies
@@ -323,12 +350,16 @@
                 } else {
                     // the user isn't logged in to Facebook.
                 }
-            });    };
+            });
+        };
 
-        (function(d, s, id){
+        (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));

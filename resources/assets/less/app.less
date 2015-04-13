@@ -344,6 +344,7 @@ main, #main {
   display       : inline-block;
   text-align    : center;
   line-height   : 2em;
+  white-space: nowrap;
 
   width         : calc(~"50% - .5em");
   + .game-button {
@@ -835,4 +836,22 @@ img {
 
 
 }
+.game-table-buttons + .game-table-buttons {
+  margin-top: 2.3em;
+}
+.old-like-button {
+  background: url(../img/likebutton.png) no-repeat;
+  height:3.1em;
+  background-size: 107px 48px;
+  background-position: center;
+  border-bottom: none;
+  float: right;
+  width: 108px;
+}
+.like-button {
+  margin-top: 1em;
+  height: 1em;
+  z-index: 1;
+  position: relative;
 
+}
