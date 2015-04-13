@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Unibet CL-Cupen | Vinn din egen CL-final med Glenn</title>
     <meta property="og:image" content="https://unibet-clcup.k-mit.se/img/clcup-share.png">
+    <meta property="og:url" content="https://apps.facebook.com/cl-cupen/">
     <meta property="og:title"
           content="Vinn din egen CL-final med Glenn" />
     <meta property="og:description" content="Under slutspelet i Champions League kan du tillsammans med oss tippa rätt resultat i kvartsfinalerna och semifinalerna. Vinnaren kommer få sin egen drömfinal värd 50.000 kr med Glenn Hysén" />
