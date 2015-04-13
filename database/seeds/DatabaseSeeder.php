@@ -171,21 +171,26 @@ class SnippetsTableSeeder extends Seeder {
 
 	public function run() {
 		DB::table('snippets')->delete();
+		DB::table('snippets')->insert(array('snippet_name' => 'anslut_facebook_rubrik', 'snippet_value' => 'Du måste ansluta dig', 'description' => 'Header when not logged in'));
+		DB::table('snippets')->insert(array('snippet_name' => 'anslut_facebook_body', 'snippet_value' => 'För att kunna vara med och tävla om priserna så måste du ansluta dig med hjälp av ditt Facebook-konto. Tryck på knappen för att ansluta dig.', 'description' => 'Body when not logged in'));
+		DB::table('snippets')->insert(array('snippet_name' => '10_tips', 'snippet_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis gravida eros ut ligula scelerisque pharetra. Suspendisse varius sem turpis, sit amet finibus lacus porta sit amet. In porttitor diam sed libero sagittis tincidunt. Aenean a nisi non enim suscipit scelerisque non at nunc. Integer scelerisque tempus porta. Cras vitae ornare ante, quis sollicitudin ante. Vestibulum id rutrum felis. Pellentesque efficitur risus ut maximus gravida. Vivamus vel neque vel leo tempus fermentum.', 'description' => 'Placed at the tab "10 Tips"'));
 		DB::table('snippets')->insert(array('snippet_name' => '10_tips', 'snippet_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis gravida eros ut ligula scelerisque pharetra. Suspendisse varius sem turpis, sit amet finibus lacus porta sit amet. In porttitor diam sed libero sagittis tincidunt. Aenean a nisi non enim suscipit scelerisque non at nunc. Integer scelerisque tempus porta. Cras vitae ornare ante, quis sollicitudin ante. Vestibulum id rutrum felis. Pellentesque efficitur risus ut maximus gravida. Vivamus vel neque vel leo tempus fermentum.', 'description' => 'Placed at the tab "10 Tips"'));
 		DB::table('snippets')->insert(array('snippet_name' => 'glenns_tips', 'snippet_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis gravida eros ut ligula scelerisque pharetra. Suspendisse varius sem turpis, sit amet finibus lacus porta sit amet. In porttitor diam sed libero sagittis tincidunt. Aenean a nisi non enim suscipit scelerisque non at nunc. Integer scelerisque tempus porta. Cras vitae ornare ante, quis sollicitudin ante. Vestibulum id rutrum felis. Pellentesque efficitur risus ut maximus gravida. Vivamus vel neque vel leo tempus fermentum.', 'description' => 'Placed at the tab "glenns_tips"'));
 		DB::table('snippets')->insert(array('snippet_name' => 'hur_funkar_det', 'snippet_value' => '<strong>Hur funkar det?</strong> omnis nis iste natus error sit voluptatem accusantiu doloremque laudantium, totam rem aperiam, ab illo inventore veritatis et quasiarchiteco beatae vitae', 'description' => 'Placed in the upper left corner'));
 		DB::table('snippets')->insert(array('snippet_name' => 'tippa_rubrik', 'snippet_value' => 'Tippa och sätt rätt resultat'));
 		DB::table('snippets')->insert(array('snippet_name' => 'tippa_rubrik_ingress', 'snippet_value' => 'Klicka på ett av lagen för att se statistik'));
+		DB::table('snippets')->insert(array('snippet_name' => 'tippa_done_rubrik', 'snippet_value' => 'Ditt resultat är inskickat'));
+		DB::table('snippets')->insert(array('snippet_name' => 'tippa_done_rubrik_ingress', 'snippet_value' => 'nu har du tipsat utgången för omgången, när matcherna är spelade räknas din poäng ut och vi öppnar tippning för nästa omgång'));
 		DB::table('snippets')->insert(array('snippet_name' => 'tiebreaker_ingress', 'snippet_value' => 'Expertfrågan'));
 		DB::table('snippets')->insert(array('snippet_name' => 'tiebreaker_rubrik', 'snippet_value' => 'Hur många gula kort kommer att delas ut under slutspelen (exklusive finalen)? '));
-		DB::table('snippets')->insert(array('snippet_name' => 'Atlético Madrid statistik', 'snippet_value' => 'w,w,l,w,l,d,d,d,w,w', 'description' => 'v för vinst, 0 för oavgjort och f för förlust.'));
-		DB::table('snippets')->insert(array('snippet_name' => 'Barcelona statistik', 'snippet_value' => 'l,w,w,w,w,w,w,w', 'description' => 'v för vinst, 0 för oavgjort och f för förlust.'));
-		DB::table('snippets')->insert(array('snippet_name' => 'Bayern München statistik', 'snippet_value' => 'w,w,d,w,w,w,w,w,w,l', 'description' => 'v för vinst, 0 för oavgjort och f för förlust.'));
-		DB::table('snippets')->insert(array('snippet_name' => 'Juventus statistik', 'snippet_value' => 'w,d,w,w,d,l,w,w,w,w', 'description' => 'v för vinst, 0 för oavgjort och f för förlust.'));
-		DB::table('snippets')->insert(array('snippet_name' => 'Monaco statistik', 'snippet_value' => 'l,w,w,w,d,l,w,w,l,w', 'description' => 'v för vinst, 0 för oavgjort och f för förlust.'));
-		DB::table('snippets')->insert(array('snippet_name' => 'Paris SG statistik', 'snippet_value' => 'w,d,d,w,d,w,w,d,l,w', 'description' => 'v för vinst, 0 för oavgjort och f för förlust.'));
-		DB::table('snippets')->insert(array('snippet_name' => 'Porto statistik', 'snippet_value' => 'w,w,w,d,w,w,w,w,w,d', 'description' => 'v för vinst, 0 för oavgjort och f för förlust.'));
-		DB::table('snippets')->insert(array('snippet_name' => 'Real Madrid statistik', 'snippet_value' => 'w,l,w,w,w,d,l,l,w,l', 'description' => 'v för vinst, 0 för oavgjort och f för förlust.'));
+		DB::table('snippets')->insert(array('snippet_name' => 'Atlético Madrid statistik', 'snippet_value' => 'w,w,l,w,l,d,d,d,w,w', 'description' => 'w för vinst (win), d för oavgjort(draw) och l för förlust(loss).'));
+		DB::table('snippets')->insert(array('snippet_name' => 'Barcelona statistik', 'snippet_value' => 'l,w,w,w,w,w,w,w', 'description' => 'w för vinst (win), d för oavgjort(draw) och l för förlust(loss).'));
+		DB::table('snippets')->insert(array('snippet_name' => 'Bayern München statistik', 'snippet_value' => 'w,w,d,w,w,w,w,w,w,l', 'description' => 'w för vinst (win), d för oavgjort(draw) och l för förlust(loss).'));
+		DB::table('snippets')->insert(array('snippet_name' => 'Juventus statistik', 'snippet_value' => 'w,d,w,w,d,l,w,w,w,w', 'description' => 'w för vinst (win), d för oavgjort(draw) och l för förlust(loss).'));
+		DB::table('snippets')->insert(array('snippet_name' => 'Monaco statistik', 'snippet_value' => 'l,w,w,w,d,l,w,w,l,w', 'description' => 'w för vinst (win), d för oavgjort(draw) och l för förlust(loss).'));
+		DB::table('snippets')->insert(array('snippet_name' => 'Paris SG statistik', 'snippet_value' => 'w,d,d,w,d,w,w,d,l,w', 'description' => 'w för vinst (win), d för oavgjort(draw) och l för förlust(loss).'));
+		DB::table('snippets')->insert(array('snippet_name' => 'Porto statistik', 'snippet_value' => 'w,w,w,d,w,w,w,w,w,d', 'description' => 'w för vinst (win), d för oavgjort(draw) och l för förlust(loss).'));
+		DB::table('snippets')->insert(array('snippet_name' => 'Real Madrid statistik', 'snippet_value' => 'w,l,w,w,w,d,l,l,w,l', 'description' => 'w för vinst (win), d för oavgjort(draw) och l för förlust(loss).'));
 
 
 	}
