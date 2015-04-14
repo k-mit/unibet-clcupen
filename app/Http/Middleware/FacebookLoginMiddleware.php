@@ -139,7 +139,7 @@ class FacebookLoginMiddleware {
 
         Session::set('facebook_access_token', $token);
         Session::set('facebook_user', $this->facebook_user);
-
+        if(!isset($this->facebook_user['email'])) $this->facebook_user['email'] = date_create()->getTimestamp().'-'.rand();
         $user = User::createOrUpdateGraphNode($this->facebook_user);
         Auth::login($user);
 
