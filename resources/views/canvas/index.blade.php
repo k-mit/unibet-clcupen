@@ -43,7 +43,10 @@
                         <input type="hidden" name="user_id" value="{{$facebook_user['user_id']}}">
 
                         <div class="game-table-header">
-                            @if (!isset($facebook_user['tiebreaker_'.$active_round[0]['id']]))
+                            @if ($match_start==1)
+                                <h3 class="game_header">{!!$page->snippet('tippa_closed_rubrik')!!}</h3>
+                                <span class="game_sub_header">{!!$page->snippet('tippa_closed_rubrik_ingress')!!}</span>
+                            @elseif(!isset($facebook_user['tiebreaker_'.$active_round[0]['id']]))
                                 <h3 class="game_header">{!!$page->snippet('tippa_rubrik')!!}</h3>
                                 <span class="game_sub_header">{!!$page->snippet('tippa_rubrik_ingress')!!}</span>
                             @else
@@ -74,13 +77,13 @@
                                     ?>
 
                                     <input size="2" required tabindex="1"
-                                           {{isset($matchbet->bet_team1)?'disabled ':''}}class="match-result-input"
+                                           {{(isset($matchbet->bet_team1)||$match_start==1)?'disabled ':''}}class="match-result-input"
                                            name="bet_team1_{{$key+1}}"
                                            value="{{isset($matchbet->id)?$matchbet->bet_team1:''}}"/>
 
                                     <div class="divider"></div>
                                     <input size="2" required tabindex="1"
-                                           {{isset($matchbet->bet_team1)?'disabled ':''}}class="match-result-input"
+                                           {{(isset($matchbet->bet_team1)||$match_start==1)?'disabled ':''}}class="match-result-input"
                                            name="bet_team2_{{$key+1}}"
                                            value="{{isset($matchbet->id)?$matchbet->bet_team2:''}}"/>
                                 </div>
@@ -98,7 +101,7 @@
                             <div class="input-group">
                                 <h3 class="tiebreaker_header">{{$page->snippet('tiebreaker_rubrik')}}</h3>
                                 <input size="2" required
-                                       tabindex="1" {{isset($facebook_user['tiebreaker_'.$active_round[0]['id']])?'disabled ':''}}
+                                       tabindex="1" {{(isset($facebook_user['tiebreaker_'.$active_round[0]['id']])||$match_start==1)?'disabled ':''}}
                                        class="match-result-input" name="tiebreaker_{{$active_round[0]['id']}}"
                                        value="{{isset($facebook_user['tiebreaker_'.$active_round[0]['id']])?$facebook_user['tiebreaker_'.$active_round[0]['id']]:''}}">
                                 <?php $emptyfield = !isset($facebook_user['tiebreaker_' . $active_round[0]['id']]) ? true : $emptyfield; ?>
@@ -111,10 +114,10 @@
                             <span>UTMANA EN VÄN</span> <span class="invites"><span class="fine-print">({{$invites}}
                                     /5)</span></span>
                         </button>
-                        @if($emptyfield)
-                            <button type="submit" class="game-button">
-                                <span>LÄMNA IN</span>
-                            </button>
+                        @if($emptyfield&&$match_start==0)
+                        <button type="submit" class="game-button">
+                            <span>LÄMNA IN</span>
+                        </button>
                         @else
                             <button type="submit" class="game-button share-button">
                                 <span>DELA TÄVLINGEN</span>

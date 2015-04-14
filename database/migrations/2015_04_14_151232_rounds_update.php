@@ -13,7 +13,7 @@ class RoundsUpdate extends Migration {
 	public function up()
 	{
 		Schema::table('rounds', function($table) {
-			$table->dateTime('match_close');
+			$table->dateTime('c');
 		});
 
 	}

@@ -116,7 +116,6 @@ class FacebookController extends Controller {
 		$facebook_user = $this->getUserInfo()->asArray();
 		$active_round = $this->getActiveRound();
 		$fbFriends = $this->getFacebookFriends();
-
 		$highscoreAll = $this->highScoreAll();
 		$highscoreFriends = $this->highscoreFriends($fbFriends);
 		$oldbetsforthisround = Bet::whereHas('match', function ($q) {
@@ -134,7 +133,8 @@ class FacebookController extends Controller {
 			'page'             => new ViewHelper(),
 			'tiebreaker_done'  => $tiebreaker_done,
 			'bets'             => $oldbetsforthisround,
-			'invites'          => count(Invite::where('user_id', '=', $facebook_user['user_id'])->groupBy('facebook_friend_id')->distinct()->get())
+			'invites'          => count(Invite::where('user_id', '=', $facebook_user['user_id'])->groupBy('facebook_friend_id')->distinct()->get()),
+			'match_start'	   => ($this->getActiveRound()[0]->match_close < Carbon::now() ? 1 : 0)
 		];
 	}
 
@@ -157,8 +157,8 @@ class FacebookController extends Controller {
 	 * @package facebook
 	 */
 	public function getActiveRound() {
-		return Round::where('start_date', '<=', Carbon::now())->
-		where('end_date', '>=', Carbon::now())->
+			return Round::where('start_date', '<=', Carbon::now()->toDateString())->
+		where('end_date', '>=', Carbon::now()->toDateString())->
 		with(['matches', 'matches.team1', 'matches.team2', 'matches.result'])->
 		get();
 
@@ -267,8 +267,8 @@ class FacebookController extends Controller {
 			$bet->save();
 		}
 		$allUsers = User::get();
-		foreach($allUsers as $user){
-			$user->extra_score = $this->meMax(count(Invite::where('user_id', '=', $user->id)->groupBy('facebook_friend_id')->distinct()->get()),5);
+		foreach ($allUsers as $user) {
+			$user->extra_score = $this->meMax(count(Invite::where('user_id', '=', $user->id)->groupBy('facebook_friend_id')->distinct()->get()), 5);
 			$user->save();
 		}
 		foreach ($highscore_users_per_round as $round => $user_array) {
@@ -313,6 +313,9 @@ class FacebookController extends Controller {
 	 * @return string
 	 */
 	public function saveBet(CreateBetRequest $request) {
+		if ($this->getActiveRound()[0]->match_close < Carbon::now()) {
+			return '{"status":fail,"count_saved":0}';
+		}
 		$count = 0;
 		for ($bet_nr = 1; $bet_nr < 5; $bet_nr++) {
 			$oldbets = Bet::whereHas('match.round', function ($q) {
@@ -354,7 +357,6 @@ class FacebookController extends Controller {
 		}
 		$user->save();
 		if ($count > 0) return Redirect::back();
-//		if ($count > 0) return '{"status":ok,"count_saved":' . $count . '}';
 		return Redirect::back();
 		return '{"status":fail,"count_saved":0}';
 
@@ -380,7 +382,7 @@ class FacebookController extends Controller {
 				$invite->facebook_friend_id = $facebook_friend_id;
 				$invite->save();
 			}
-			return '{"count":'.count(Invite::where('user_id', '=', $request->user()->id)->groupBy('facebook_friend_id')->distinct()->get()).'}';
+			return '{"count":' . count(Invite::where('user_id', '=', $request->user()->id)->groupBy('facebook_friend_id')->distinct()->get()) . '}';
 		}
 		return 'save=error';
 	}
@@ -402,9 +404,20 @@ class FacebookController extends Controller {
 	 * @return \Illuminate\View\View
 	 */
 	public function viewLogin() {
-		return view('canvas.login',array('page' => new ViewHelper()));
+		return view('canvas.login', array('page' => new ViewHelper()));
 	}
-	public function meMax($value,$maxValue){
-		return ($value>$maxValue) ? $maxValue : $value;
+
+	/**
+	 * @author Pontus Kindblad & Anton Kindblad
+	 * @access public
+	 * @package
+	 *
+	 * @param $value
+	 * @param $maxValue
+	 *
+	 * @return mixed
+	 */
+	public function meMax($value, $maxValue) {
+		return ($value > $maxValue) ? $maxValue : $value;
 	}
 }
