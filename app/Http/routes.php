@@ -21,7 +21,10 @@ Route::get('/', function () {
  */
 Route::any('facebook/canvas', ['uses' => 'FacebookController@viewCanvas', 'middleware' => 'auth.facebook']);
 Route::any('facebook/login', ['uses' => 'FacebookController@viewLogin']);
-
+Route::get('facebook/terms', function()
+{
+    return view('other.terms');
+});
 /*
  * Action routes for campaign page
  */
