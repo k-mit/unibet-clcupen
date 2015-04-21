@@ -20,6 +20,7 @@
             <th> tiebreaker 2</th>
             <th> tiebreaker 3</th>
             <th> tiebreaker 4</th>
+            <th> Scores for invites</th>
         </tr>
         </thead>
         @foreach($highscore as $highscore_row)
@@ -33,6 +34,7 @@
                 <td class="centered">@if(isset($highscore_row->tiebreaker_2)){{$highscore_row->tiebreaker_2}}@endif</td>
                 <td class="centered">@if(isset($highscore_row->tiebreaker_3)){{$highscore_row->tiebreaker_3}}@endif</td>
                 <td class="centered">@if(isset($highscore_row->tiebreaker_4)){{$highscore_row->tiebreaker_4}}@endif</td>
+                <td>{{$highscore_row->extra_score}}</td>
             </tr>
         @endforeach
     </table>
