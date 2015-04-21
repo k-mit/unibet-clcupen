@@ -249,6 +249,9 @@ class FacebookController extends Controller {
 		$highscore_users_per_round = array();
 		DB::table('highscores')->delete();
 		$bets = Bet::with(['match.result', 'user', 'match.round'])->get();
+		/*$bets = Bet::whereHas('match', function ($q) {
+			$q->where('matches.round_id', '=', '1');
+		})->with(['match.result', 'user', 'match.round']);*/
 		foreach ($bets as $bet) {
 			if ($this->get1x2($bet->match->result->goals_team1, $bet->match->result->goals_team2) == $this->get1x2($bet->bet_team1, $bet->bet_team2)) {
 				$bet->score = 1;
@@ -371,11 +374,13 @@ class FacebookController extends Controller {
 	public function saveInvite(Request $request) {
 		if ($request->has('facebook_friend_id')) {
 			foreach ($request->input('facebook_friend_id', []) as $facebook_friend_id) {
-				/*
+
 				$user = User::where('id', '=', $request->user()->id)->first();
-				$user->extra_score++;
-				$user->save();
-				*/
+				if ($user->extra_score < 5) {
+					$user->extra_score++;
+					$user->save();
+				}
+
 				$invite = new Invite();
 				$invite->user_id = $request->user()->id;
 				$invite->round_id = $this->getActiveRound()[0]->id;

@@ -180,7 +180,7 @@ class AdminController extends Controller {
 			$tie_sql = 'cast(tiebreaker_results.result as signed)-users.tiebreaker_'.$round_id;
 		}
 		$highscoreList = DB::select(DB::raw('select
-												users.extra_score+highscores.score as total_score,
+												highscores.score as total_score,
 												ABS('.$tie_sql.') AS tiebreaker_diff,
 												highscores.*,
 												users.*
