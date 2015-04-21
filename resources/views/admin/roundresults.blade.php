@@ -26,11 +26,7 @@
             <tr>
                 <td>{{$highscore_row->num}}</td>
                 <td>{{$highscore_row->name}}</td>
-                @if($round<10)
-                    <td class="centered">{{$highscore_row->score}}</td>
-                @else
-                    <td class="centered">{{$highscore_row->total_score}}</td>
-                @endif
+                <td class="centered">{{$highscore_row->total_score}}</td>
                 <td>{{$highscore_row->email}}</td>
                 <td>{{$highscore_row->email2}}</td>
                 <td class="centered">@if(isset($highscore_row->tiebreaker_1)){{$highscore_row->tiebreaker_1}}@endif</td>
