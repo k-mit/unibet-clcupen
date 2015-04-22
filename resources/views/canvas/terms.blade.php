@@ -8,7 +8,7 @@
                 ett bolag registrerat i Malta under organisationsnummer C 26127, med kontor på adressen ”Fawwara Bldgs"
                 Msida Road, Gzira GZR 1405 Malta.
             </li>
-            <li>Tävlingen pågår till 14 april 20:44 2015</li>
+            <li>Tävlingen pågår till 14 maj 20:44 2015</li>
             <li>Du måste vara 18 år gammal för att delta i tävlingen.</li>
             <li>Det gäller att tippa resultat i varje enskild match i CL-slutspelet från kvartsfinalerna och
                 semifinalerna,
@@ -16,6 +16,7 @@
             </li>
             <li>Du får fem poäng för varje korrekt slutresultat eller en poäng om du bara tippat rätt utfall (1X2).</li>
             <li>En vinnare per omgång (kvartsfinal, semifinal) vinner två biljetter till Sverige-Montenegro.</li>
+            <li>Poäng för inbjudna vänner räknas endast till totalpoängen och påverkar inte vinnaren för omgången. Omgångsvinnaren är den som fått flest poäng från tippning, oavsett inbjudna vänner</li>
             <li>Slutar flera deltagare på samma poäng är det utslagsfrågan om antalet gula kort som fäller avgörandet.
             </li>
             <li>Skulle utslagsfrågan inte avgöra en vinnare är det den deltagare som lämnat in sitt tips först som
