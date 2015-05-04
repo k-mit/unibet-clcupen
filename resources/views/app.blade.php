@@ -9,7 +9,7 @@
     <meta property="og:url" content="https://apps.facebook.com/cl-cupen/">
     <meta property="og:title"  content="Vinn din egen CL-final med Glenn" />
     <meta property="og:description" content="Under slutspelet i Champions League kan du tillsammans med oss tippa rätt resultat i kvartsfinalerna och semifinalerna. Vinnaren kommer få sin egen drömfinal värd 50.000 kr med Glenn Hysén" />
-    <link href="/css/app.css?ts=1428915833" rel="stylesheet">
+    <link href="/css/app.css?ts=1428915843" rel="stylesheet">
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
