@@ -2,7 +2,7 @@
 
 @section('content')
     <div id="main" class="container">
-        <!--main class="row">
+        <main class="row">
             <div class="col-sm-12 col-md-6 col-lg-4 full-height">
                 <div class="comp-info">
                     <div class="row">
@@ -324,7 +324,7 @@
             <div id="unibetlogo"></div>
 
             @include('canvas.terms')
-        </main-->
+        </main>
     </div>
     @if ($errors->any())
         {{--{{dd($errors)}}--}}
