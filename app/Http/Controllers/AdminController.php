@@ -5,6 +5,7 @@ use App\Commands\FacebookNotification;
 
 use App\Notification;
 use App\Snippet;
+use App\TiebreakerResult;
 use Illuminate\Http\Request;
 use App\User;
 use App\Highscore;
@@ -95,7 +96,8 @@ class AdminController extends Controller {
 	 * @return \Illuminate\View\View
 	 */
 	public function roundResults($round) {
-		return view('admin.roundresults', ['highscore'=>$this->highScoreRoundPage($round),'round'=>$round]);
+		$tiebreakerResults = TiebreakerResult::get();
+		return view('admin.roundresults', ['highscore'=>$this->highScoreRoundPage($round),'round'=>$round,'tiebreakerResults'=>$tiebreakerResults]);
 	}
 
 	/**

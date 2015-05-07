@@ -16,10 +16,10 @@
             <th> score</th>
             <th> email</th>
             <th> email2</th>
-            <th> tiebreaker 1</th>
-            <th> tiebreaker 2</th>
-            <th> tiebreaker 3</th>
-            <th> tiebreaker 4</th>
+            <th> tiebreaker 1 <span style="color: #008000">({{$tiebreakerResults[0]->result}})</span></th>
+            <th> tiebreaker 2 <span style="color: #008000">({{$tiebreakerResults[1]->result}})</span></th>
+            <th> tiebreaker 3 <span style="color: #008000">({{$tiebreakerResults[2]->result}})</span></th>
+            <th> tiebreaker 4 <span style="color: #008000">({{$tiebreakerResults[3]->result}})</span></th>
             <th> Scores for invites</th>
         </tr>
         </thead>
