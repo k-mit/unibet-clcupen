@@ -2,7 +2,6 @@
 
 @section('content')
     <div id="main" class="container">
-        Uppdaterar information
         <!--main class="row">
             <div class="col-sm-12 col-md-6 col-lg-4 full-height">
                 <div class="comp-info">
