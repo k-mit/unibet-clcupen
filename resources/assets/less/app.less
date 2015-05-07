@@ -25,7 +25,9 @@
 body, label, .checkbox label {
   font-weight : 300;
 }
-
+html {
+  height: 100%;
+}
 body {
   margin          : 0;
   background      : #2f8e2c; /* Old browsers */
@@ -661,6 +663,17 @@ img {
     margin-top : 2em;
   }
 }
+@media screen and (max-width: 430px) {
+  .game-button {
+
+    width         : 100%;
+    margin-bottom: 1em;
+
+    + .game-button {
+      margin-left : 0;
+    }
+  }
+}
 
 #glennstips {
   font-style : italic;
@@ -785,6 +798,8 @@ img {
       width: 100%;
       text-align: left;
       padding: 0;
+      z-index: 1;
+      position: relative;
 
     }
   }
@@ -822,6 +837,9 @@ img {
       width: 100%;
       .game-table-buttons {
         text-align: center;
+        z-index: 1;
+        position: relative;
+
       }
 
     }
@@ -861,5 +879,10 @@ img {
   height: 1em;
   z-index: 1;
   position: relative;
+
+}
+
+.game-table-buttons {
+  z-index: 1;
 
 }
