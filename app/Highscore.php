@@ -10,5 +10,8 @@ class Highscore extends Model {
 	public function user(){
 		return $this->belongsTo('App\User');
 	}
+	public function tiebreaker_result() {
+		return $this->hasOne('App\TiebreakerResult', 'round_id', 'round');
+	}
 
 }

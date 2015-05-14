@@ -96,6 +96,7 @@ class AdminController extends Controller {
 	 * @return \Illuminate\View\View
 	 */
 	public function roundResults($round) {
+
 		$tiebreakerResults = TiebreakerResult::get();
 		return view('admin.roundresults', ['highscore'=>$this->highScoreRoundPage($round),'round'=>$round,'tiebreakerResults'=>$tiebreakerResults]);
 	}
@@ -177,12 +178,13 @@ class AdminController extends Controller {
 	 */
 	public function highScoreRoundPage($round_id) {
 		if ($round_id==10){
-			$tie_sql = 'cast(SUM(tiebreaker_results.result) as signed)-(users.tiebreaker_1+users.tiebreaker_2+users.tiebreaker_3+users.tiebreaker_4)';
+			$tie_sql = 'cast(tiebreaker_results.result as signed)-(IFNULL(tiebreaker_1, 0)+IFNULL(tiebreaker_2, 0)+IFNULL(tiebreaker_3, 0)+IFNULL(tiebreaker_4, 0))';
 		}else{
 			$tie_sql = 'cast(tiebreaker_results.result as signed)-users.tiebreaker_'.$round_id;
 		}
+
 		$highscoreList = DB::select(DB::raw('select
-												highscores.score as total_score,
+												highscores.score+users.extra_score as total_score,
 												ABS('.$tie_sql.') AS tiebreaker_diff,
 												highscores.*,
 												users.*
@@ -209,7 +211,7 @@ class AdminController extends Controller {
 	 * @return model with highscores in
 	 */
 	public function highScoreRound($round_id) {
-		$highscoreList = Highscore::with('user')->where('round', '=', $round_id)->orderBy('score', 'desc')->get();
+		$highscoreList = Highscore::with('user','tiebreaker_result')->where('round', '=', $round_id)->orderBy('score', 'desc')->get();
 
 		foreach ($highscoreList as $key => $highscoreUser) {
 			$highscoreList[$key]->num = $key + 1;
@@ -224,27 +226,32 @@ class AdminController extends Controller {
 	 * @param $round
 	 */
 	public function excelExport($round) {
-		$model = $this->highScoreRound($round)->toArray();
-		foreach ($model as $key => $value) {
-			foreach($value['user'] as $user_key => $user_value){
-				$model[$key][$user_key]=$user_value;
+			$model = $this->highScoreRound($round)->toArray();
+			foreach ($model as $key => $value) {
+				foreach($value['user'] as $user_key => $user_value){
+					$model[$key][$user_key]=$user_value;
+				}
+				if ($round<9) {
+					$model[$key]['score']= $model[$key]['score'] + $model[$key]['extra_score'];
+					$model[$key]['total_score'] = $model[$key]['score'] + $model[$key]['extra_score'];
+				}
 			}
-			if ($round<9) {
- 				$model[$key]['score']= $model[$key]['score'] + $model[$key]['extra_score'];
-				$model[$key]['total_score'] = $model[$key]['score'] + $model[$key]['extra_score'];
-			}
-		}
-		Excel::create('unibet_round', function ($excel) use ($model) {
+			Excel::create('unibet_round', function ($excel) use ($model) {
+				$excel->sheet('Round', function ($sheet) use ($model) {
+					$sheet->freezeFirstRow();
+					$sheet->setColumnFormat(array(
+												'I' => '0'
+											));
+					$sheet->fromArray($model, null, 'A1', true);
 
-			$excel->sheet('Round', function ($sheet) use ($model) {
-				$sheet->setColumnFormat(array(
-											'I' => '0'
-										));
-				$sheet->fromArray($model, null, 'A1', true);
+				});
 
-			});
-
-		})->export('xls');
+			})->export('xls');
+	}
+	public function delete_col(&$array, $offset) {
+		return array_walk($array, function (&$v) use ($offset) {
+			array_splice($v, $offset, 1);
+		});
 	}
 
 }

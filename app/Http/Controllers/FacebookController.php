@@ -248,10 +248,10 @@ class FacebookController extends Controller {
 		$highscore_users = array();
 		$highscore_users_per_round = array();
 		DB::table('highscores')->delete();
-		$bets = Bet::with(['match.result', 'user', 'match.round'])->get();
-		/*$bets = Bet::whereHas('match', function ($q) {
-			$q->where('matches.round_id', '=', '3');
-		})->with(['match.result', 'user', 'match.round']);*/
+		//$bets = Bet::with(['match.result', 'user', 'match.round'])->get();
+		$bets = Bet::whereHas('match', function ($q) {
+			$q->where('matches.round_id', '=', '10');
+		})->with(['match.result', 'user', 'match.round']);
 		foreach ($bets as $bet) {
 			if ($this->get1x2($bet->match->result->goals_team1, $bet->match->result->goals_team2) == $this->get1x2($bet->bet_team1, $bet->bet_team2)) {
 				$bet->score = 1;
